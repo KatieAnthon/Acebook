@@ -7,7 +7,7 @@ const create = (req, res) => {
   console.log("req.body:", req.body);  // Should log form fields other than file
   console.log("req.file:", req.file);  // Should log file information
 
-  const user = new User({ email, password, profilePicUrl });
+  const user = new User({ email, password,  profilePic: profilePicUrl });
 
   user
     .save()
