@@ -25,7 +25,7 @@ export const SignupPage = () => {
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  setPassword(event.target.value); 
   };
 
   return (
@@ -37,6 +37,7 @@ export const SignupPage = () => {
           id="email"
           type="text"
           value={email}
+          pattern="^\S+@\S+\.\S+$"
           onChange={handleEmailChange}
         />
         <label htmlFor="password">Password:</label>
@@ -45,10 +46,17 @@ export const SignupPage = () => {
           id="password"
           type="password"
           value={password}
+          pattern="^(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$"
           onChange={handlePasswordChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
+      <p>Password Requirements:</p>
+      <ul>
+        <li>Min 1 special character.</li>
+        <li>Min 1 number.</li>
+        <li>Min 8 characters or More.</li>
+      </ul>
     </>
   );
 };
