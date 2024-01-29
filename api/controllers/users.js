@@ -1,10 +1,15 @@
 const User = require("../models/user");
 
 const create = (req, res) => {
+  console.log('req.file: AFTERRRRRRRR', req.file);
   const email = req.body.email;
   const password = req.body.password;
+  console.log('req.body:', req.body, email, password);
+  console.log('req.file:', req.file);
+  const profilePicUrl = req.file ? req.file.path : ''; // Get the file path from Multer
 
-  const user = new User({ email, password });
+  const user = new User({ email, password, profilePicUrl });
+
   user
     .save()
     .then((user) => {
