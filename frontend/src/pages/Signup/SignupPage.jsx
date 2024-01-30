@@ -24,7 +24,7 @@ export const SignupPage = () => {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
 
   const [profilePic, setProfilePic] = useState(null); // State for the profile picture
   const [formErrors, setFormErrors] = useState({});
