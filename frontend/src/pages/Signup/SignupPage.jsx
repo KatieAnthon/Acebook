@@ -24,7 +24,7 @@ export const SignupPage = () => {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
 
   const [profilePic, setProfilePic] = useState(null); // State for the profile picture
   const [formErrors, setFormErrors] = useState({});
@@ -54,6 +54,7 @@ export const SignupPage = () => {
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', password);
+    formData.append('username', username);
 
     if (profilePic) {
       formData.append('profilePic', profilePic);
@@ -63,9 +64,6 @@ export const SignupPage = () => {
     }
   
     try {
-
-      await signup(email, password, username);
-      console.log("redirecting...:");
 
       await signup(formData); // Adjusted to handle FormData
 
@@ -97,9 +95,10 @@ export const SignupPage = () => {
     // console.log("Profile picture selected:", selectedFile.name); // Log the profile picture name
   }
 
-  // const handleUsernameChange = (event) => {
-  // setUsername(event.target.value); 
-  // };
+  const handleUsernameChange = (event) => {
+    const newValue = event.target.value;
+    setUsername(newValue); 
+  };
 
   return (
     <>
@@ -114,13 +113,8 @@ export const SignupPage = () => {
         <input id="password" type="password" value={password} onChange={handlePasswordChange} />
         {formErrors.password && <div className="error">{formErrors.password}</div>} {/* Display password error */}
 
-        {/* <label htmlFor="username">Username:</label>
-        <input
-          id="username"
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
-        /> */}
+        <label htmlFor="username">Username:</label>
+        <input id="username" type="text" value={username} onChange={handleUsernameChange} />
 
         <label htmlFor="profilePic">Profile Picture:</label>
         <input id="profilePic" name="profilePic" type="file" onChange={handleProfilePicChange} />

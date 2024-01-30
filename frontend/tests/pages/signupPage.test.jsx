@@ -27,12 +27,22 @@ const completeSignupForm = async () => {
 
   const emailInputEl = screen.getByLabelText("Email:");
   const passwordInputEl = screen.getByLabelText("Password:");
+  const usernameInputEl = screen.getByLabelText("Username:");
   const submitButtonEl = screen.getByRole("submit-button");
 
   await user.type(emailInputEl, "test@email.com");
   await user.type(passwordInputEl, "TestPassword1!");
+  await user.type(usernameInputEl, "TestUsername");
   await user.click(submitButtonEl);
 };
+
+class FormDataMock {
+      constructor(email, password, username) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+      }
+
 
 describe("Signup Page", () => {
   beforeEach(() => {
@@ -44,7 +54,11 @@ describe("Signup Page", () => {
 
     await completeSignupForm();
 
-    expect(signup).toHaveBeenCalledWith("test@email.com", "TestPassword1!");
+    FormDataMock("test@email.com", "TestPassword1!", "TestUsername")
+
+    }
+
+    expect(signup).toHaveBeenCalledWith("test@email.com", "TestPassword1!", "TestUsername");
   });
 
   test("navigates to /login on successful signup", async () => {
