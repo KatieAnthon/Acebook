@@ -5,7 +5,12 @@ const create = (req, res) => {
   const password = req.body.password;
   const username = req.body.username;
 
-  const user = new User({ email, password, username });
+  const profilePicUrl = req.file ? req.file.path : ''; // Get the file path from Multer// multer is a lirary that we will need to add on our api end. 
+  console.log("req.body:", req.body);  // Should log form fields other than file
+  console.log("req.file:", req.file);  // Should log file information
+
+  const user = new User({ email, password, username, profilePic: profilePicUrl });
+
   user
     .save()
     .then((user) => {
