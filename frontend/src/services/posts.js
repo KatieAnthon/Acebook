@@ -18,3 +18,26 @@ export const getPosts = async (token) => {
   const data = await response.json();
   return data;
 };
+
+
+// creating post requests for posts
+
+export const postPosts = async (postData, token) => {
+  const requestOptions = {
+    method: "POST",
+    body: postData, 
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },  
+  };
+
+  let response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+
+  if (response.status === 201) {
+    return;
+  } else {
+    throw new Error(
+      `Received status ${response.status} when adding posts. Expected 201`
+    );
+  }
+};
