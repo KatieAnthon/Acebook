@@ -28,23 +28,16 @@ export const login = async (email, password) => {
   }
 };
 
-export const signup = async (email, password) => {
-  const payload = {
-    email: email,
-    password: password,
-  };
 
+// needed to change this. as when we are dealing with file uploads in a form, we can't use JSON as the content type. Instead, we need to use FormData
+export const signup = async (formData) => {
   const requestOptions = {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
+    body: formData,   
   };
 
   let response = await fetch(`${BACKEND_URL}/users`, requestOptions);
 
-  // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 201) {
     return;
   } else {
