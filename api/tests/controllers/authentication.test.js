@@ -48,7 +48,7 @@ describe("/tokens", () => {
     let testApp = supertest(app);
     const response = await testApp
       .post("/tokens")
-      .send({ email: "auth-test@test.com", password: "TestPassword1!", username: 'TestUsername' });
+      .send({ email: "auth-test@test.com", password: "WrongPassword1!", username: 'TestUsername' });
 
     expect(response.status).toEqual(401);
     expect(response.body.token).toEqual(undefined);

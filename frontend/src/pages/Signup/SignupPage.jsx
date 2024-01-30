@@ -72,7 +72,7 @@ export const SignupPage = () => {
       console.error("Error during signup:", err);
       // Handle error
       setFormErrors({ submission: 'Failed to submit form. Please try again.' });
-
+      navigate("/signup");
     }
   };
   
