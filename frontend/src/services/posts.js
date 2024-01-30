@@ -19,25 +19,20 @@ export const getPosts = async (token) => {
   return data;
 };
 
-
-// creating post requests for posts
-
-export const postPosts = async (postData, token) => {
+export const createPost = async (token, postData) => {
   const requestOptions = {
-    method: "POST",
-    body: postData, 
+    method: 'POST',
     headers: {
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
-    },  
+    },
+    body: JSON.stringify(postData),
   };
 
-  let response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
-
-  if (response.status === 201) {
-    return;
-  } else {
-    throw new Error(
-      `Received status ${response.status} when adding posts. Expected 201`
-    );
+  const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+  if (!response.ok) {
+    throw new Error('Failed to create post');
   }
+
+  return response.json();
 };
