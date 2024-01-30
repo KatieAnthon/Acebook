@@ -6,12 +6,13 @@ import { signup } from "../../services/authentication";
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signup(email, password);
+      await signup(email, password, username);
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
@@ -26,6 +27,10 @@ export const SignupPage = () => {
 
   const handlePasswordChange = (event) => {
   setPassword(event.target.value); 
+  };
+
+  const handleUsernameChange = (event) => {
+  setUsername(event.target.value); 
   };
 
   return (
@@ -48,6 +53,13 @@ export const SignupPage = () => {
           value={password}
           pattern="^(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$"
           onChange={handlePasswordChange}
+        />
+        <label htmlFor="username">Username:</label>
+        <input
+          id="username"
+          type="text"
+          value={username}
+          onChange={handleUsernameChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>

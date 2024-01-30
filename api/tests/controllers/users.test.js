@@ -14,7 +14,7 @@ describe("/users", () => {
     test("the response code is 201", async () => {
       const response = await request(app)
         .post("/users")
-        .send({ email: "poppy@email.com", password: "1234" });
+        .send({ email: "poppy@email.com", password: "TestPassword1!", username: 'TestUsername', });
 
       expect(response.statusCode).toBe(201);
     });
@@ -22,7 +22,7 @@ describe("/users", () => {
     test("a user is created", async () => {
       await request(app)
         .post("/users")
-        .send({ email: "scarconstt@email.com", password: "1234" });
+        .send({ email: "scarconstt@email.com", password: "TestPassword1!", username: 'TestUsername', });
 
       const users = await User.find();
       const newUser = users[users.length - 1];
@@ -51,13 +51,13 @@ describe("/users", () => {
     test("response code is 400", async () => {
       const response = await request(app)
         .post("/users")
-        .send({ password: "1234" });
+        .send({ password: "TestPassword1!" });
 
       expect(response.statusCode).toBe(400);
     });
 
     test("does not create a user", async () => {
-      await request(app).post("/users").send({ password: "1234" });
+      await request(app).post("/users").send({ password: "TestPassword1!" });
 
       const users = await User.find();
       expect(users.length).toEqual(0);
