@@ -27,7 +27,8 @@ describe("/posts", () => {
   beforeAll(async () => {
     const user = new User({
       email: "post-test@test.com",
-      password: "12345678",
+      password: "TestPassword1!",
+      username: 'TestUsername',
     });
     await user.save();
     await Post.deleteMany({});

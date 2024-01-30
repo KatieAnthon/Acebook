@@ -28,6 +28,13 @@ export const login = async (email, password) => {
   }
 };
 
+// export const signup = async (email, password, username) => {
+//   const payload = {
+//     email: email,
+//     password: password,
+//     username: username,
+//   };
+
 
 // needed to change this. as when we are dealing with file uploads in a form, we can't use JSON as the content type. Instead, we need to use FormData
 export const signup = async (formData) => {

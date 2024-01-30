@@ -24,6 +24,8 @@ export const SignupPage = () => {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+
   const [profilePic, setProfilePic] = useState(null); // State for the profile picture
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
@@ -33,7 +35,7 @@ export const SignupPage = () => {
     const errors = {};
 
      // Validate email
-     if (!isValidEmail(email)) {
+    if (!isValidEmail(email)) {
       errors.email = 'Email must contain an @ symbol.';
     }
 
@@ -52,6 +54,7 @@ export const SignupPage = () => {
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', password);
+    formData.append('username', username);
 
     if (profilePic) {
       formData.append('profilePic', profilePic);
@@ -61,7 +64,9 @@ export const SignupPage = () => {
     }
   
     try {
+
       await signup(formData); // Adjusted to handle FormData
+
       navigate("/login");
     } catch (err) {
       console.error("Error during signup:", err);
@@ -90,6 +95,11 @@ export const SignupPage = () => {
     // console.log("Profile picture selected:", selectedFile.name); // Log the profile picture name
   }
 
+  const handleUsernameChange = (event) => {
+    const newValue = event.target.value;
+    setUsername(newValue); 
+  };
+
   return (
     <>
       <h2>Signup</h2>
@@ -98,10 +108,13 @@ export const SignupPage = () => {
         <label htmlFor="email">Email:</label>
         <input id="email" type="text" value={email} onChange={handleEmailChange} />
         {formErrors.email && <div className="error">{formErrors.email}</div>} {/* Display email error */}
-
+        
         <label htmlFor="password">Password:</label>
         <input id="password" type="password" value={password} onChange={handlePasswordChange} />
         {formErrors.password && <div className="error">{formErrors.password}</div>} {/* Display password error */}
+
+        <label htmlFor="username">Username:</label>
+        <input id="username" type="text" value={username} onChange={handleUsernameChange} />
 
         <label htmlFor="profilePic">Profile Picture:</label>
         <input id="profilePic" name="profilePic" type="file" onChange={handleProfilePicChange} />
