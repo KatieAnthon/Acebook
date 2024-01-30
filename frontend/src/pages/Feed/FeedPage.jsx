@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts} from "../../services/posts";
 import Post from "../../components/Post/Post";
+import PostForm from "../../components/Post/PostForm";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -24,10 +25,13 @@ export const FeedPage = () => {
     } else {
       navigate("/login");
     }
-  });
+  }, [token, navigate]);
 
-  if (!token) {
-    return;
+  const handlePostSubmit = (newPost) => {
+    setPosts ((prevPosts) => [
+      {content: newPost, _id: Date.now(), user: "current_user_id"},
+      prevPosts,
+    ])
   }
 
   const handleSubmit = (event) => {
@@ -37,6 +41,8 @@ export const FeedPage = () => {
 
   return (
     <>
+      <h2>New Post</h2>
+      <PostForm onSubmit={handlePostSubmit} />
       <h2>Posts</h2>
 
       <form onSubmit={handleSubmit}>
