@@ -5,6 +5,7 @@ import { getPosts} from "../../services/posts";
 import { createPost } from '../../services/posts'; 
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
+import NavBar from "../../components/NavBar"
 
 
 export const FeedPage = () => {
@@ -41,6 +42,7 @@ export const FeedPage = () => {
 
   return (
     <>
+      <NavBar />
       <h2>New Post</h2>
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
