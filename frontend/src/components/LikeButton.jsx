@@ -18,9 +18,7 @@ class Liked extends Component {
 // render required for React.component
 render() {
 return (
-    
     <div>
-        
         <button onClick={this.IncrementLike} > 👍 Likes: {this.state.count}
         </button>
     </div>
