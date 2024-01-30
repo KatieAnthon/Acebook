@@ -14,7 +14,7 @@ describe("/users", () => {
     test("the response code is 201", async () => {
       const response = await request(app)
         .post("/users")
-        .send({ email: "poppy@email.com", password: "TestPassword1!", username: 'TestUsername', });
+        .send({ email: "poppy@email.com", password: "TestPassword1!", username: 'TestUsername', profilePic: "profilePic"});
 
       expect(response.statusCode).toBe(201);
     });
