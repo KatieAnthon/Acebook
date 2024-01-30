@@ -9,25 +9,16 @@ const tokenChecker = require("./middleware/tokenChecker");
 
 const app = express();
 
-// Allow requests from any client
-// docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-// docs: https://expressjs.com/en/resources/middleware/cors.html
 app.use(cors());
 
-// Parse JSON request bodies, made available on `req.body`
-app.use(bodyParser.json());
-
-// API Routes
+app.use("/posts", bodyParser.json(), tokenChecker, postsRouter);
+app.use("/tokens", bodyParser.json(), authenticationRouter);
 app.use("/users", usersRouter);
-app.use("/posts", tokenChecker, postsRouter);
-app.use("/tokens", authenticationRouter);
 
-// 404 Handler
 app.use((_req, res) => {
   res.status(404).json({ err: "Error 404: Not Found" });
 });
 
-// Error handler
 app.use((err, _req, res, _next) => {
   console.error(err);
   if (process.env.NODE_ENV === "development") {
