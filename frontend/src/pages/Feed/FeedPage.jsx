@@ -6,6 +6,8 @@ import { createPost } from '../../services/posts';
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
+import Liked from "../../components/LikeButton";
+
 
 
 export const FeedPage = () => {
@@ -47,8 +49,10 @@ export const FeedPage = () => {
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post post={post} key={post._id}
+          />
         ))}
+        
       </div>
     </>
   );
