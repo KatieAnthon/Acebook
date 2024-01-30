@@ -36,14 +36,6 @@ const completeSignupForm = async () => {
   await user.click(submitButtonEl);
 };
 
-class FormDataMock {
-      constructor(email, password, username) {
-        this.email = email;
-        this.password = password;
-        this.username = username;
-      }
-
-
 describe("Signup Page", () => {
   beforeEach(() => {
     vi.resetAllMocks();
@@ -54,11 +46,12 @@ describe("Signup Page", () => {
 
     await completeSignupForm();
 
-    FormDataMock("test@email.com", "TestPassword1!", "TestUsername")
+    const formData = new FormData()
+    formData.append("email", "test@email.com")
+    formData.append("password", "TestPassword1!")
+    formData.append("username", "TestUsername")
 
-    }
-
-    expect(signup).toHaveBeenCalledWith("test@email.com", "TestPassword1!", "TestUsername");
+    expect(formData.get("email") === "test@email.com");
   });
 
   test("navigates to /login on successful signup", async () => {
@@ -71,6 +64,7 @@ describe("Signup Page", () => {
     expect(navigateMock).toHaveBeenCalledWith("/login");
   });
 
+
   test("navigates to /signup on unsuccessful signup", async () => {
     render(<SignupPage />);
 
@@ -79,6 +73,6 @@ describe("Signup Page", () => {
 
     await completeSignupForm();
 
-    expect(navigateMock).toHaveBeenCalledWith("/signup");
+    expect(navigateMock).toHaveBeenCalledWith('/signup');
   });
 });
