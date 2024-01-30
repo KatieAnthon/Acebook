@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getPosts } from "../../services/posts";
+import { getPosts} from "../../services/posts";
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [post, setPost] = useState("")
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,11 +34,33 @@ export const FeedPage = () => {
     ])
   }
 
+  const handleSubmit = (event) => {
+    setPosts.push(e.target.post)
+    console.log("submission works")
+  }
+
   return (
     <>
       <h2>New Post</h2>
       <PostForm onSubmit={handlePostSubmit} />
       <h2>Posts</h2>
+
+      <form onSubmit={handleSubmit}>
+        <label>
+          Create Post:
+          <input
+          type="post"
+          name="post"
+          value={post}
+          onChange={(e) => setPost(e.target.post)}
+          />
+        </label>
+        <label>
+            Submit
+            <input type="submit" />
+            </label>
+      </form>
+
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
