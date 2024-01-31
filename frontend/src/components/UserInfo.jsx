@@ -17,7 +17,7 @@ const UserInfo = ({ userName, userEmail, userPicture }) => {
             <li><Link to="#Saved" className="nav-link scrollto"><i className="bi bi-graph-up"></i> <span>Saved</span></Link></li>
             <li><Link to="#Friends" className="nav-link scrollto"><i className="bx bx-file-blank"></i> <span>Friends</span></Link></li>
             <li><Link to="#Groups" className="nav-link scrollto"><i className="bx bx-book-content"></i> <span>Groups</span></Link></li>
-            <li><Link to="#Video" className="nav-link scrollto"><i className="bx bx-envelope"></i> <span>Video</span></Link></li>
+            <li><Link to="#Video" className="nav-link scrollto"><i className="bx bx-envelope"></i> <span>Videos</span></Link></li>
           </ul>
         </nav>
       </div>
