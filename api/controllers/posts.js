@@ -28,16 +28,21 @@ const createPost = async (req, res) => {
 
     // Create a new post with the user's ID and username
     const newPost = new Post({
-      message: req.body.message,
+      message: JSON.stringify(req.body.message), // <-- Was looking for a string but found an object, this is how I overcame it but not sure if its the right way.
       user: user._id, // ObjectId of the user
       username: user.username, // Username of the us
     });
+
+    console.log('Received message', req.body.message)
 
     if (req.file) {
       newPost.image = {
         data: req.file.buffer,
         contentType : req.file.mimetype
       }; // checking if image was included in request
+
+      console.log('Received Image', req.file)
+
     }
 
     await newPost.save();
