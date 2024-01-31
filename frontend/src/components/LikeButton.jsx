@@ -5,17 +5,23 @@ class Liked extends Component {
         count: 0
     }
 
-   
 
-   IncrementLike = () => {
-    let newCount = this.state.count + 1
-    this.setState({
-        count: newCount
-    })
-   }
+    IncrementLike = () => {
+        let newCount = this.state.count + 1
+        this.setState({
+            count: newCount
+        })
+    }
+
+   // check if post has been liked by user
+   // append user_id if they haven't liked it
+
+   // fetch number of likes
+   // unlike takes user_id out of the array in the db
 
 // Increment liked function needs to be called using this. as a class
 // render required for React.component
+
 render() {
 return (
     <div>

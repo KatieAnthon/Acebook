@@ -59,6 +59,29 @@ const getUserPosts  =  async(req,res) =>{
   }
 };
 
+// find length of likes array for all posts
+// const getPostLikes = 
+
+// check if user has liked a post
+
+// const getUserLikes = async(req,res) => {
+//   try {
+//     const user = await User.findById(req.user_id);
+  
+//   if (!user) {
+//     return res.status(404).json({ message: 'User not found' });
+//   }
+  
+//   const findLikes = await Post.find({"likes": req.user_id});
+//   console.log(findLikes)
+
+// }catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// }
+// getUserLikes()
+
 
 const PostsController = {
   getAllPosts: getAllPosts,
