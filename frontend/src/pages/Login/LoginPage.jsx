@@ -35,39 +35,40 @@ export const LoginPage = () => {
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col-md-10 offset-md-1">
+      <div className="col-md-12"> 
           <h2 className="mb-3 text-center">Please log IN</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Email"
-                  className="form-control"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  className="form-control"
-                  value={password}
-                  onChange={handlePasswordChange}
-                />
-              </div>
-              <div className="d-grid gap-2">
-                <input
-                  role="submit-button"
-                  id="submit"
-                  type="submit"
-                  value="Submit"
-                  className="btn btn-primary"
-                />
-              </div>
-            </form>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <input
+                id="email"
+                type="email"
+                placeholder="Email Address" 
+                className="form-control"
+                value={email}
+                onChange={handleEmailChange}
+              />
+            </div>
+            <div className="mb-3">
+              <input
+                id="password"
+                type="password"
+                placeholder="Password" 
+                className="form-control"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+            </div>
+            <div className="d-grid gap-2">
+              <button 
+                role="submit-button"
+                id="submit"
+                type="submit"
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
           <div className="d-grid gap-2">
             <Link to="/signup" className="btn btn-primary">Sign Up</Link>      
           </div>
@@ -75,4 +76,4 @@ export const LoginPage = () => {
       </div>
     </div>
   );
-};
+}
