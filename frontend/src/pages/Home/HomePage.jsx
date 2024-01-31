@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min'; 
 import './HomePage.css';
 
-import "./HomePage.css";
 
 export const HomePage = () => {
   return (

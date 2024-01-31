@@ -1,8 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { signup } from "../../services/authentication"; // Ensure you have a signup function
+
+import './SingupPage.css';
+
 
 const isValidEmail = (email) => {
   return email.includes('@');
@@ -136,8 +139,12 @@ export const SignupPage = () => {
               <input role="submit-button" id="submit" type="submit" value="Submit" className="btn btn-primary" />
             </div>
           </form>
+          <div className="d-grid gap-2">
+            <Link to="/login" className="btn btn-primary">Log In</Link>      
+          </div>
         </div>
       </div>
     </div>
+    
   );
 };
