@@ -1,7 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState } from 'react';
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../services/authentication";
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import './LoginPage.css';
+
+
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -30,25 +33,46 @@ export const LoginPage = () => {
   };
 
   return (
-    <>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form>
-    </>
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-md-10 offset-md-1">
+          <h2 className="mb-3 text-center">Please log IN</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  className="form-control"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  className="form-control"
+                  value={password}
+                  onChange={handlePasswordChange}
+                />
+              </div>
+              <div className="d-grid gap-2">
+                <input
+                  role="submit-button"
+                  id="submit"
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-primary"
+                />
+              </div>
+            </form>
+          <div className="d-grid gap-2">
+            <Link to="/signup" className="btn btn-primary">Sign Up</Link>      
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };

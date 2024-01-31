@@ -1,10 +1,9 @@
 import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './SingupPage.css';
 import { signup } from "../../services/authentication"; // Ensure you have a signup function
 
-import './SingupPage.css';
 
 
 const isValidEmail = (email) => {
