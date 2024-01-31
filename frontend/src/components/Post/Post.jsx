@@ -10,7 +10,7 @@ const Post = (props) => {
     <article key={props.post._id}>
       <div>
         <p>Post created by {props.post.user.username}: {props.post.message}</p>
-        <Liked likes={props.post.likes} />
+        <Liked post_id={props.post._id} likes={props.post.likes} />
       </div>
       
     </article>

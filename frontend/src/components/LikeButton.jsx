@@ -1,34 +1,26 @@
 import React, { Component } from "react"
+import { addUserLike } from "../../../api/controllers/posts";
 
 class Liked extends Component {
-
-
-
-    const handleAddLike = async () => {
+    handleAddLike = async () => {
     try {
-        await createPost(token, { message: newPostContent });
-        
-        const updatedPosts = await getPosts(token);
-        setPosts(updatedPosts.posts);
-    } catch (err) {
-        console.error('Error creating post:', err.message);
+        const {post_id, user_id} = this.props;
+
+        await addUserLike(token, {post_id, user_id});
+
+    }catch (err) {
+        console.error("error handling like", err.message)
     }
-    };
+};   
+    
+    // IncrementLike = (props) => {
 
-    state = {
-        count: 0
-    }
-
-
-
-    IncrementLike = (props) => {
-
-        console.log(props)
-        // let newCount = this.state.count + 1
-        // this.setState({
-        //     count: newCount
-        // })
-    }
+    //     console.log(props)
+    //     // let newCount = this.state.count + 1
+    //     // this.setState({
+    //     //     count: newCount
+    //     // })
+    // }
 
    // check if post has been liked by user
    // append user_id if they haven't liked it
@@ -42,8 +34,7 @@ class Liked extends Component {
 render() {
 return (
     <div>
-        
-        <button onClick={this.IncrementLike} > 👍 Likes: {this.state.count}
+        <button onClick={this.handleAddLike} > 👍 Likes: {this.state.count}
         </button>
     </div>
     );
