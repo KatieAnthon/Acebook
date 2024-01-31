@@ -12,5 +12,7 @@ router.post("/", tokenChecker, PostsController.createPost);
 
 router.get("/userPost", tokenChecker, PostsController.getSinglePost);
 
+router.delete("/posts/:postId", tokenChecker, PostsController.deletePost);
+
 
 module.exports = router;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { deletePost } from '../../services/posts'; // import your deletePost function
 
 import { getPosts} from "../../services/posts";
 import { getUserInfo } from "../../services/authentication";
@@ -53,6 +54,17 @@ export const UserProfile = () => {
     }
   };
 
+  const handleDelete = async (postId) => {
+    try {
+      await deletePost(token, postId);
+      const updatedPosts = posts.filter(post => post._id !== postId);
+      setPosts(updatedPosts);
+    } catch (err) {
+      console.error('Error deleting post:', err.message);
+    }
+  };
+
+
   return (
     <>
       <NavBar />
@@ -67,9 +79,13 @@ export const UserProfile = () => {
     )}
     
       <PostForm onSubmit={handlePostSubmit} />
-      <div className="feed" role="feed">
+    {/* ... UserInfo and PostForm components ... */}
+    <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <div key={post._id}>
+            <Post post={post} />
+            <button onClick={() => handleDelete(post._id)}>Delete Post</button>
+          </div>
         ))}
       </div>
     </>
