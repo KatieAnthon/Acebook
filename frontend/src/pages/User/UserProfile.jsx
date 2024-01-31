@@ -8,7 +8,7 @@ import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
 
 
-export const FeedPage = () => {
+export const UserProfile = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const navigate = useNavigate();
@@ -57,4 +57,4 @@ export const FeedPage = () => {
   );
 };
 
-export default FeedPage;
+export default UserProfile;

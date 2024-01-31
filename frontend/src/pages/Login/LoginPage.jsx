@@ -17,6 +17,7 @@ export const LoginPage = () => {
     } catch (err) {
       console.error(err);
       navigate("/login");
+      alert("Wrong details try again")
     }
   };
 
