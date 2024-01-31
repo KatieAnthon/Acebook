@@ -10,4 +10,7 @@ router.get("/", PostsController.getAllPosts);
 // POST route is now protected with tokenChecker middleware
 router.post("/", tokenChecker, PostsController.createPost);
 
+router.get("/userPost", tokenChecker, PostsController.getSinglePost);
+
+
 module.exports = router;

@@ -83,10 +83,30 @@ const getUserPosts  =  async(req,res) =>{
 // getUserLikes()
 
 
+const getSinglePost = async (req, res) => {
+  try {
+    const userId = req.user_id; // or req.params.userId if you're getting the ID from the URL
+
+    // Find posts by user's ID
+    const userPosts = await Post.find({ user: userId }).populate('user', 'username');
+    console.log(userPosts)
+    if (!userPosts.length) {
+      return res.status(404).json({ message: 'No posts found for this user' });
+    }
+
+    res.status(200).json({ posts: userPosts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   getUserPosts: getUserPosts,
+  getSinglePost: getSinglePost
 };
 
 module.exports = PostsController;
