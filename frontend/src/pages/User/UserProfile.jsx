@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { deletePost } from '../../services/posts'; // import your deletePost function
 
 import { getPosts} from "../../services/posts";
+import UserInfo from "../../components/UserInfo"
 import { getUserInfo } from "../../services/authentication";
 import { getSinglePost} from "../../services/posts";
 import { createPost } from '../../services/posts'; 
@@ -15,6 +16,9 @@ export const UserProfile = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userInfo, setUserInfo] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editPostId, setEditPostId] = useState(null);
+  const [editedContent, setEditedContent] = useState('');
 
   const navigate = useNavigate();
 
@@ -63,23 +67,29 @@ export const UserProfile = () => {
       console.error('Error deleting post:', err.message);
     }
   };
-
+  
+  const handleEditClick = (post) => {
+    setIsEditing(true);
+    setEditPostId(post._id);
+    setEditedContent(post.message);
+  };
+  
 
   return (
     <>
       <NavBar />
-      <h2>New Post</h2>
-      {userInfo && userInfo.profilePic && (
-      <div className="user-info">
-        <h3>User Information</h3>
-        <p>Username: {userInfo.username}</p>
-        <p>Email: {userInfo.email}</p>
-         <img src={`http://localhost:3000/${userInfo.profilePic}`} alt="Profile" />
-      </div>
-    )}
-    
-      <PostForm onSubmit={handlePostSubmit} />
-    {/* ... UserInfo and PostForm components ... */}
+      {userInfo && (
+      <UserInfo
+        userName={userInfo.username || 'Default Username'} 
+        userEmail={userInfo.email || 'Default Email'} 
+        userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
+        />
+      )}   
+      {isEditing ? (
+  <PostForm onSubmit={handleEditSubmit} initialContent={editedContent} />
+) : (
+  <PostForm onSubmit={handlePostSubmit} />
+)}  
     <div className="feed" role="feed">
         {posts.map((post) => (
           <div key={post._id}>
