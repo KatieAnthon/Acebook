@@ -1,6 +1,8 @@
 const express = require("express");
 const multer = require('multer');
 const UsersController = require("../controllers/users");
+const tokenChecker = require('../middleware/tokenChecker'); // Your token verification middleware
+
 
 const router = express.Router();
 
@@ -19,5 +21,8 @@ const upload = multer({ storage: storage });
 
 // User creation route
 router.post("/", upload.single('profilePic'), UsersController.create);
+
+router.get("/userinfo",tokenChecker, UsersController.getUsersInformation);
+
 
 module.exports = router;
