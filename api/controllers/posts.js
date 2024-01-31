@@ -39,9 +39,31 @@ const createPost = async (req, res) => {
 };
 
 
+const getUserPosts  =  async(req,res) =>{
+  try {
+    // Fetch the user's information using req.user_id
+    const user = await User.findById(req.user_id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Find posts by user's ID and username
+    const findPosts = Post.find({user});
+
+    await newPost.save();
+    res.status(201).json({ message: 'Post created successfully', post: newPost });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
+  getUserPosts: getUserPosts,
 };
 
 module.exports = PostsController;

@@ -18,6 +18,8 @@ export const FeedPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+
     const fetchData = async () => {
       if (token) {
         try {
@@ -36,10 +38,14 @@ export const FeedPage = () => {
       } else {
         console.log('No token found, navigating to login.');
         navigate("/login");
+        <script>function loginFirst() {
+        alert("LOG IN FIRST") //needs fixing
+      }</script>
       }
     };
   
     fetchData();
+
   }, [token, navigate]);
 
   const handlePostSubmit = async (newPostContent) => {

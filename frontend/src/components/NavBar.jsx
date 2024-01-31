@@ -11,9 +11,13 @@ const NavBar = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                     <Nav.Link href="/posts">Home</Nav.Link>
-                    <Nav.Link href="/profile">Profile</Nav.Link>
+                    <Nav.Link href="/myprofile">Profile</Nav.Link>
                     <Nav.Link href="/messages">Messages</Nav.Link>
-                    <Nav.Link href="/logout">Logout</Nav.Link>
+                    <Nav.Link href="/"
+                     onClick = {()=> {console.log(
+                        'logging out');
+                        localStorage.clear();
+                        }}>Logout</Nav.Link>
                 </Nav>
                 </Navbar.Collapse>
             </Container>
