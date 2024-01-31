@@ -1,6 +1,9 @@
 const Post = require("../models/post");
 const User = require('../models/user');
 const { generateToken } = require("../lib/token");
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({storage: storage});
 
 const getAllPosts = async (req, res) => {
   try {
@@ -27,8 +30,17 @@ const createPost = async (req, res) => {
     const newPost = new Post({
       message: req.body.message,
       user: user._id, // ObjectId of the user
-      username: user.username // Username of the user
+      username: user.username, // Username of the user
+      image: { // image uploads
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+      },
     });
+
+    if (req.file) { // checking if image was included in request
+      newPost.image.data = req.file.buffer;
+      newPost.image.contentType = req.file.mimetype
+    }
 
     await newPost.save();
     res.status(201).json({ message: 'Post created successfully', post: newPost });
