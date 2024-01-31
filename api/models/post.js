@@ -6,7 +6,7 @@
     message: String,
     date: { type: Date, default: Date.now },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    likes: { type: Array }
+    likes: { type: Array, default: [] },
   });
 
   // We use the Schema to create the Post model. Models are classes which we can

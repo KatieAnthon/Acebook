@@ -5,7 +5,7 @@ const { generateToken } = require("../lib/token");
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find().populate('user', 'username').select('message');
-    // console.log(posts); // Add this line to log the posts to the console
+    console.log(posts); // Add this line to log the posts to the console
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
   } catch (error) {
@@ -27,7 +27,8 @@ const createPost = async (req, res) => {
     const newPost = new Post({
       message: req.body.message,
       user: user._id, // ObjectId of the user
-      username: user.username // Username of the user
+      username: user.username, // Username of the user
+      likes: []
     });
 
     await newPost.save();
@@ -39,48 +40,67 @@ const createPost = async (req, res) => {
 };
 
 
-const getUserPosts  =  async(req,res) =>{
-  try {
-    // Fetch the user's information using req.user_id
-    const user = await User.findById(req.user_id);
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Find posts by user's ID and username
-    const findPosts = Post.find({user});
-
-    await newPost.save();
-    res.status(201).json({ message: 'Post created successfully', post: newPost });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
 // find length of likes array for all posts
-// const getPostLikes = 
-
-// check if user has liked a post
-
-// const getUserLikes = async(req,res) => {
+// const getPostLikes = async(req,res) =>{
 //   try {
-//     const user = await User.findById(req.user_id);
-  
-//   if (!user) {
-//     return res.status(404).json({ message: 'User not found' });
-//   }
-  
-//   const findLikes = await Post.find({"likes": req.user_id});
-//   console.log(findLikes)
+//     // Fetch the user's information using req.user_id
+//     const user = await User.findById(req.params.id);
 
-// }catch (error) {
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     // Find posts by user's ID and username
+//     const findPosts = Post.find({user});
+
+//     await newPost.save();
+//     res.status(201).json({ message: 'Post created successfully', post: newPost });
+//   } catch (error) {
 //     console.error(error);
 //     res.status(500).json({ message: 'Internal server error' });
 //   }
-// }
-// getUserLikes()
+// };
+
+const addUserLike = async(req,res) => {
+  try {
+    const post = await Post.findById(req.post_id);
+    const user = await User.findById(req.user_id);
+    console.log(post)
+    console.log(user)
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }else{
+    await Post.populate({"likes": req.user_id});
+  }
+
+}catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+// get likes for all posts
+
+const getUserLikes = async(req,res) => {
+  try {
+    const user = await User.findById(req.user_id);
+  
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+  
+  const findLikes = await Post.find("likes");
+
+  findLikes.length
+
+}catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 
 
 const getSinglePost = async (req, res) => {
@@ -89,7 +109,7 @@ const getSinglePost = async (req, res) => {
 
     // Find posts by user's ID
     const userPosts = await Post.find({ user: userId }).populate('user', 'username');
-    console.log(userPosts)
+    // console.log(userPosts)
     if (!userPosts.length) {
       return res.status(404).json({ message: 'No posts found for this user' });
     }
@@ -105,8 +125,9 @@ const getSinglePost = async (req, res) => {
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
-  getUserPosts: getUserPosts,
-  getSinglePost: getSinglePost
+  getSinglePost: getSinglePost,
+  addUserLike: addUserLike,
+  getUserLikes: getUserLikes
 };
 
 module.exports = PostsController;

@@ -59,3 +59,39 @@ export const getSinglePost = async (token) => {
   return data;
 };
 
+export const getUserLikes = async (token) => {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts/getUserLikes`, requestOptions);
+
+  if (response.status !== 200) {
+    throw new Error("Unable to fetch posts");
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+export const addUserLike = async (token) => {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts/addUserLike`, requestOptions);
+
+  if (response.status !== 200) {
+    throw new Error("Unable to fetch posts");
+  }
+
+  const data = await response.json();
+  return data;
+};
+

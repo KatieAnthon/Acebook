@@ -1,16 +1,33 @@
 import React, { Component } from "react"
 
 class Liked extends Component {
+
+
+
+    const handleAddLike = async () => {
+    try {
+        await createPost(token, { message: newPostContent });
+        
+        const updatedPosts = await getPosts(token);
+        setPosts(updatedPosts.posts);
+    } catch (err) {
+        console.error('Error creating post:', err.message);
+    }
+    };
+
     state = {
         count: 0
     }
 
 
-    IncrementLike = () => {
-        let newCount = this.state.count + 1
-        this.setState({
-            count: newCount
-        })
+
+    IncrementLike = (props) => {
+
+        console.log(props)
+        // let newCount = this.state.count + 1
+        // this.setState({
+        //     count: newCount
+        // })
     }
 
    // check if post has been liked by user
@@ -25,6 +42,7 @@ class Liked extends Component {
 render() {
 return (
     <div>
+        
         <button onClick={this.IncrementLike} > 👍 Likes: {this.state.count}
         </button>
     </div>

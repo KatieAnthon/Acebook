@@ -12,5 +12,9 @@ router.post("/", tokenChecker, PostsController.createPost);
 
 router.get("/userPost", tokenChecker, PostsController.getSinglePost);
 
+router.get("/getUserLikes", tokenChecker, PostsController.getUserLikes);
+
+router.post("/addUserLike", tokenChecker, PostsController.addUserLike);
+
 
 module.exports = router;

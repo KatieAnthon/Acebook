@@ -63,7 +63,7 @@ export const FeedPage = () => {
         <h3>User Information</h3>
         <p>Username: {userInfo.username}</p>
         <p>Email: {userInfo.email}</p>
-         <img src={`http://localhost:3000/${userInfo.profilePic}`} alt="Profile" />
+        <img src={`http://localhost:3000/${userInfo.profilePic}`} alt="Profile" />
       </div>
     )}
       <PostForm onSubmit={handlePostSubmit} />

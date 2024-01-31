@@ -15,6 +15,7 @@ app.use("/posts", bodyParser.json(), tokenChecker, postsRouter);
 app.use("/tokens", bodyParser.json(), authenticationRouter);
 app.use("/users", usersRouter);
 app.use('/uploads', express.static('uploads'));
+
 app.use((_req, res) => {
   res.status(404).json({ err: "Error 404: Not Found" });
 });
