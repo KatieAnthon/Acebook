@@ -5,7 +5,7 @@ const { generateToken } = require("../lib/token");
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find().populate('user', 'username').select('message');
-    console.log(posts); // Add this line to log the posts to the console
+    // console.log(posts); // Add this line to log the posts to the console
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
   } catch (error) {
@@ -37,6 +37,7 @@ const createPost = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 const PostsController = {
   getAllPosts: getAllPosts,

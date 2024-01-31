@@ -28,14 +28,6 @@ export const login = async (email, password) => {
   }
 };
 
-// export const signup = async (email, password, username) => {
-//   const payload = {
-//     email: email,
-//     password: password,
-//     username: username,
-//   };
-
-
 // needed to change this. as when we are dealing with file uploads in a form, we can't use JSON as the content type. Instead, we need to use FormData
 export const signup = async (formData) => {
   const requestOptions = {
@@ -52,4 +44,22 @@ export const signup = async (formData) => {
       `Received status ${response.status} when signing up. Expected 201`
     );
   }
+};
+
+
+export const getUserInfo = async (token) => {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/users/userinfo`, requestOptions);
+
+  if (!response.ok) {
+    throw new Error(`Error fetching user information: ${response.statusText}`);
+  }
+
+  return await response.json();
 };
