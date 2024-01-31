@@ -1,0 +1,8 @@
+.d-grid.gap-2 {
+    padding: 5px;
+}
+
+.form-control::placeholder {
+    text-align: center;
+  }
+  
