@@ -14,6 +14,9 @@ router.get("/userPost", tokenChecker, PostsController.getSinglePost);
 
 router.get("/getUserLikes", tokenChecker, PostsController.getUserLikes);
 
+// router.get(“/likes”, controller)
+// router.post(“/likes”, controller)
+
 router.post("/addUserLike", tokenChecker, PostsController.addUserLike);
 
 

@@ -28,7 +28,6 @@ const createPost = async (req, res) => {
       message: req.body.message,
       user: user._id, // ObjectId of the user
       username: user.username, // Username of the user
-      likes: []
     });
 
     await newPost.save();
@@ -62,19 +61,23 @@ const createPost = async (req, res) => {
 // };
 
 const addUserLike = async(req,res) => {
+  
   try {
-    const post = await Post.findById(req.post_id);
+    const post = await Post.findById(req.params.postId);
     const user = await User.findById(req.user_id);
     console.log(post)
-    console.log(user)
 
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
+  } else if (!post) {
+    return res.status(404).json({ message: 'post not found' });
   }else{
-    await Post.populate({"likes": req.user_id});
+    post.likes.push(req.user_id)
+    await post.save();
+    return res.status(200).send("User added to likes successfully");
   }
 
-}catch (error) {
+} catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -83,9 +86,9 @@ const addUserLike = async(req,res) => {
 // get likes for all posts
 
 const getUserLikes = async(req,res) => {
+  console.log("controller")
   try {
     const user = await User.findById(req.user_id);
-  
 
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
@@ -93,7 +96,7 @@ const getUserLikes = async(req,res) => {
   
   const findLikes = await Post.find("likes");
 
-  findLikes.length
+  console.log(findLikes)
 
 }catch (error) {
     console.error(error);
