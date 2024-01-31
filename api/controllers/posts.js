@@ -30,16 +30,14 @@ const createPost = async (req, res) => {
     const newPost = new Post({
       message: req.body.message,
       user: user._id, // ObjectId of the user
-      username: user.username, // Username of the user
-      image: { // image uploads
-        data: req.file.buffer,
-        contentType: req.file.mimetype,
-      },
+      username: user.username, // Username of the us
     });
 
-    if (req.file) { // checking if image was included in request
-      newPost.image.data = req.file.buffer;
-      newPost.image.contentType = req.file.mimetype
+    if (req.file) {
+      newPost.image = {
+        data: req.file.buffer,
+        contentType : req.file.mimetype
+      }; // checking if image was included in request
     }
 
     await newPost.save();

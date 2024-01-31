@@ -32,9 +32,9 @@ export const UserProfile = () => {
     }
   }, [token, navigate]);
 
-  const handlePostSubmit = async (newPostContent) => {
+  const handlePostSubmit = async (newPostContent, imageFile) => {
     try {
-      await createPost(token, { message: newPostContent });
+      await createPost(token, { message: newPostContent, image: imageFile });
       
       const updatedPosts = await getPosts(token);
       setPosts(updatedPosts.posts);
