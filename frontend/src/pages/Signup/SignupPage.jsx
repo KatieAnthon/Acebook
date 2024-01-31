@@ -108,26 +108,23 @@ export const SignupPage = () => {
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col-md-6 offset-md-3">
+        <div className="col-md-10 offset-md-1">
           <h2 className="mb-3 text-center">Signup</h2>
           {formErrors.submission && <div className="alert alert-danger">{formErrors.submission}</div>}
 
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">Email:</label>
-              <input id="email" type="email" className="form-control" value={email} onChange={handleEmailChange} />
+              <input id="email" type="email" placeholder="Email Address" className="form-control" value={email} onChange={handleEmailChange} />
               {formErrors.email && <div className="text-danger">{formErrors.email}</div>}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">Password:</label>
-              <input id="password" type="password" className="form-control" value={password} onChange={handlePasswordChange} />
+              <input id="password" type="password" placeholder="Password" className="form-control" value={password} onChange={handlePasswordChange} />
               {formErrors.password && <div className="text-danger">{formErrors.password}</div>}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="username" className="form-label">Username:</label>
-              <input id="username" type="text" className="form-control" value={username} onChange={handleUsernameChange} />
+              <input id="username" type="text" placeholder="Username" className="form-control" value={username} onChange={handleUsernameChange} />
             </div>
 
             <div className="mb-3">
