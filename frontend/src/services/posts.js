@@ -81,3 +81,30 @@ export const deletePost = async (token, postId) => {
   const data = await response.json();
   return data;
 };
+
+export const updatePost = async (token, postId, postData) => {
+  console.log("updating post with ID:", postId, ); // Log the postId
+
+  const requestOptions = {
+    method: 'PATCH', // or 'PUT' if replacing the whole post
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(postData),
+  };
+
+  const url = `${BACKEND_URL}/posts/editingPost/${postId}`;
+  console.log("Request URL:", url); // Log the request URL
+
+  const response = await fetch(url, requestOptions);
+
+  console.log("Response status:", response.status); // Log the response status
+
+  if (!response.ok) {
+    throw new Error(`Error in deleting post: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data;
+};

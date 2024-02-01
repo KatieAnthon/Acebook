@@ -12,11 +12,11 @@ import UserInfo from "../../components/UserInfo"
 
 
 export const UserProfile = () => {
-  const [posts, setPosts] = useState([]);
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [userInfo, setUserInfo] = useState(null);
+const [posts, setPosts] = useState([]);
+const [token, setToken] = useState(window.localStorage.getItem("token"));
+const [userInfo, setUserInfo] = useState(null);
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
 
   useEffect(() => {

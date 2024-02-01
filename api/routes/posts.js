@@ -26,7 +26,9 @@ router.get("/userPost", tokenChecker, PostsController.getSinglePost);
 
 router.delete("/posts/:postId", tokenChecker, PostsController.deletePost);
 
-// GET route can remain open for public access
 router.get("/", PostsController.getAllPosts);
+
+router.patch("/editingPost/:postId", tokenChecker, PostsController.updatePost);
+
 
 module.exports = router;
