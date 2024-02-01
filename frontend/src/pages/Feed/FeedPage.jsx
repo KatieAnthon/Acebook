@@ -4,13 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { getPosts} from "../../services/posts";
 import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
+
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
 import UserInfo from "../../components/UserInfo"
 import Liked from "../../components/LikeButton";
-
-
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -43,9 +42,9 @@ export const FeedPage = () => {
     fetchData();
   }, [token, navigate]);
 
-  const handlePostSubmit = async (newPostContent, imageFile) => {
+const handlePostSubmit = async (formData) => {
     try {
-      await createPost(token, { message: newPostContent, image: imageFile });
+      await createPost(token, formData);
       
       const updatedPosts = await getPosts(token);
       setPosts(updatedPosts.posts);
@@ -54,7 +53,7 @@ export const FeedPage = () => {
     }
   };
 
-  return (
+return (
     <>
       <NavBar />
     {userInfo && (

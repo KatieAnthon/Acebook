@@ -19,16 +19,15 @@ export const getPosts = async (token) => {
   return data;
 };
 
-export const createPost = async (token, postData) => {
+export const createPost = async (token, formData) => {
   const requestOptions = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify(postData),
+    body: formData,  
+    
   };
-
   const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
   if (!response.ok) {
     throw new Error('Failed to create post');
@@ -55,6 +54,8 @@ export const getSinglePost = async (token) => {
   const data = await response.json();
   return data;
 };
+
+
 
 export const deletePost = async (token, postId) => {
   console.log("Deleting post with ID:", postId); // Log the postId

@@ -2,25 +2,21 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { deletePost } from '../../services/posts'; // import your deletePost function
 
-import UserInfo from "../../components/UserInfo"
 import { getUserInfo } from "../../services/authentication";
 import { getSinglePost} from "../../services/posts";
-import { createPost } from '../../services/posts';
-import { updatePost } from "../../services/posts";
+import { createPost } from '../../services/posts'; 
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
+import UserInfo from "../../components/UserInfo"
 
 
 export const UserProfile = () => {
-  const [posts, setPosts] = useState([]);
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [userInfo, setUserInfo] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editPostId, setEditPostId] = useState(null);
-  const [editedContent, setEditedContent] = useState('');
+const [posts, setPosts] = useState([]);
+const [token, setToken] = useState(window.localStorage.getItem("token"));
+const [userInfo, setUserInfo] = useState(null);
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -48,9 +44,13 @@ export const UserProfile = () => {
     fetchData();
   }, [token, navigate]);
 
-  const handlePostSubmit = async (newPostContent, imageFile) => {
+  const handlePostSubmit = async (formData) => {
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+    console.log(formData)
     try {
-      await createPost(token, { message: newPostContent, image: imageFile });
+      await createPost(token, formData);
       
       const updatedPosts = await getSinglePost(token);
       setPosts(updatedPosts.posts);
@@ -68,31 +68,11 @@ export const UserProfile = () => {
       console.error('Error deleting post:', err.message);
     }
   };
-  
-  const handleEditClick = (post) => {
-    setIsEditing(true);
-    setEditPostId(post._id);
-    setEditedContent(post.message);
-  };
-  
-  const handleEditSubmit = async (updatedContent) => {
-    try {
-      await updatePost(token, editPostId, { message: updatedContent });
-      const updatedPosts = posts.map(post => 
-        post._id === editPostId ? { ...post, message: updatedContent } : post
-      );
-      setPosts(updatedPosts);
-      setIsEditing(false);
-      setEditPostId(null);
-      setEditedContent('');
-    } catch (err) {
-      console.error('Error updating post:', err.message);
-    }
-  };
 
   return (
     <>
       <NavBar />
+      <h2>New Post</h2>
       {userInfo && (
       <UserInfo
         userName={userInfo.username || 'Default Username'} 
@@ -100,17 +80,13 @@ export const UserProfile = () => {
         userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
         />
       )}   
-      {isEditing ? (
-  <PostForm onSubmit={handleEditSubmit} initialContent={editedContent} />
-) : (
-  <PostForm onSubmit={handlePostSubmit} />
-)}  
+    
+    <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
         {posts.map((post) => (
           <div key={post._id}>
             <Post post={post} />
             <button onClick={() => handleDelete(post._id)}>Delete Post</button>
-             <button onClick={() => handleEditClick(post)}>Edit Post</button>
           </div>
         ))}
       </div>

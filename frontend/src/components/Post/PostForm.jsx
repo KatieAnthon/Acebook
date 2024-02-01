@@ -1,29 +1,26 @@
 import React, { useState } from 'react';
 
-const PostForm = ({ onSubmit }) => { // Accept onSubmit as a prop
+const PostForm = ({ onSubmit }) => {
   const [newPost, setNewPost] = useState('');
-  const [imagePost, setImagePost] = useState(null);
 
   const handlePostSubmit = async (event) => {
     event.preventDefault();
-    const postData = {
-      content: newPost,
-      image: imagePost,
-    };
-    onSubmit(postData); // Use the passed onSubmit function
-    setNewPost(''); // Clear the form
-    setImagePost(null);
-  };
+    const formData = new FormData(event.target);
+    formData.append('newPost', newPost);
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setImagePost(file)
-  }
+    const imageFile = formData.get('image');
+    // if (imageFile) {
+    //   console.log('Image file:', imageFile, 'Image file name:', imageFile.name);
+    //   // This log will show you the file object and its name
+    // }
+    onSubmit(formData);
+    setNewPost('');
+  };
 
   return (
     <form onSubmit={handlePostSubmit}>
-      <textarea value={newPost} onChange={(e) => setNewPost(e.target.value)} />
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <textarea value={newPost} onChange={(e) => setNewPost(e.target.value)} name="content" />
+      <input type="file" accept="image/*" name="image" />
       <button type="submit">Post</button>
     </form>
   );
