@@ -1,9 +1,6 @@
 const Post = require("../models/post");
 const User = require('../models/user');
 const { generateToken } = require("../lib/token");
-const multer = require('multer');
-const storage = multer.memoryStorage();
-const upload = multer({storage: storage});
 
 const getAllPosts = async (req, res) => {
   try {
@@ -28,22 +25,10 @@ const createPost = async (req, res) => {
 
     // Create a new post with the user's ID and username
     const newPost = new Post({
-      message: JSON.stringify(req.body.message), // <-- Was looking for a string but found an object, this is how I overcame it but not sure if its the right way.
+      message: req.body.message,
       user: user._id, // ObjectId of the user
-      username: user.username, // Username of the us
+      username: user.username // Username of the user
     });
-
-    console.log('Received message', req.body.message)
-
-    if (req.file) {
-      newPost.image = {
-        data: req.file.buffer,
-        contentType : req.file.mimetype
-      }; // checking if image was included in request
-
-      console.log('Received Image', req.file)
-
-    }
 
     await newPost.save();
     res.status(201).json({ message: 'Post created successfully', post: newPost });

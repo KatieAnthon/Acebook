@@ -43,9 +43,9 @@ export const FeedPage = () => {
     fetchData();
   }, [token, navigate]);
 
-  const handlePostSubmit = async (newPostContent, imageFile) => {
+  const handlePostSubmit = async (newPostContent) => {
     try {
-      await createPost(token, { message: newPostContent, image: imageFile });
+      await createPost(token, { message: newPostContent });
       
       const updatedPosts = await getPosts(token);
       setPosts(updatedPosts.posts);
