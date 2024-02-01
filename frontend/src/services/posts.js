@@ -81,17 +81,19 @@ export const deletePost = async (token, postId) => {
   return data;
 };
 
-export const updatePost = async (token, postId, updateData) => {
-  console.log("updating post with ID:", postId); // Log the postId
+export const updatePost = async (token, postId, postData) => {
+  console.log("updating post with ID:", postId, ); // Log the postId
 
   const requestOptions = {
-    method: "PUT",
+    method: 'PATCH', // or 'PUT' if replacing the whole post
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify(postData),
   };
 
-  const url = `${BACKEND_URL}/posts/posts/${postId}`;
+  const url = `${BACKEND_URL}/posts/editingPost/${postId}`;
   console.log("Request URL:", url); // Log the request URL
 
   const response = await fetch(url, requestOptions);

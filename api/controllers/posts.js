@@ -66,7 +66,7 @@ const getSinglePost = async (req, res) => {
 
     // Find posts by user's ID
     const userPosts = await Post.find({ user: userId }).populate('user', 'username');
-    console.log(userPosts)
+    // console.log(userPosts)
     if (!userPosts.length) {
       return res.status(404).json({ message: 'No posts found for this user' });
     }
@@ -83,19 +83,16 @@ const deletePost = async (req, res) => {
   try {
     // Extract post ID from request parameters
     const postId = req.params.postId;
-    console.log("Post ID:", postId); // Log the Post ID
+    // console.log("Post ID:", postId); // Log the Post ID
 
     // Fetch the post
     const post = await Post.findById(postId);
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }
-
-    console.log("Post:", post); // Log the Post object
-
+    // console.log("Post:", post); // Log the Post object
     // Log the user ID for debugging
-    console.log("User ID from request:", req.user_id);
-
+    // console.log("User ID from request:", req.user_id);
     // Check if the user making the request is the owner of the post
     if (post.user.toString() !== req.user_id) {
       return res.status(403).json({ message: 'You are not authorized to delete this post' });

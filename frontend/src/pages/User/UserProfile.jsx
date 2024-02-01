@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { deletePost } from '../../services/posts'; // import your deletePost function
 
-import { getPosts} from "../../services/posts";
 import UserInfo from "../../components/UserInfo"
 import { getUserInfo } from "../../services/authentication";
 import { getSinglePost} from "../../services/posts";
-import { createPost } from '../../services/posts'; 
+import { createPost } from '../../services/posts';
+import { updatePost } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
@@ -74,6 +74,20 @@ export const UserProfile = () => {
     setEditedContent(post.message);
   };
   
+  const handleEditSubmit = async (updatedContent) => {
+    try {
+      await updatePost(token, editPostId, { message: updatedContent });
+      const updatedPosts = posts.map(post => 
+        post._id === editPostId ? { ...post, message: updatedContent } : post
+      );
+      setPosts(updatedPosts);
+      setIsEditing(false);
+      setEditPostId(null);
+      setEditedContent('');
+    } catch (err) {
+      console.error('Error updating post:', err.message);
+    }
+  };
 
   return (
     <>
@@ -95,6 +109,7 @@ export const UserProfile = () => {
           <div key={post._id}>
             <Post post={post} />
             <button onClick={() => handleDelete(post._id)}>Delete Post</button>
+             <button onClick={() => handleEditClick(post)}>Edit Post</button>
           </div>
         ))}
       </div>
