@@ -1,9 +1,6 @@
 const Post = require("../models/post");
 const User = require('../models/user');
 const { generateToken } = require("../lib/token");
-const multer = require('multer');
-const storage = multer.memoryStorage();
-const upload = multer({storage: storage});
 
 const getAllPosts = async (req, res) => {
   try {
