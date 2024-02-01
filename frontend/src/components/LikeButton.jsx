@@ -2,35 +2,72 @@ import React, { Component } from "react"
 import { addUserLike } from "../services/posts"
 import UserProfile from "../pages/User/UserProfile";
 import { getUserInfo } from "../services/authentication";
+import { useState } from "react";
 
-class Liked extends Component {
+const LikeButton = (likes) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            count:0
-        };
-        // this.token = window.localStorage.getItem("token")
-    }
+    const [token, setToken] = useState(window.localStorage.getItem("token"));
 
-    handleAddLike = async () => {
+    // check if post has been liked by user
+    // append user_id if they haven't liked it
     
-    try {
+    // fetch number of likes
+    // unlike takes user_id out of the array in the db
+    
+    // Increment liked function needs to be called using this. as a class
+    // render required for React.component
+
+    const handleAddLike = async () => {
+
+        // const numberOfLikes = likes.likes.length
         
-        const {post_id} = this.props;
-        // console.log("token", token)
-        // const userInfoData = await getUserInfo(token);
-        // setUserInfo(userInfoData);
-        // console.log(userInfoData)
-        console.log(this.props)
+        try {
+            
+            console.log("post_id",likes.post_id )
 
-        await addUserLike(post_id);
+            
 
-    } catch (err) {
-        console.error("error handling like", err.message)
+            
+            // const userInfoData = await getUserInfo(token);
+            // setUserInfo(userInfoData);
+            // console.log(userInfoData)
+            await addUserLike(token, { post_id: likes.post_id });
+    
+        } catch (err) {
+            console.error("error handling like", err.message)
+        }
+
+        // const numberOfLikes = likes.likes.length
+    };
+     
+
+
+    
+    return (
+        <div>
+            
+            <button onClick={handleAddLike} >👍 Likes: {likes.likes.length}
+            </button>
+        </div>
+        );
     }
-};
- 
+    
+
+
+
+
+
+// class Liked extends Component {
+
+//     // constructor(props) {
+//     //     super(props);
+//     //     this.state = {
+    //         count:0
+    //     };
+    //     this.token = window.localStorage.getItem("token")
+    // }
+
+    
     
     // IncrementLike = (props) => {
 
@@ -50,14 +87,13 @@ class Liked extends Component {
 // Increment liked function needs to be called using this. as a class
 // render required for React.component
 
-render() {
-return (
-    <div>
-        <button onClick={this.handleAddLike} > 👍 Likes: {this.state.count}
-        </button>
-    </div>
-    );
-}
-}
 
-export default Liked;
+// return (
+//     <div>
+//         <button onClick={this.handleAddLike} > 👍 Likes: {numberOfLikes}
+//         </button>
+//     </div>
+//     );
+
+
+export default LikeButton;

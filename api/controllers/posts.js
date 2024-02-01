@@ -4,7 +4,7 @@ const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate('user', 'username').select('message');
+    const posts = await Post.find().populate('user', 'username').select();
     console.log(posts); // Add this line to log the posts to the console
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
@@ -63,19 +63,27 @@ const createPost = async (req, res) => {
 const addUserLike = async(req,res) => {
   
   try {
-    const post = await Post.findById(post_id);
-    const user = await User.findById(req.user_id);
+
+    console.log("post_id", req.post_id)
+    const post = await Post.findById(req.post_id);
+    const user_id = req.user_id;
     console.log(post)
 
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  } else if (!post) {
-    return res.status(404).json({ message: 'post not found' });
-  }else{
+
+  if (!req.user_id in post.likes) {
     post.likes.push(req.user_id)
     await post.save();
+    
     return res.status(200).send("User added to likes successfully");
-  }
+    
+  } else if (req.user_id in post.likes) {
+    // post.likes.pull(req.user_id)
+
+    post.updateOne( { _id: req.post_id }, {$pull: { likes: { $eq: req.user_id } } } )
+
+    await post.save()
+    return res.status(200).send("User unliked successfully");
+}
 
 } catch (error) {
     console.error(error);
