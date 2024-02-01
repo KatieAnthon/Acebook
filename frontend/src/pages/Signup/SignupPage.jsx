@@ -62,10 +62,6 @@ export const SignupPage = () => {
     if (profilePic) {
       formData.append('profilePic', profilePic);
     }
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-  
     try {
 
       await signup(formData); // Adjusted to handle FormData

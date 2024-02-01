@@ -7,7 +7,7 @@ const upload = multer({storage: storage});
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate('user', 'username').select('message');
+    const posts = await Post.find().populate('user', 'username');
     // console.log(posts); // Add this line to log the posts to the console
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
@@ -18,6 +18,9 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
+  const message = req.body.message;
+  const postImage = req.file ? req.file.path : ''; // Get the file path from Multer// multer is a lirary that we will need to add on our api end. 
+  
   try {
     // Fetch the user's information using req.user_id
     const user = await User.findById(req.user_id);
@@ -28,22 +31,11 @@ const createPost = async (req, res) => {
 
     // Create a new post with the user's ID and username
     const newPost = new Post({
-      message: JSON.stringify(req.body.message), // <-- Was looking for a string but found an object, this is how I overcame it but not sure if its the right way.
+      message: req.body.content,
       user: user._id, // ObjectId of the user
-      username: user.username, // Username of the us
+      postImage:postImage
+
     });
-
-    console.log('Received message', req.body.message)
-
-    if (req.file) {
-      newPost.image = {
-        data: req.file.buffer,
-        contentType : req.file.mimetype
-      }; // checking if image was included in request
-
-      console.log('Received Image', req.file)
-
-    }
 
     await newPost.save();
     res.status(201).json({ message: 'Post created successfully', post: newPost });
@@ -52,7 +44,6 @@ const createPost = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
-
 
 const getUserPosts  =  async(req,res) =>{
   try {
@@ -78,14 +69,10 @@ const getUserPosts  =  async(req,res) =>{
 const getSinglePost = async (req, res) => {
   try {
     const userId = req.user_id; // or req.params.userId if you're getting the ID from the URL
-
-    // Find posts by user's ID
     const userPosts = await Post.find({ user: userId }).populate('user', 'username');
-    console.log(userPosts)
     if (!userPosts.length) {
       return res.status(404).json({ message: 'No posts found for this user' });
     }
-
     res.status(200).json({ posts: userPosts });
   } catch (error) {
     console.error(error);
