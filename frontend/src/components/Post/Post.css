@@ -1,0 +1,61 @@
+.post {
+    background-color: white;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 16px;
+  }
+  
+  .post-header {
+    margin-bottom: 10px;
+  }
+  
+  .post-user {
+    font-weight: bold;
+    color: #365899;
+  }
+  
+  .post-content {
+    margin-top: 10px;
+  }
+  
+  .post-image {
+    width: 100%; /* Set a fixed width */
+    max-height: 400px; /* Set a max height */
+    object-fit: cover; /* This will cover the area without stretching the image */
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Add bottom margin for spacing */
+  }
+
+
+  .post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .button-style {
+    background-color: #4267b2; /* Default blue color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 8px; /* Add some spacing between buttons if they are next to each other */
+  }
+  
+  .button-style:hover {
+    background-color: #365899; /* Darker blue on hover */
+  }
+  
+  /* Additional specific styles for delete button */
+  .delete-button {
+    background-color: #f44336; /* Red color for delete button */
+  }
+  
+  .delete-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './PostForm.css'; 
 
 const PostForm = ({ onSubmit }) => {
   const [newPost, setNewPost] = useState('');
@@ -9,20 +10,18 @@ const PostForm = ({ onSubmit }) => {
     formData.append('newPost', newPost);
 
     const imageFile = formData.get('image');
-    // if (imageFile) {
-    //   console.log('Image file:', imageFile, 'Image file name:', imageFile.name);
-    //   // This log will show you the file object and its name
-    // }
     onSubmit(formData);
     setNewPost('');
   };
 
   return (
-    <form onSubmit={handlePostSubmit}>
-      <textarea value={newPost} onChange={(e) => setNewPost(e.target.value)} name="content" />
-      <input type="file" accept="image/*" name="image" />
-      <button type="submit">Post</button>
-    </form>
+    <div className="post-form-container">
+      <form onSubmit={handlePostSubmit} className="post-form">
+        <textarea value={newPost} onChange={(e) => setNewPost(e.target.value)} name="content" className="post-textarea"/>
+        <input type="file" accept="image/*" name="image" className="post-input-file"/>
+        <button type="submit" className="post-submit-button">Post</button>
+      </form>
+    </div>
   );
 };
 
