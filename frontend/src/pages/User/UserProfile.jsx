@@ -43,9 +43,10 @@ export const UserProfile = () => {
   
     fetchData();
   }, [token, navigate]);
-  const handlePostSubmit = async (newPostContent) => {
+
+  const handlePostSubmit = async (newPostContent, imageFile) => {
     try {
-      await createPost(token, { message: newPostContent });
+      await createPost(token, { message: newPostContent, image: imageFile });
       
       const updatedPosts = await getSinglePost(token);
       setPosts(updatedPosts.posts);
