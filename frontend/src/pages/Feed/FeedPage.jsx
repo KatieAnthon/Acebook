@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { getPosts} from "../../services/posts";
 import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
+
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
+import UserInfo from "../../components/UserInfo"
 import Liked from "../../components/LikeButton";
-
-
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -42,9 +42,9 @@ export const FeedPage = () => {
     fetchData();
   }, [token, navigate]);
 
-  const handlePostSubmit = async (newPostContent) => {
+const handlePostSubmit = async (formData) => {
     try {
-      await createPost(token, { message: newPostContent });
+      await createPost(token, formData);
       
       const updatedPosts = await getPosts(token);
       setPosts(updatedPosts.posts);
@@ -53,19 +53,17 @@ export const FeedPage = () => {
     }
   };
 
-  return (
+return (
     <>
       <NavBar />
-      <h2>New Post</h2>
-        {/* Display User Information */}
-    {userInfo && userInfo.profilePic && (
-      <div className="user-info">
-        <h3>User Information</h3>
-        <p>Username: {userInfo.username}</p>
-        <p>Email: {userInfo.email}</p>
-        <img src={`http://localhost:3000/${userInfo.profilePic}`} alt="Profile" />
-      </div>
-    )}
+    {userInfo && (
+      <UserInfo
+        userName={userInfo.username || 'Default Username'} 
+        userEmail={userInfo.email || 'Default Email'} 
+        userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
+        />
+      )}   
+      <h1>Create a new Post</h1>
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
         {posts.map((post) => (

@@ -1,7 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './SingupPage.css';
 import { signup } from "../../services/authentication"; // Ensure you have a signup function
+
+
 
 const isValidEmail = (email) => {
   return email.includes('@');
@@ -59,10 +62,6 @@ export const SignupPage = () => {
     if (profilePic) {
       formData.append('profilePic', profilePic);
     }
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-  
     try {
 
       await signup(formData); // Adjusted to handle FormData
@@ -100,27 +99,44 @@ export const SignupPage = () => {
     setUsername(newValue); 
   };
 
+
   return (
-    <>
-      <h2>Signup</h2>
-      {formErrors.submission && <div className="error">{formErrors.submission}</div>}
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <label htmlFor="email">Email:</label>
-        <input id="email" type="text" value={email} onChange={handleEmailChange} />
-        {formErrors.email && <div className="error">{formErrors.email}</div>} {/* Display email error */}
-        
-        <label htmlFor="password">Password:</label>
-        <input id="password" type="password" value={password} onChange={handlePasswordChange} />
-        {formErrors.password && <div className="error">{formErrors.password}</div>} {/* Display password error */}
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-md-10 offset-md-1">
+          <h2 className="mb-3 text-center">Signup</h2>
+          {formErrors.submission && <div className="alert alert-danger">{formErrors.submission}</div>}
 
-        <label htmlFor="username">Username:</label>
-        <input id="username" type="text" value={username} onChange={handleUsernameChange} />
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <div className="mb-3">
+              <input id="email" type="email" placeholder="Email Address" className="form-control" value={email} onChange={handleEmailChange} />
+              {formErrors.email && <div className="text-danger">{formErrors.email}</div>}
+            </div>
 
-        <label htmlFor="profilePic">Profile Picture:</label>
-        <input id="profilePic" name="profilePic" type="file" onChange={handleProfilePicChange} />
+            <div className="mb-3">
+              <input id="password" type="password" placeholder="Password" className="form-control" value={password} onChange={handlePasswordChange} />
+              {formErrors.password && <div className="text-danger">{formErrors.password}</div>}
+            </div>
 
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form>
-    </>
+            <div className="mb-3">
+              <input id="username" type="text" placeholder="Username" className="form-control" value={username} onChange={handleUsernameChange} />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="profilePic" className="form-label">Profile Picture:</label>
+              <input id="profilePic" name="profilePic" type="file" className="form-control" onChange={handleProfilePicChange} />
+            </div>
+
+            <div className="d-grid gap-2">
+              <input role="submit-button" id="submit" type="submit" value="Submit" className="btn btn-primary" />
+            </div>
+          </form>
+          <div className="d-grid gap-2">
+            <Link to="/login" className="btn btn-primary">Log In</Link>      
+          </div>
+        </div>
+      </div>
+    </div>
+    
   );
 };

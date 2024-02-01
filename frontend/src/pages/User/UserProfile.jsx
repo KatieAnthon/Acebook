@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { deletePost } from '../../services/posts'; // import your deletePost function
 
-import { getPosts} from "../../services/posts";
 import { getUserInfo } from "../../services/authentication";
 import { getSinglePost} from "../../services/posts";
 import { createPost } from '../../services/posts'; 
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
+import UserInfo from "../../components/UserInfo"
 
 
 export const UserProfile = () => {
-  const [posts, setPosts] = useState([]);
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [userInfo, setUserInfo] = useState(null);
+const [posts, setPosts] = useState([]);
+const [token, setToken] = useState(window.localStorage.getItem("token"));
+const [userInfo, setUserInfo] = useState(null);
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -42,9 +43,14 @@ export const UserProfile = () => {
   
     fetchData();
   }, [token, navigate]);
-  const handlePostSubmit = async (newPostContent) => {
+
+  const handlePostSubmit = async (formData) => {
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+    console.log(formData)
     try {
-      await createPost(token, { message: newPostContent });
+      await createPost(token, formData);
       
       const updatedPosts = await getSinglePost(token);
       setPosts(updatedPosts.posts);
@@ -53,23 +59,35 @@ export const UserProfile = () => {
     }
   };
 
+  const handleDelete = async (postId) => {
+    try {
+      await deletePost(token, postId);
+      const updatedPosts = posts.filter(post => post._id !== postId);
+      setPosts(updatedPosts);
+    } catch (err) {
+      console.error('Error deleting post:', err.message);
+    }
+  };
+
   return (
     <>
       <NavBar />
       <h2>New Post</h2>
-      {userInfo && userInfo.profilePic && (
-      <div className="user-info">
-        <h3>User Information</h3>
-        <p>Username: {userInfo.username}</p>
-        <p>Email: {userInfo.email}</p>
-         <img src={`http://localhost:3000/${userInfo.profilePic}`} alt="Profile" />
-      </div>
-    )}
+      {userInfo && (
+      <UserInfo
+        userName={userInfo.username || 'Default Username'} 
+        userEmail={userInfo.email || 'Default Email'} 
+        userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
+        />
+      )}   
     
-      <PostForm onSubmit={handlePostSubmit} />
-      <div className="feed" role="feed">
+    <PostForm onSubmit={handlePostSubmit} />
+    <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <div key={post._id}>
+            <Post post={post} />
+            <button onClick={() => handleDelete(post._id)}>Delete Post</button>
+          </div>
         ))}
       </div>
     </>
