@@ -18,5 +18,7 @@ router.get("/userPost", tokenChecker, PostsController.getSinglePost);
 
 router.delete("/posts/:postId", tokenChecker, PostsController.deletePost);
 
+router.patch("/editingPost/:postId", tokenChecker, PostsController.updatePost);
+
 
 module.exports = router;

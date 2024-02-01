@@ -81,7 +81,7 @@ const getSinglePost = async (req, res) => {
 
     // Find posts by user's ID
     const userPosts = await Post.find({ user: userId }).populate('user', 'username');
-    console.log(userPosts)
+    // console.log(userPosts)
     if (!userPosts.length) {
       return res.status(404).json({ message: 'No posts found for this user' });
     }
@@ -98,19 +98,16 @@ const deletePost = async (req, res) => {
   try {
     // Extract post ID from request parameters
     const postId = req.params.postId;
-    console.log("Post ID:", postId); // Log the Post ID
+    // console.log("Post ID:", postId); // Log the Post ID
 
     // Fetch the post
     const post = await Post.findById(postId);
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }
-
-    console.log("Post:", post); // Log the Post object
-
+    // console.log("Post:", post); // Log the Post object
     // Log the user ID for debugging
-    console.log("User ID from request:", req.user_id);
-
+    // console.log("User ID from request:", req.user_id);
     // Check if the user making the request is the owner of the post
     if (post.user.toString() !== req.user_id) {
       return res.status(403).json({ message: 'You are not authorized to delete this post' });
@@ -126,13 +123,43 @@ const deletePost = async (req, res) => {
 };
 
 
+const updatePost = async (req, res) => {
+  try {
+    const postId = req.params.postId; // Extract post ID from request parameters
+    console.log("Post ID:", postId); // Log the Post ID
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    console.log("Post:", post); // Log the Post object
+    console.log("User ID from request:", req.user_id); // Log the user ID for debugging
+
+    // Check if the user making the request is the owner of the post
+    if (post.user.toString() !== req.user_id) {
+      return res.status(403).json({ message: 'You are not authorized to update this post' });
+    }
+
+    // Perform the update
+    const updateData = req.body; // Assuming the updated post data is sent in the request body
+    await Post.updateOne({ _id: postId }, updateData);
+
+    res.status(200).json({ message: 'Post updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   getUserPosts: getUserPosts,
   getSinglePost: getSinglePost,
-  deletePost:deletePost
+  deletePost:deletePost,
+  updatePost:updatePost
 };
 
 module.exports = PostsController;
