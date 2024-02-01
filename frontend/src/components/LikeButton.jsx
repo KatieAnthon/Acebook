@@ -1,17 +1,36 @@
 import React, { Component } from "react"
-import { addUserLike } from "../../../api/controllers/posts";
+import { addUserLike } from "../services/posts"
+import UserProfile from "../pages/User/UserProfile";
+import { getUserInfo } from "../services/authentication";
 
 class Liked extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            count:0
+        };
+        // this.token = window.localStorage.getItem("token")
+    }
+
     handleAddLike = async () => {
+    
     try {
-        const {post_id, user_id} = this.props;
+        
+        const {post_id} = this.props;
+        // console.log("token", token)
+        // const userInfoData = await getUserInfo(token);
+        // setUserInfo(userInfoData);
+        // console.log(userInfoData)
+        console.log(this.props)
 
-        await addUserLike(token, {post_id, user_id});
+        await addUserLike(post_id);
 
-    }catch (err) {
+    } catch (err) {
         console.error("error handling like", err.message)
     }
-};   
+};
+ 
     
     // IncrementLike = (props) => {
 

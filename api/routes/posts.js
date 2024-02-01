@@ -12,8 +12,6 @@ router.post("/", tokenChecker, PostsController.createPost);
 
 router.get("/userPost", tokenChecker, PostsController.getSinglePost);
 
-router.get("/getUserLikes", tokenChecker, PostsController.getUserLikes);
-
 // router.get(“/likes”, controller)
 // router.post(“/likes”, controller)
 

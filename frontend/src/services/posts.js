@@ -77,18 +77,21 @@ export const getUserLikes = async (token) => {
   return data;
 };
 
-export const addUserLike = async (token) => {
+export const addUserLike = async (post_id, token) => {
+
   const requestOptions = {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
+      'Content-Type': `application/json`,
     },
+    body: JSON.stringify({ post_id }),
   };
 
   const response = await fetch(`${BACKEND_URL}/posts/addUserLike`, requestOptions);
 
   if (response.status !== 200) {
-    throw new Error("Unable to fetch posts");
+    throw new Error("Unable to like posts");
   }
 
   const data = await response.json();

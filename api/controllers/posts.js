@@ -63,7 +63,7 @@ const createPost = async (req, res) => {
 const addUserLike = async(req,res) => {
   
   try {
-    const post = await Post.findById(req.params.postId);
+    const post = await Post.findById(post_id);
     const user = await User.findById(req.user_id);
     console.log(post)
 
@@ -85,24 +85,24 @@ const addUserLike = async(req,res) => {
 
 // get likes for all posts
 
-const getUserLikes = async(req,res) => {
-  console.log("controller")
-  try {
-    const user = await User.findById(req.user_id);
+// const getUserLikes = async(req,res) => {
+//   console.log("controller")
+//   try {
+//     const user = await User.findById(req.user_id);
 
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
+//   if (!user) {
+//     return res.status(404).json({ message: 'User not found' });
+//   }
   
-  const findLikes = await Post.find("likes");
+//   const findLikes = await Post.find("likes");
 
-  console.log(findLikes)
+//   console.log(findLikes)
 
-}catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-}
+// }catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// }
 
 
 
@@ -130,7 +130,6 @@ const PostsController = {
   createPost: createPost,
   getSinglePost: getSinglePost,
   addUserLike: addUserLike,
-  getUserLikes: getUserLikes
 };
 
 module.exports = PostsController;
