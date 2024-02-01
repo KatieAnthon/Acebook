@@ -18,16 +18,9 @@ const LikeButton = (likes) => {
     // render required for React.component
 
     const handleAddLike = async () => {
-
-        // const numberOfLikes = likes.likes.length
-        
         try {
-            
             console.log("post_id",likes.post_id )
-
-            
-
-            
+            console.log("token", token)
             // const userInfoData = await getUserInfo(token);
             // setUserInfo(userInfoData);
             // console.log(userInfoData)
@@ -36,13 +29,7 @@ const LikeButton = (likes) => {
         } catch (err) {
             console.error("error handling like", err.message)
         }
-
-        // const numberOfLikes = likes.likes.length
     };
-     
-
-
-    
     return (
         <div>
             

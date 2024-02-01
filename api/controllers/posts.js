@@ -38,42 +38,18 @@ const createPost = async (req, res) => {
   }
 };
 
-
-// find length of likes array for all posts
-// const getPostLikes = async(req,res) =>{
-//   try {
-//     // Fetch the user's information using req.user_id
-//     const user = await User.findById(req.params.id);
-
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     // Find posts by user's ID and username
-//     const findPosts = Post.find({user});
-
-//     await newPost.save();
-//     res.status(201).json({ message: 'Post created successfully', post: newPost });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// };
-
 const addUserLike = async(req,res) => {
   
   try {
-
-    console.log("post_id", req.post_id)
-    const post = await Post.findById(req.post_id);
+    const post = await Post.findById(req.body.post_id);
     const user_id = req.user_id;
-    console.log(post)
-
-
-  if (!req.user_id in post.likes) {
-    post.likes.push(req.user_id)
-    await post.save();
     
+  if (!req.user_id in post.likes) {
+    // db.student.update( { "subjects" : "gkn" },{ $push: { "achieve": 95 } });
+    db.collection(Post).updateOne( { "_id": req.body.post_id }, {$push: { "likes": req.user_id } }  ).done()
+    
+    await post.save();
+    console.log(post.likes)
     return res.status(200).send("User added to likes successfully");
     
   } else if (req.user_id in post.likes) {
@@ -90,29 +66,6 @@ const addUserLike = async(req,res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
-
-// get likes for all posts
-
-// const getUserLikes = async(req,res) => {
-//   console.log("controller")
-//   try {
-//     const user = await User.findById(req.user_id);
-
-//   if (!user) {
-//     return res.status(404).json({ message: 'User not found' });
-//   }
-  
-//   const findLikes = await Post.find("likes");
-
-//   console.log(findLikes)
-
-// }catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// }
-
-
 
 const getSinglePost = async (req, res) => {
   try {
