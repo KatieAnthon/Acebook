@@ -4,21 +4,7 @@ const { generateToken } = require("../lib/token");
 const createToken = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  // username not needed for creating token
-  // const username = req.body.username;
 
-  // 'Password must be at least 8 characters long with 1 uppercase, 1 number, and 1 special character.'
-
-  // check email is in valid format
- // if (email.match(/^\S+@\S+\.\S+$/) === null) {
- //   console.log("Auth Error: Email not valid format");
- //   res.status(401).json({ message: "Email not valid format" });
- // }
- // // check password matches requirements
- // if (password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/) === null) {
- //   console.log("Auth Error: Password does not match requirements");
- //   res.status(401).json({ message: "Password does not match requirements" });
- // }
 
   const user = await User.findOne({ email: email });
   if (!user) {

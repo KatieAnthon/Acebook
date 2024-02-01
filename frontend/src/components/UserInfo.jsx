@@ -7,7 +7,7 @@ const UserInfo = ({ userName, userEmail, userPicture }) => {
     <header id="header">
       <div className="d-flex flex-column">
         <div className="profile">
-          <img src={userPicture} alt="" class="img-fluid rounded-circle"></img>
+          <img src={userPicture} alt="" className="img-fluid rounded-circle"></img>
           <h1 className="text-light">Hello {userName}</h1>
         </div>
         <nav id="navbar" className="nav-menu navbar">
