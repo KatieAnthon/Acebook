@@ -14,4 +14,9 @@ router.get("/", PostsController.getAllPosts);
 // POST route is now protected with tokenChecker middleware
 router.post("/", tokenChecker, upload.single('image'), PostsController.createPost);
 
+router.get("/userPost", tokenChecker, PostsController.getSinglePost);
+
+router.delete("/posts/:postId", tokenChecker, PostsController.deletePost);
+
+
 module.exports = router;

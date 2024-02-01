@@ -75,10 +75,64 @@ const getUserPosts  =  async(req,res) =>{
 };
 
 
+const getSinglePost = async (req, res) => {
+  try {
+    const userId = req.user_id; // or req.params.userId if you're getting the ID from the URL
+
+    // Find posts by user's ID
+    const userPosts = await Post.find({ user: userId }).populate('user', 'username');
+    console.log(userPosts)
+    if (!userPosts.length) {
+      return res.status(404).json({ message: 'No posts found for this user' });
+    }
+
+    res.status(200).json({ posts: userPosts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+const deletePost = async (req, res) => {
+  try {
+    // Extract post ID from request parameters
+    const postId = req.params.postId;
+    console.log("Post ID:", postId); // Log the Post ID
+
+    // Fetch the post
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    console.log("Post:", post); // Log the Post object
+
+    // Log the user ID for debugging
+    console.log("User ID from request:", req.user_id);
+
+    // Check if the user making the request is the owner of the post
+    if (post.user.toString() !== req.user_id) {
+      return res.status(403).json({ message: 'You are not authorized to delete this post' });
+    }
+
+    // Delete the post
+    await post.deleteOne();
+    res.status(200).json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   getUserPosts: getUserPosts,
+  getSinglePost: getSinglePost,
+  deletePost:deletePost
 };
 
 module.exports = PostsController;
