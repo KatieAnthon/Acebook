@@ -11,6 +11,8 @@ import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
 import UserInfo from "../../components/UserInfo"
 import '../../App.css'
+import "../../components/Post/Post.css";
+
 
 export const UserProfile = () => {
 const [posts, setPosts] = useState([]);
@@ -102,15 +104,16 @@ const navigate = useNavigate();
     
     <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
-        {posts.map((post) => (
+        {posts.slice().reverse().map((post) => (
           <div key={post._id}>
             <Post post={post} />
             <button onClick={() => handleDelete(post._id)}>Delete Post</button>
             <button onClick={() => handleEdit(post)}>Edit Post</button>
+
           </div>
         ))}
       </div>
-      {/* Edit Post Modal */}
+       {/* Edit Post Modal */}
     {isEditModalOpen && (
     <div className="edit-post-modal-overlay">
     <div className="edit-post-modal">

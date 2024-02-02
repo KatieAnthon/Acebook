@@ -2,6 +2,9 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const getPosts = async (token) => {
+
+  console.log("token" + token)
+
   const requestOptions = {
     method: "GET",
     headers: {
@@ -55,7 +58,25 @@ export const getSinglePost = async (token) => {
   return data;
 };
 
+export const addUserLike = async (token, post_id) => {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(post_id),
+  };
 
+  const response = await fetch(`${BACKEND_URL}/posts/likes`, requestOptions);
+  if (response.status !== 200) {
+    throw new Error("Unable to like posts");
+  }
+
+  const data = await response.json();
+  console.log("data", data)
+  return data;
+};
 
 export const deletePost = async (token, postId) => {
   console.log("Deleting post with ID:", postId); // Log the postId

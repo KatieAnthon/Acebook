@@ -1,29 +1,30 @@
-import React, { Component } from "react"
+import { addUserLike } from "../services/posts"
+import { useState } from "react";
+import { getPosts } from "../services/posts";
 
-class Liked extends Component {
-    state = {
-        count: 0
-    }
+const LikeButton = (likes) => {
 
-   
+    const [token, setToken] = useState(window.localStorage.getItem("token"));
+    const [numberLikes, setNumberLikes] = useState(likes.likes.length)
 
-   IncrementLike = () => {
-    let newCount = this.state.count + 1
-    this.setState({
-        count: newCount
-    })
-   }
+    const handleAddLike = async () => {
+        try {
+            await addUserLike(token, { post_id: likes.post_id });
+            // Update the number of likes by fetching the updated data from the backend
+            const updatedPostsData = await getPosts(token);
+            const updatedPost = updatedPostsData.posts.find(post => post._id === likes.post_id);
+            setNumberLikes(updatedPost.likes.length);
+        } catch (err) {
+            console.error("Error handling like", err.message);
+        }
+    };
 
-// Increment liked function needs to be called using this. as a class
-// render required for React.component
-render() {
-return (
+    return (
     <div>
-        <button onClick={this.IncrementLike} > 👍 Likes: {this.state.count}
+        <button onClick={handleAddLike} >👍 Likes: {numberLikes}
         </button>
     </div>
-    );
-}
+    )
 }
 
-export default Liked;
+    export default LikeButton;

@@ -24,6 +24,8 @@ router.post("/", tokenChecker, upload.single('image'), PostsController.createPos
 
 router.get("/userPost", tokenChecker, PostsController.getSinglePost);
 
+router.post("/likes", tokenChecker, PostsController.addUserLike);
+
 router.delete("/posts/:postId", tokenChecker, PostsController.deletePost);
 
 router.get("/", PostsController.getAllPosts);

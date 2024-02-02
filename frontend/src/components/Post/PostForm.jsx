@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState } from 'react';
+import './PostForm.css'; 
 
 const PostForm = ({ onSubmit, initialData }) => {
   const [content, setContent] = useState('');
@@ -7,6 +9,8 @@ const PostForm = ({ onSubmit, initialData }) => {
 
   const handleContentChange = (event) => {
     setContent(event.target.value);
+  //  onSubmit(formData);
+  //  setNewPost('');
   };
 
   const handleImageChange = (event) => {
@@ -58,6 +62,13 @@ const PostForm = ({ onSubmit, initialData }) => {
       <input type="file" accept="image/*" onChange={handleImageChange} />
       <button type="submit">{initialData ? 'Update Post' : 'Create Post'}</button>
     </form>
+    // <div className="post-form-container">
+    //   <form onSubmit={handlePostSubmit} className="post-form">
+    //     <textarea value={newPost} onChange={(e) => setNewPost(e.target.value)} name="content" className="post-textarea"/>
+    //     <input type="file" accept="image/*" name="image" className="post-input-file"/>
+    //     <button type="submit" className="post-submit-button">Post</button>
+    //   </form>
+    // </div>
   );
 };
 

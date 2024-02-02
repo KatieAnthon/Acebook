@@ -30,8 +30,8 @@ const createPost = async (req, res) => {
     const newPost = new Post({
       message: req.body.content,
       user: user._id, // ObjectId of the user
+      username: user.username, // Username of the user
       postImage:postImage
-
     });
 
     await newPost.save();
@@ -42,32 +42,40 @@ const createPost = async (req, res) => {
   }
 };
 
-const getUserPosts  =  async(req,res) =>{
+// const getUserPosts  =  async(req,res) =>{
+
+const addUserLike = async(req,res) => {
   try {
-    // Fetch the user's information using req.user_id
-    const user = await User.findById(req.user_id);
+    const post = await Post.findById(req.body.post_id);
+    const user_id = req.user_id;
+    
+  if (!post.likes.includes(req.user_id)) {
+    // db.student.update( { "subjects" : "gkn" },{ $push: { "achieve": 95 } });
+    // db.collection(Post).updateOne( { "_id": req.body.post_id }, {$push: { "likes": req.user_id } }  ).done()
+    post.likes.push(user_id)
+    await post.save();
+    console.log(post)
+    return res.status(200).json({ message: "User added to likes successfully"});
+    
+  } else if (post.likes.includes(req.user_id)) {
+    // post.likes.pull(req.user_id)
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    post.likes.pull(user_id)
+    await post.save();
+    console.log(post)
+    return res.status(200).json({ message: "User unliked successfully"});
+}
 
-    // Find posts by user's ID and username
-    const findPosts = Post.find({user});
-
-    await newPost.save();
-    res.status(201).json({ message: 'Post created successfully', post: newPost });
-  } catch (error) {
+} catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-};
-
+}
 
 const getSinglePost = async (req, res) => {
   try {
     const userId = req.user_id; // or req.params.userId if you're getting the ID from the URL
     const userPosts = await Post.find({ user: userId }).populate('user', 'username');
-
     if (!userPosts.length) {
       return res.status(404).json({ message: 'No posts found for this user' });
     }
@@ -140,8 +148,8 @@ const updatePost = async (req, res) => {
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
-  getUserPosts: getUserPosts,
   getSinglePost: getSinglePost,
+  addUserLike: addUserLike,
   deletePost:deletePost,
   updatePost:updatePost
 };
