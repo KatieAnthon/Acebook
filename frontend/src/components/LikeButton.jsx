@@ -3,7 +3,7 @@ import { useState } from "react";
 import { getPosts } from "../services/posts";
 
 const LikeButton = (likes) => {
-    const [token, setToken] = useState(window.localStorage.getItem("token"));
+    const [token] = useState(window.localStorage.getItem("token"));
     const [numberLikes, setNumberLikes] = useState(likes.likes.length)
 
     const handleAddLike = async () => {

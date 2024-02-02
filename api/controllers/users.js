@@ -35,9 +35,61 @@ const getUsersInformation = async (req, res) => {
   }
 };
 
+const sendFriendRequest = async (req, res) => {
+  try {
+    // find the users entries of the sender and receiver
+    const sender = await User.findById(req.user_id);
+    const receiver = await User.findById(req.body.user_id);
+    // if a friend request hasn't been sent to that user, send
+    const requestExists = receiver.friend_list.some(friend => friend.id.toString() === sender._id.toString() && !friend.confirmed);
+    if (!requestExists){
+      // add friend request object to both users friend_list
+      sender.friend_list.push({id: receiver._id, confirmed: false})
+      await sender.save();
+      receiver.friend_list.push({id: sender._id, confirmed: false})
+      await receiver.save();
+      return res.status(200).json({ message: "Friend request sent successfully"});
+    }else{
+      return res.status(200).json({ message: "Friend request pending"});
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+const friendRequestResponse = async (req, res) => {
+  try {
+    // find the users entries of the sender and receiver
+    const sender = await User.findById(req.user_id);
+    const receiver = await User.findById(req.body.user_id);
+    const response = req.body.confirmed;
+    // if friend request is accepted
+    if (response === true){
+      // find the friend request object sent from sender to receiver and vice versa
+      const sender_receiver_request = sender.friend_list.find((friend_request) => friend_request.id.toString() === req.body.user_id)
+      const receiver_sender_request = receiver.friend_list.find((friend_request) => friend_request.id.toString() === req.user_id)
+      // modify friend object of both users to true
+      sender_receiver_request.confirmed = true
+      await sender.save();
+      receiver_sender_request.confirmed = true
+      await receiver.save();
+
+      return res.status(200).json({ message: "Friend request accepted successfully"});
+    }else{
+      return res.status(200).json({ message: "Friend request denied"});
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 const UsersController = {
   create: create,
   getUsersInformation: getUsersInformation,
+  sendFriendRequest: sendFriendRequest,
+  friendRequestResponse: friendRequestResponse,
 };
 
 module.exports = UsersController;
