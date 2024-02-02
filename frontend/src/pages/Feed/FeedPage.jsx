@@ -66,7 +66,7 @@ return (
       <h1>Create a new Post</h1>
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
-      {posts.map((post) => (
+      {posts.slice().reverse().map((post) => (
       <Post key={post._id} post={post} onDelete={() => handleDelete(post._id)} showDeleteButton={false} />
       ))}
     </div>
