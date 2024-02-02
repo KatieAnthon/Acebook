@@ -8,7 +8,6 @@
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     likes: { type: Array, default: [] },
     postImage: { type: String },
-    comments: {type: Array, default: []},
   });
 
   // We use the Schema to create the Post model. Models are classes which we can

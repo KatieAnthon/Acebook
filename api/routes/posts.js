@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const tokenChecker = require('../middleware/tokenChecker');
 const multer = require('multer');
-
 const PostsController = require("../controllers/posts");
 
 
@@ -32,6 +31,6 @@ router.get("/", PostsController.getAllPosts);
 
 router.patch("/editingPost/:postId", tokenChecker, PostsController.updatePost);
 
-router.post('/commentPost', tokenChecker, PostsController.commentPost)
+
 
 module.exports = router;

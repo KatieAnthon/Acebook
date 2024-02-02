@@ -2,6 +2,7 @@ import React from 'react';
 import LikeButton from "../LikeButton"
 import './Post.css'; // Your existing CSS file
 
+
 const Post = ({ post, onDelete, showDeleteButton }) => {
   return (
     <article className="post">
@@ -23,6 +24,7 @@ const Post = ({ post, onDelete, showDeleteButton }) => {
             <button className="delete-button" onClick={onDelete}>Delete Post</button>
           )}
         </div>
+        comments <h1></h1>
       </div>
     </article>
   );
