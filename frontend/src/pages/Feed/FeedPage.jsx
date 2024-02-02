@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getPosts} from "../../services/posts";
+import { addCommentToPost } from "../../services/comments";
 import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
 
@@ -9,7 +10,6 @@ import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
 import UserInfo from "../../components/UserInfo"
-import Liked from "../../components/LikeButton";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -53,6 +53,18 @@ const handlePostSubmit = async (formData) => {
     }
   };
 
+
+  const handleCommentSubmit = async (postId, commentText) => {
+    try {
+      await addCommentToPost(token, postId, commentText);
+      const updatedPosts = await getPosts(token);
+      setPosts(updatedPosts.posts);
+    } catch (err) {
+      console.error('Error adding comment:', err.message);
+    }
+  };
+
+  
 return (
     <>
       <NavBar />
@@ -67,7 +79,7 @@ return (
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
       {posts.slice().reverse().map((post) => (
-      <Post key={post._id} post={post} onDelete={() => handleDelete(post._id)} showDeleteButton={false} />
+      <Post key={post._id} post={post} onDelete={() => handleDelete(post._id)} showDeleteButton={false} onCommentSubmit={handleCommentSubmit} />
       ))}
     </div>
     </>

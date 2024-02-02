@@ -54,15 +54,13 @@ const addUserLike = async(req,res) => {
     // db.collection(Post).updateOne( { "_id": req.body.post_id }, {$push: { "likes": req.user_id } }  ).done()
     post.likes.push(user_id)
     await post.save();
-    console.log(post)
     return res.status(200).json({ message: "User added to likes successfully"});
     
   } else if (post.likes.includes(req.user_id)) {
-    // post.likes.pull(req.user_id)
+    post.likes.pull(req.user_id)
 
     post.likes.pull(user_id)
     await post.save();
-    console.log(post)
     return res.status(200).json({ message: "User unliked successfully"});
 }
 
@@ -142,16 +140,13 @@ const updatePost = async (req, res) => {
   }
 };
 
-
-
-
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   getSinglePost: getSinglePost,
   addUserLike: addUserLike,
   deletePost:deletePost,
-  updatePost:updatePost
+  updatePost:updatePost,
 };
 
 module.exports = PostsController;

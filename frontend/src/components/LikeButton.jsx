@@ -3,7 +3,6 @@ import { useState } from "react";
 import { getPosts } from "../services/posts";
 
 const LikeButton = (likes) => {
-
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [numberLikes, setNumberLikes] = useState(likes.likes.length)
 
@@ -27,4 +26,4 @@ const LikeButton = (likes) => {
     )
 }
 
-    export default LikeButton;
+export default LikeButton;

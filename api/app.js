@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
+const commentRouter = require ("./routes/comments")
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
 
@@ -13,6 +14,7 @@ app.use(cors());
 
 app.use("/posts", bodyParser.json(), tokenChecker, postsRouter);
 app.use("/tokens", bodyParser.json(), authenticationRouter);
+app.use("/comments", bodyParser.json(), tokenChecker, commentRouter);
 app.use("/users", usersRouter);
 app.use('/uploads', express.static('uploads'));
 

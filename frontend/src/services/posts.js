@@ -3,7 +3,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const getPosts = async (token) => {
 
-  console.log("token" + token)
+  // console.log("token" + token)
 
   const requestOptions = {
     method: "GET",
@@ -74,12 +74,12 @@ export const addUserLike = async (token, post_id) => {
   }
 
   const data = await response.json();
-  console.log("data", data)
+  // console.log("data", data)
   return data;
 };
 
 export const deletePost = async (token, postId) => {
-  console.log("Deleting post with ID:", postId); // Log the postId
+  // console.log("Deleting post with ID:", postId); // Log the postId
 
   const requestOptions = {
     method: "DELETE",
@@ -89,11 +89,11 @@ export const deletePost = async (token, postId) => {
   };
 
   const url = `${BACKEND_URL}/posts/posts/${postId}`;
-  console.log("Request URL:", url); // Log the request URL
+  // console.log("Request URL:", url); // Log the request URL
 
   const response = await fetch(url, requestOptions);
 
-  console.log("Response status:", response.status); // Log the response status
+  // console.log("Response status:", response.status); // Log the response status
 
   if (!response.ok) {
     throw new Error(`Error in deleting post: ${response.statusText}`);

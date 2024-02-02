@@ -3,7 +3,6 @@ const router = express.Router();
 const tokenChecker = require('../middleware/tokenChecker');
 const multer = require('multer');
 
-
 const PostsController = require("../controllers/posts");
 
 
@@ -31,6 +30,7 @@ router.delete("/posts/:postId", tokenChecker, PostsController.deletePost);
 router.get("/", PostsController.getAllPosts);
 
 router.patch("/editingPost/:postId", tokenChecker, upload.single('image'), PostsController.updatePost);
+
 
 
 
