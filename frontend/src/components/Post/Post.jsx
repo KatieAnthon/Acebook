@@ -33,7 +33,7 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
   return (
     <article className="post">
       <header className="post-header">
-        <p className="post-user">Posted by {post.user.username}</p>
+        <p className="post-user">Posted by {post.user?.username}</p>
       </header>
       <div className="post-content">
         <p className="post-message">{post.message}</p>
