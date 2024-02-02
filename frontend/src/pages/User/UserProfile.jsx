@@ -10,6 +10,8 @@ import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
 import UserInfo from "../../components/UserInfo"
 
+import "../../components/Post/Post.css";
+
 
 export const UserProfile = () => {
 const [posts, setPosts] = useState([]);
@@ -83,13 +85,10 @@ const navigate = useNavigate();
     
     <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
-        {posts.map((post) => (
-          <div key={post._id}>
-            <Post post={post} />
-            <button onClick={() => handleDelete(post._id)}>Delete Post</button>
-          </div>
-        ))}
-      </div>
+      {posts.map((post) => (
+      <Post key={post._id} post={post} onDelete={() => handleDelete(post._id)} showDeleteButton={true} />
+      ))}
+    </div>
     </>
   );
 };

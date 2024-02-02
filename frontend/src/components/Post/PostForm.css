@@ -1,0 +1,38 @@
+.post-form-container {
+    background-color: #f0f2f5;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .post-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .post-textarea {
+    border: 1px solid #ccd0d5;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    padding: 8px;
+    resize: vertical;
+  }
+  
+  .post-input-file {
+    margin-bottom: 8px;
+  }
+  
+  .post-submit-button {
+    background-color: #4267b2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .post-submit-button:hover {
+    background-color: #365899;
+  }
+
+
