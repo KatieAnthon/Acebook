@@ -9,7 +9,6 @@ import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
 import UserInfo from "../../components/UserInfo"
-import Liked from "../../components/LikeButton";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -26,7 +25,6 @@ export const FeedPage = () => {
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
-  
         try {
           const postsData = await getPosts(token);
           setPosts(postsData.posts);
@@ -38,7 +36,6 @@ export const FeedPage = () => {
         navigate("/login");
       }
     };
-  
     fetchData();
   }, [token, navigate]);
 

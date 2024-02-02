@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { deletePost } from '../../services/posts'; // import your deletePost function
-
 import { getUserInfo } from "../../services/authentication";
 import { getSinglePost} from "../../services/posts";
 import { createPost } from '../../services/posts'; 
