@@ -1,5 +1,5 @@
 import React from 'react';
-import Liked from "../LikeButton";
+import LikeButton from "../LikeButton"
 import './Post.css'; // Your existing CSS file
 
 const Post = ({ post, onDelete, showDeleteButton }) => {
@@ -18,7 +18,7 @@ const Post = ({ post, onDelete, showDeleteButton }) => {
           />
         )}
         <div className="post-actions">
-          <Liked />
+          <LikeButton post_id={post._id} likes={post.likes}/>
           {showDeleteButton && (
             <button className="delete-button" onClick={onDelete}>Delete Post</button>
           )}
