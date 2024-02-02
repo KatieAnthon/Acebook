@@ -19,6 +19,7 @@ export const addCommentToPost = async (token, postId, commentText) => {
   }
 
   return response.json();
+  
 };
 
 
@@ -40,3 +41,19 @@ export const addCommentToPost = async (token, postId, commentText) => {
     return data;
   };
   
+  export const getCommentsByPostId = async (token, postId) => {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(`${BACKEND_URL}/comments/byPost/${postId}`, requestOptions);
+  
+    if (!response.ok) {
+      throw new Error("Unable to fetch comments");
+    }
+  
+    const data = await response.json();
+    return data.comments; // Assuming the backend sends the comments in a 'comments' key
+  };

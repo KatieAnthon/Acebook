@@ -23,7 +23,7 @@ const commentPost = async (req, res) => {
 
     await comment.save(); 
 
-    res.status(201).json({ message: 'Comment added successfully', comment });
+    res.status(201).json({ comment });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
@@ -33,6 +33,7 @@ const commentPost = async (req, res) => {
 const getAllComments = async (req, res) => {
   try {
     const comments = await Comments.find().populate('userid postid');
+    console.log(comments)
     res.status(200).json({ comments });
   } catch (error) {
     console.error(error);
@@ -40,10 +41,23 @@ const getAllComments = async (req, res) => {
   }
 };
 
+const getCommentsByPostId = async (req, res) => {
+  try {
+   const postId = req.params.postId;
+    
+   const comments = await Comments.find({ postid: postId });
+    console.log(comments)
+    res.status(200).json({ comments });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 const CommentsController = {
     commentPost:commentPost,
-    getAllComments:getAllComments
+    getAllComments:getAllComments,
+    getCommentsByPostId:getCommentsByPostId
   };
   
 module.exports = CommentsController;

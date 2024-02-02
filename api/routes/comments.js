@@ -8,4 +8,7 @@ router.post('/commentPost', tokenChecker, CommentsController.commentPost)
 
 router.get('/comments', tokenChecker, CommentsController.getAllComments)
 
+router.get('/byPost/:postId', tokenChecker, CommentsController.getCommentsByPostId);
+
+
 module.exports = router;
