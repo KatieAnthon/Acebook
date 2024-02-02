@@ -108,11 +108,20 @@ const deletePost = async (req, res) => {
 
 const updatePost = async (req, res) => {
   try {
-    const postId = req.params.postId; // Extract post ID from request parameters
-    console.log("Post ID:", postId); // Log the Post ID
+    const postId = req.params.postId;
+    console.log("Post ID:", postId);
+    console.log("Request Body:", req.body);
+    console.log("Request header:", req.header);
 
-    const post = await Post.findById(postId);
-    if (!post) {
+    const updatedPost = await Post.findOneAndUpdate(
+      { _id: postId, user: req.user_id },
+      { $set: { message: req.body.content, postImage: req.file.path } },
+      { new: true }
+    );
+
+    console.log("Updated Post:", updatedPost); // Log the updated post
+
+    if (!updatedPost) {
       return res.status(404).json({ message: 'Post not found' });
     }
     console.log("Post:", post); // Log the Post object
@@ -124,12 +133,15 @@ const updatePost = async (req, res) => {
     // Perform the update
     const updateData = req.body; // Assuming the updated post data is sent in the request body
     await Post.updateOne({ _id: postId }, updateData);
-    res.status(200).json({ message: 'Post updated successfully' });
+    res.status(200).json({ message: 'Post updated successfully', updatedPost });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
 
 
 const PostsController = {
