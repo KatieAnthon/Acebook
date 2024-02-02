@@ -32,5 +32,6 @@ router.get("/", PostsController.getAllPosts);
 
 router.patch("/editingPost/:postId", tokenChecker, PostsController.updatePost);
 
+router.post('/commentPost', tokenChecker, PostsController)
 
 module.exports = router;

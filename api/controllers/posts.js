@@ -145,6 +145,22 @@ const updatePost = async (req, res) => {
   }
 };
 
+const commentPost = async (req, res) => {
+  try {
+    const postId = req.params.postId; // Extract post ID from request parameters
+    console.log("Post ID:", postId); // Log the Post ID
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+ 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 
 const PostsController = {
   getAllPosts: getAllPosts,
@@ -152,7 +168,8 @@ const PostsController = {
   getSinglePost: getSinglePost,
   addUserLike: addUserLike,
   deletePost:deletePost,
-  updatePost:updatePost
+  updatePost:updatePost,
+  commentPost:commentPost
 };
 
 module.exports = PostsController;
