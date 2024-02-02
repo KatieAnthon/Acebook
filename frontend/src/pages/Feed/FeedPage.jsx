@@ -54,20 +54,17 @@ const handlePostSubmit = async (formData) => {
   };
 
 
-const handleCommentSubmit = async (postId, commentText) => {
-    // Assuming addCommentToPost takes the postId and the comment text
+  const handleCommentSubmit = async (postId, commentText) => {
     try {
       await addCommentToPost(token, postId, commentText);
-      // Re-fetch posts or the individual post to update UI with new comment
       const updatedPosts = await getPosts(token);
       setPosts(updatedPosts.posts);
     } catch (err) {
       console.error('Error adding comment:', err.message);
     }
-};
+  };
 
-
-
+  
 return (
     <>
       <NavBar />

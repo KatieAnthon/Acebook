@@ -2,16 +2,18 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const addCommentToPost = async (token, postId, commentText) => {
+  console.log(postId, commentText)
   const requestOptions = {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json', // Specify that you are sending JSON data
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ comment: commentText }), // Send the comment text in JSON format
+    body: JSON.stringify({ postId, comment: commentText }),
   };
-  
-  const response = await fetch(`${BACKEND_URL}/posts/commentPost/${postId}`, requestOptions);
+
+  // Adjust the URL to point to the correct endpoint for adding comments
+  const response = await fetch(`${BACKEND_URL}/comments/commentPost`, requestOptions);
   if (!response.ok) {
     throw new Error('Failed to add comment');
   }
