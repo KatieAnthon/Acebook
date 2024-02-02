@@ -103,30 +103,29 @@ export const deletePost = async (token, postId) => {
   return data;
 };
 
-export const updatePost = async (token, postId, postData) => {
-  console.log("updating post with ID:", postId, ); // Log the postId
-
+// Assuming your original updatePost function
+export const updatePost = async (token, postId, formData) => {
   const requestOptions = {
-    method: 'PATCH', // or 'PUT' if replacing the whole post
+    method: 'PATCH',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(postData),
+    body: formData,
   };
-
   const url = `${BACKEND_URL}/posts/editingPost/${postId}`;
-  console.log("Request URL:", url); // Log the request URL
-
-  const response = await fetch(url, requestOptions);
-
-  console.log("Response status:", response.status); // Log the response status
-
-  if (!response.ok) {
-    throw new Error(`Error in deleting post: ${response.statusText}`);
+  try {
+    const response = await fetch(url, requestOptions);
+    if (!response.ok) {
+      throw new Error(`Error in updating post: ${response.statusText}`);
+    }
+    const responseData = await response.json();
+    // Check if 'updatedPost' is present in the response
+    const updatedPost = responseData.updatedPost || null;
+    return { message: responseData.message, updatedPost };
+  } catch (error) {
+    console.error('Error updating post:', error.message);
+    throw error;
   }
-
-  const data = await response.json();
-  return data;
 };
+
 
