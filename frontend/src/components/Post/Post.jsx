@@ -1,9 +1,10 @@
 import React from 'react';
 import LikeButton from "../LikeButton"
 import './Post.css'; // Your existing CSS file
+import CommentForm from './CommentFormHandle';
 
+const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
 
-const Post = ({ post, onDelete, showDeleteButton }) => {
   return (
     <article className="post">
       <header className="post-header">
@@ -24,7 +25,10 @@ const Post = ({ post, onDelete, showDeleteButton }) => {
             <button className="delete-button" onClick={onDelete}>Delete Post</button>
           )}
         </div>
-        comments <h1></h1>
+        <div className="post-comments">
+        <h3>Comments</h3>
+        <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
+      </div>
       </div>
     </article>
   );

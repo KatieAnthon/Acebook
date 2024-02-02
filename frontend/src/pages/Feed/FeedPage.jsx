@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getPosts} from "../../services/posts";
+import { addCommentToPost } from "../../services/comments";
 import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
 
@@ -52,6 +53,21 @@ const handlePostSubmit = async (formData) => {
     }
   };
 
+
+const handleCommentSubmit = async (postId, commentText) => {
+    // Assuming addCommentToPost takes the postId and the comment text
+    try {
+      await addCommentToPost(token, postId, commentText);
+      // Re-fetch posts or the individual post to update UI with new comment
+      const updatedPosts = await getPosts(token);
+      setPosts(updatedPosts.posts);
+    } catch (err) {
+      console.error('Error adding comment:', err.message);
+    }
+};
+
+
+
 return (
     <>
       <NavBar />
@@ -66,7 +82,7 @@ return (
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
       {posts.map((post) => (
-      <Post key={post._id} post={post} onDelete={() => handleDelete(post._id)} showDeleteButton={false} />
+      <Post key={post._id} post={post} onDelete={() => handleDelete(post._id)} showDeleteButton={false} onCommentSubmit={handleCommentSubmit} />
       ))}
     </div>
     </>

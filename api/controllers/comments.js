@@ -1,18 +1,18 @@
 const Post = require("../models/post");
 const User = require('../models/user');
+const Comments = require("../models/comments");
 
 const commentPost = async (req, res) => {
     try {
-      const postId = req.params.postId; // Extract post ID from request parameters
-      console.log("Post ID:", postId); // Log the Post ID
-  
-      const post = await Post.findById(postId);
-      if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
-      }
-      post.comments.push(req.body.message);
-      await post.save(); // Save the updated post back to the database
-  
+    const user = await User.findById(req.user_id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const Comment = new Comments({
+      message: req.body.content,
+     
+    });
       res.status(200).json({ message: 'Comment added successfully', post });
     } catch (error) {
       console.error(error);
@@ -20,8 +20,21 @@ const commentPost = async (req, res) => {
     }
   };
 
+const getAllComments = async (req, res) => {
+    try {
+      const comments = await Comments.find();
+      const token = generateToken(req.user_id);
+      res.status(200).json({ comments: comments, token: token });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+
+
 const CommentsController = {
-    commentPost:commentPost
+    commentPost:commentPost,
+    getAllComments:getAllComments
   };
   
-  module.exports = CommentsController;
+module.exports = CommentsController;

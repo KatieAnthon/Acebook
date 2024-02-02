@@ -6,6 +6,6 @@ const CommentsController = require("../controllers/comments");
 
 router.post('/commentPost', tokenChecker, CommentsController.commentPost)
 
-
+router.get('/comments', tokenChecker, CommentsController.getAllComments)
 
 module.exports = router;
