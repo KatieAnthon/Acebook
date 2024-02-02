@@ -9,7 +9,6 @@ import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
 import UserInfo from "../../components/UserInfo"
-import Liked from "../../components/LikeButton";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);

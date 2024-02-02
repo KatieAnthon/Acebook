@@ -9,11 +9,11 @@ const PostsController = require("../controllers/posts");
 // Configure Multer for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      console.log("Multer destination function:", file); // Debugging log
+      // console.log("Multer destination function:", file); // Debugging log
       cb(null, 'uploads/post');
     },
     filename: (req, file, cb) => {
-      console.log("Multer filename function:", file); // Debugging log
+      // console.log("Multer filename function:", file); // Debugging log
       cb(null, file.fieldname + '-' + Date.now() + require('path').extname(file.originalname));
     }
   });
@@ -32,6 +32,6 @@ router.get("/", PostsController.getAllPosts);
 
 router.patch("/editingPost/:postId", tokenChecker, PostsController.updatePost);
 
-router.post('/commentPost', tokenChecker, PostsController)
+router.post('/commentPost', tokenChecker, PostsController.commentPost)
 
 module.exports = router;

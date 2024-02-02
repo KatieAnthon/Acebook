@@ -54,7 +54,6 @@ const addUserLike = async(req,res) => {
     // db.collection(Post).updateOne( { "_id": req.body.post_id }, {$push: { "likes": req.user_id } }  ).done()
     post.likes.push(user_id)
     await post.save();
-    console.log(post)
     return res.status(200).json({ message: "User added to likes successfully"});
     
   } else if (post.likes.includes(req.user_id)) {
@@ -62,7 +61,6 @@ const addUserLike = async(req,res) => {
 
     post.likes.pull(user_id)
     await post.save();
-    console.log(post)
     return res.status(200).json({ message: "User unliked successfully"});
 }
 
