@@ -1,6 +1,6 @@
-import { addUserLike } from "../services/posts"
+import { addUserLike } from "../../services/posts"
 import { useState } from "react";
-import { getPosts } from "../services/posts";
+import { getPosts } from "../../services/posts";
 
 const LikeButton = (likes) => {
     const [token, setToken] = useState(window.localStorage.getItem("token"));

@@ -7,8 +7,8 @@ import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
-import NavBar from "../../components/NavBar"
-import UserInfo from "../../components/UserInfo"
+import NavBar from "../../components/NavBar/NavBar"
+import UserInfo from "../../components/Userinfo/UserInfo"
 
 
 export const FeedPage = () => {

@@ -123,3 +123,14 @@
     text-align: right; /* Align date to the right */
     color: #777; /* A grey color for the date */
   }
+
+  .post-message {
+    font-size: 2rem; /* Adjust the font size as needed */
+    line-height: 1.5; /* Increase line-height for better readability */
+    color: #333; /* Darker text color for better contrast */
+    margin: 10px 0; /* Add some margin to the top and bottom */
+    padding: 0.5rem; /* Add some padding for visual comfort */
+    background-color: #f8f9fa; /* A light background to highlight the message */
+    border-left: 4px solid #4267b2; /* A left border for a touch of design */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
+  }

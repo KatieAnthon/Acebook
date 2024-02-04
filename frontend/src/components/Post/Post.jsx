@@ -1,4 +1,4 @@
-import LikeButton from "../LikeButton";
+import LikeButton from "../LikeButton/LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
 
