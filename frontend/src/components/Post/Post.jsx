@@ -23,9 +23,9 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit, focusCommentF
         <div className="post-actions">
           <LikeButton post_id={post._id} likes={post.likes}/>
           {showDeleteButton && (
-            <button className="delete-button" onClick={onDelete}>Delete Post</button>
+            <button className="my-button" onClick={onDelete}>Delete Post</button>
           )}
-          <button onClick={() => focusCommentForm(post._id)} className="goto-comment-form-button">Comment</button>
+          <button onClick={() => focusCommentForm(post._id)} className="my-button">Comment</button>
         </div>
         <div className="post-comments">
           <h3>Comments</h3>

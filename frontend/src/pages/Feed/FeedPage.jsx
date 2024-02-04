@@ -73,7 +73,7 @@ const handleCommentSubmit = async (postId, commentText) => {
   };
 
   const focusCommentForm = (postId) => {
-    const form = document.getElementById(`comment-form-${postId}`); // Ensure each form has a unique ID.
+    const form = document.getElementById(`comment-form-${postId}`); 
     form.scrollIntoView({ behavior: 'smooth' });
     form.querySelector('textarea').focus();
   }
