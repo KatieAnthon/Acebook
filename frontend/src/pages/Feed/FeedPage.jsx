@@ -100,7 +100,7 @@ return (
         onDelete={() => handleDelete(post._id)} 
         showDeleteButton={false} 
         onCommentSubmit={handleCommentSubmit}
-            focusCommentForm={() => focusCommentForm(post._id)}
+        focusCommentForm={() => focusCommentForm(post._id)}
       />
     ))}
     </div>

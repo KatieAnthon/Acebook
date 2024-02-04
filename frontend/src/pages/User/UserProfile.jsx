@@ -112,7 +112,6 @@ useEffect(() => {
           </div>
         ))}
       </div>
-       {/* Edit Post Modal */}
     {isEditModalOpen && (
     <div className="edit-post-modal-overlay">
     <div className="edit-post-modal">
