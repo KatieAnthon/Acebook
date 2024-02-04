@@ -10,6 +10,7 @@ import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
+import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
 
@@ -106,8 +107,7 @@ useEffect(() => {
   return (
     <>
       <NavBar />
-      <h1>Welcome to your Profile</h1>
-      <h1>Create a new Post</h1>
+      <Introduction pageName={"Profile"}/>
       {userInfo && (
       <UserInfo
         userName={userInfo.username || 'Default Username'} 

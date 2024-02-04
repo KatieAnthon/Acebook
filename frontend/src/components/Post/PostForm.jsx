@@ -43,7 +43,7 @@ const PostForm = ({ onSubmit, initialData }) => {
   return (
     <div className="post-form-container">
     <form onSubmit={handleSubmit} className="post-form">
-      <textarea value={content} placeholder="Create a new post..." className="post-textarea" onChange={handleContentChange} name="content"/>
+      <textarea value={content} placeholder="What are you thinking?" className="post-textarea" onChange={handleContentChange} name="content"/>
       <input type="file" className="post-input-file" accept="image/*" onChange={handleImageChange} />
       <button type="submit" className="post-submit-button">{initialData ? 'Update Post' : 'Create Post'}</button>
     </form>
