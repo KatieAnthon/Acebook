@@ -23,6 +23,9 @@ const commentPost = async (req, res) => {
 
     await comment.save(); 
 
+    post.comments.push(comment);
+    await post.save();
+
     res.status(201).json({ comment });
   } catch (error) {
     console.error(error);

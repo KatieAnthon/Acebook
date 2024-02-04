@@ -1,0 +1,43 @@
+.comment-form-container {
+    margin-top: 15px;
+    padding: 8px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .comment-textarea {
+    padding: 8px;
+    border: 1px solid #dddfe2;
+    border-radius: 4px;
+    min-height: 50px;
+    resize: vertical; /* Allows the user to resize the textarea vertically */
+  }
+  
+  .comment-submit-button {
+    background-color: #4267b2; /* Facebook blue */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
+  }
+  
+  .comment-submit-button:hover {
+    background-color: #365899; /* Darker blue on hover */
+  }
+  
+  .comment-submit-button:disabled {
+    background-color: #aac9f5; /* Lighter blue when button is disabled */
+    cursor: not-allowed; /* Cursor to indicate the button is disabled */
+  }

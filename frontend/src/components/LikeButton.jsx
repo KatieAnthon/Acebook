@@ -17,10 +17,10 @@ const LikeButton = (likes) => {
             console.error("Error handling like", err.message);
         }
     };
-
+  
     return (
     <div>
-        <button onClick={handleAddLike} >👍 Likes: {numberLikes}
+        <button className="my-button" onClick={handleAddLike} > {numberLikes > 1 ? '👍 Likes' : '👍 Like'} {numberLikes == 0 ? "" : `: ${numberLikes}`} 
         </button>
     </div>
     )

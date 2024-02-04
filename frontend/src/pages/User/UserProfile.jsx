@@ -24,9 +24,7 @@ const [selectedPost, setSelectedPost] = useState(null);
 const [editedContent, setEditedContent] = useState('');
 
 const navigate = useNavigate();
-
-
-  useEffect(() => {
+useEffect(() => {
     const fetchData = async () => {
       if (token) {
         try {
@@ -114,7 +112,6 @@ const navigate = useNavigate();
           </div>
         ))}
       </div>
-       {/* Edit Post Modal */}
     {isEditModalOpen && (
     <div className="edit-post-modal-overlay">
     <div className="edit-post-modal">

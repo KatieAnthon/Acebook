@@ -41,10 +41,9 @@ const PostForm = ({ onSubmit, initialData }) => {
       }else {
         await onSubmit(formData);
       }
-  
-      console.log(formData);
-      console.log(content);
-      console.log(image);
+      // console.log(formData);
+      // console.log(content);
+      // console.log(image);
   
       setContent('');
       setImage(null);
@@ -57,18 +56,13 @@ const PostForm = ({ onSubmit, initialData }) => {
   
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea value={content} onChange={handleContentChange} />
-      <input type="file" accept="image/*" onChange={handleImageChange} />
-      <button type="submit">{initialData ? 'Update Post' : 'Create Post'}</button>
+    <div className="post-form-container">
+    <form onSubmit={handleSubmit} className="post-form">
+      <textarea value={content} className="post-textarea" onChange={handleContentChange} />
+      <input type="file" className="post-input-file" accept="image/*" onChange={handleImageChange} />
+      <button type="submit" className="post-submit-button">{initialData ? 'Update Post' : 'Create Post'}</button>
     </form>
-    // <div className="post-form-container">
-    //   <form onSubmit={handlePostSubmit} className="post-form">
-    //     <textarea value={newPost} onChange={(e) => setNewPost(e.target.value)} name="content" className="post-textarea"/>
-    //     <input type="file" accept="image/*" name="image" className="post-input-file"/>
-    //     <button type="submit" className="post-submit-button">Post</button>
-    //   </form>
-    // </div>
+    </div>  
   );
 };
 
