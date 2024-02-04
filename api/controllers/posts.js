@@ -5,7 +5,14 @@ const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate('user', 'username');
+    const posts = await Post.find().populate({
+      path: 'comments',
+      populate: {
+        path: 'userid',
+        model: 'User',
+        select: 'username'
+      }
+    });
     // console.log(posts); // Add this line to log the posts to the console
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
@@ -35,7 +42,8 @@ const createPost = async (req, res) => {
       postImage:postImage,
       comments: []
     });
-
+    
+    console.log(newPost)
     await newPost.save();
     res.status(201).json({ message: 'Post created successfully', post: newPost });
   } catch (error) {

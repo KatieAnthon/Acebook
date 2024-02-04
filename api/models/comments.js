@@ -7,6 +7,7 @@ const CommentsSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   userid: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   postid: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
+  username: String
 });
 
 // We use the Schema to create the Post model. Models are classes which we can

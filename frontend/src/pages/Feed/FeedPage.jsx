@@ -29,6 +29,7 @@ export const FeedPage = () => {
   
         try {
           const fetchedPosts = await getPosts(token);
+          console.log(fetchedPosts)
           const postWithComments = fetchedPosts.posts.map(post => ({
             ...post,
           }))
@@ -94,7 +95,7 @@ return (
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
       {posts.slice().reverse().map((post) => (
-      <Post 
+      <Post
         key={post._id} 
         post={post} 
         onDelete={() => handleDelete(post._id)} 
