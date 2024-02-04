@@ -24,9 +24,7 @@ const [selectedPost, setSelectedPost] = useState(null);
 const [editedContent, setEditedContent] = useState('');
 
 const navigate = useNavigate();
-
-
-  useEffect(() => {
+useEffect(() => {
     const fetchData = async () => {
       if (token) {
         try {

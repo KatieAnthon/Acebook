@@ -11,6 +11,7 @@ import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
 import UserInfo from "../../components/UserInfo"
 
+
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
