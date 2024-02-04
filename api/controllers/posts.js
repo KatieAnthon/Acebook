@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const User = require('../models/user');
+const Comments = require('../models/comments');
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
@@ -31,7 +32,8 @@ const createPost = async (req, res) => {
       message: req.body.content,
       user: user._id, // ObjectId of the user
       username: user.username, // Username of the user
-      postImage:postImage
+      postImage:postImage,
+      comments: []
     });
 
     await newPost.save();

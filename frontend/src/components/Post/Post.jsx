@@ -9,7 +9,7 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
   const [comments, setComments] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
 
-  useEffect(() => {
+useEffect(() => {
     const fetchComments = async () => {
       if (token) {
         try {
@@ -24,7 +24,7 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
   }, [token, post._id]);
 
 
-  const commentsList = comments.map((comment, index) => (
+  const commentsList = comments.toReversed().map((comment, index) => (
     <div key={index} className="comment">
       {comment.message}
     </div>
@@ -60,5 +60,4 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
   );
 };
 export default Post;
-
 

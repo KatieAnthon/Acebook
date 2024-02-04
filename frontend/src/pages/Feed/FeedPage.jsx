@@ -5,7 +5,7 @@ import { getPosts} from "../../services/posts";
 import { addCommentToPost } from "../../services/comments";
 import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
-
+import { getCommentsByPostId } from '../../services/comments'; 
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
@@ -16,6 +16,7 @@ export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userInfo, setUserInfo] = useState(null);
+  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,8 +30,12 @@ export const FeedPage = () => {
         }
   
         try {
-          const postsData = await getPosts(token);
-          setPosts(postsData.posts);
+          const fetchedPosts = await getPosts(token);
+          const postWithComments = fetchedPosts.posts.map(post => ({
+            ...post,
+          }))
+          console.log(postWithComments[0])
+          setPosts(postWithComments);
         } catch (err) {
           console.error('Error fetching posts:', err);
         }
@@ -46,7 +51,6 @@ export const FeedPage = () => {
 const handlePostSubmit = async (formData) => {
     try {
       await createPost(token, formData);
-      
       const updatedPosts = await getPosts(token);
       setPosts(updatedPosts.posts);
     } catch (err) {
@@ -54,12 +58,18 @@ const handlePostSubmit = async (formData) => {
     }
   };
 
-
-  const handleCommentSubmit = async (postId, commentText) => {
+const handleCommentSubmit = async (postId, commentText) => {
     try {
-      await addCommentToPost(token, postId, commentText);
-      const updatedPosts = await getPosts(token);
-      setPosts(updatedPosts.posts);
+      const commentResponse = await addCommentToPost(token, postId, commentText);
+      const newComment = commentResponse.comment; 
+  
+      setPosts(currentPosts => currentPosts.map(post => {
+        if (post._id === postId) {
+          const comments = Array.isArray(post.comments) ? post.comments : [];
+          return { ...post, comments: [...comments, newComment] };
+        }
+        return post;
+      }));
     } catch (err) {
       console.error('Error adding comment:', err.message);
     }
