@@ -4,6 +4,8 @@
     border-radius: 8px;
     margin-bottom: 15px;
     padding: 16px;
+    overflow: hidden; /* Ensures that content doesn't spill outside the border */
+    position: relative; /* Sets the position context for absolute positioning of children */
   }
   
   .post-header {
@@ -20,14 +22,25 @@
   }
   
   .post-image {
-    width: 100%; /* Set a fixed width */
-    max-height: 400px; /* Set a max height */
-    object-fit: cover; /* This will cover the area without stretching the image */
-    border-radius: 8px;
+    width: 100%; /* Full width of the post container */
+    height: 100%;/* Fixed height for all images */
+    object-fit: cover; /* Covers the area, cropping the image as needed */
+    border-radius: 8px; /* If you want rounded corners */
     margin-top: 10px;
-    margin-bottom: 10px; /* Add bottom margin for spacing */
+    margin-bottom: 10px;
   }
-
+  .post-image-container {
+    height: 300px; /* Fixed height */
+    width: 600px; /* Full width */
+    overflow: hidden; /* Hides the overflowed part of the image */
+    position: relative; /* Relative to its normal position */
+  }
+  .post-image-container img {
+    position: absolute; /* Position absolutely within the .post-image-container */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
   .post-actions {
     display: flex;

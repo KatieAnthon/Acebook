@@ -11,11 +11,13 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
       <div className="post-content">
         <p className="post-message">{post.message}</p>
         {post.postImage && (
-          <img 
-            className="post-image" 
-            src={`http://localhost:3000/${post.postImage}`} 
-            alt="Post" 
-          />
+          <div className="post-image-container">
+            <img 
+              className="post-image" 
+              src={`http://localhost:3000/${post.postImage}`} 
+              alt="Post" 
+            />
+          </div>
         )}
         <div className="post-comments">
           <h3>Comments</h3>
