@@ -18,11 +18,11 @@ const commentPost = async (req, res) => {
     const comment = new Comments({
       message: req.body.comment,
       userid: req.user_id, 
-      postid: req.body.postId, 
+      postid: req.body.postId,
+      username: user.username
     });
-
+    
     await comment.save(); 
-
     post.comments.push(comment);
     await post.save();
 
