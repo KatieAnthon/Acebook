@@ -34,7 +34,6 @@ export const FeedPage = () => {
           const postWithComments = fetchedPosts.posts.map(post => ({
             ...post,
           }))
-          console.log(postWithComments[0])
           setPosts(postWithComments);
         } catch (err) {
           console.error('Error fetching posts:', err);

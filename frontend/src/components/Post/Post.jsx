@@ -17,20 +17,22 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
             alt="Post" 
           />
         )}
+        <div className="post-comments">
+          <h3>Comments</h3>
+          {post.comments.map((comment, index) => (
+            <li key={index} className="comment-item">
+              <div className="comment-username">{post.user.username}</div>
+              <div className="comment-message">{comment.message}</div>
+              <div className="comment-date">{comment.date.split("T")[0]}</div>
+            </li>
+          ))}
+          <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
+        </div>
         <div className="post-actions">
           <LikeButton post_id={post._id} likes={post.likes}/>
           {showDeleteButton && (
             <button className="delete-button" onClick={onDelete}>Delete Post</button>
           )}
-        </div>
-        <div className="post-comments">
-          <h3>Comments</h3>
-          <ul>
-            {post.comments.map((comment, index) => (
-              <li key={index}>{comment.message}</li> // Assuming comment is just a string
-            ))}
-          </ul>
-          <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
         </div>
       </div>
     </article>
