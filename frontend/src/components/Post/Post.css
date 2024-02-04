@@ -88,6 +88,16 @@
     font-size: 0.85rem; /* Smaller font size for username and date */
     color: #365899; /* A blue color for username and date */
   }
+
+  .post-comments h3 {
+    font-size: 1.5rem; /* Larger font size for headings */
+    color: #365899; /* A deep blue color */
+    margin-bottom: 0.5rem; /* Add some space below the heading */
+    padding-bottom: 0.25rem; /* A bit of padding at the bottom */
+    border-bottom: 2px solid #365899; /* A solid line below the heading for emphasis */
+    display: inline-block; /* Makes the border-bottom only as long as the text */
+    margin-top: 2rem; /* Add some space above the heading */
+  }
   
   .comment-username {
     margin-bottom: 4px; /* Space between username and message */

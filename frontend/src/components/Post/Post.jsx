@@ -19,6 +19,12 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
             />
           </div>
         )}
+        <div className="post-actions">
+          <LikeButton post_id={post._id} likes={post.likes}/>
+          {showDeleteButton && (
+            <button className="delete-button" onClick={onDelete}>Delete Post</button>
+          )}
+        </div>
         <div className="post-comments">
           <h3>Comments</h3>
           {post.comments.map((comment, index) => (
@@ -28,14 +34,10 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
               <div className="comment-date">{comment.date.split("T")[0]}</div>
             </li>
           ))}
+         
           <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
         </div>
-        <div className="post-actions">
-          <LikeButton post_id={post._id} likes={post.likes}/>
-          {showDeleteButton && (
-            <button className="delete-button" onClick={onDelete}>Delete Post</button>
-          )}
-        </div>
+     
       </div>
     </article>
   );

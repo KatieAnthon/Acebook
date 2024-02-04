@@ -84,7 +84,8 @@ return (
         userEmail={userInfo.email || 'Default Email'} 
         userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
         />
-      )}   
+      )}
+      <h1>Welcome to your feed</h1>
       <h1>Create a new Post</h1>
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
