@@ -1,8 +1,9 @@
 import LikeButton from "../LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
+import React, { forwardRef } from 'react';
 
-const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
+const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit, focusCommentForm }) => {
   return (
     <article className="post">
       <header className="post-header">
@@ -24,6 +25,7 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit }) => {
           {showDeleteButton && (
             <button className="delete-button" onClick={onDelete}>Delete Post</button>
           )}
+          <button onClick={() => focusCommentForm(post._id)} className="goto-comment-form-button">Comment</button>
         </div>
         <div className="post-comments">
           <h3>Comments</h3>

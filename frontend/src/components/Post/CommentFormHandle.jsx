@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import './CommentFormHandle.css'; 
 
-const CommentForm = ({ postId, onCommentSubmit }) => {
+const CommentForm = forwardRef(({ postId, onCommentSubmit }, ref) => {
     const [comment, setComment] = useState("");
     
     const handleAddComment = async (event) => {
@@ -11,19 +11,21 @@ const CommentForm = ({ postId, onCommentSubmit }) => {
     };
 
     return (
-      <div className="comment-form-container">
+        <div className="comment-form-container" id={`comment-form-${postId}`}>
           <form onSubmit={handleAddComment} className="comment-form">
               <textarea
+                  ref={ref} 
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   placeholder="Write a comment..."
                   className="comment-textarea"
-                  name="comment" // You can also use a `name` attribute if you want to work with FormData
+                  name="comment"
               />
               <button type="submit" className="comment-submit-button">Comment</button>
           </form>
       </div>
   );
-};
+});
+
 
 export default CommentForm;

@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import { getPosts} from "../../services/posts";
 import { addCommentToPost } from "../../services/comments";
 import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
-import { getCommentsByPostId } from '../../services/comments'; 
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar"
@@ -16,7 +15,6 @@ export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userInfo, setUserInfo] = useState(null);
-  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,6 +72,12 @@ const handleCommentSubmit = async (postId, commentText) => {
     }
   };
 
+  const focusCommentForm = (postId) => {
+    const form = document.getElementById(`comment-form-${postId}`); // Ensure each form has a unique ID.
+    form.scrollIntoView({ behavior: 'smooth' });
+    form.querySelector('textarea').focus();
+  }
+
   
 return (
     <>
@@ -90,8 +94,15 @@ return (
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
       {posts.slice().reverse().map((post) => (
-      <Post key={post._id} post={post} onDelete={() => handleDelete(post._id)} showDeleteButton={false} onCommentSubmit={handleCommentSubmit} />
-      ))}
+      <Post 
+        key={post._id} 
+        post={post} 
+        onDelete={() => handleDelete(post._id)} 
+        showDeleteButton={false} 
+        onCommentSubmit={handleCommentSubmit}
+            focusCommentForm={() => focusCommentForm(post._id)}
+      />
+    ))}
     </div>
     </>
   );
