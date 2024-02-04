@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-
 import { getPosts} from "../../services/posts";
 import { addCommentToPost } from "../../services/comments";
 import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
-import NavBar from "../../components/NavBar"
-import UserInfo from "../../components/UserInfo"
+import NavBar from "../../components/NavBar/NavBar"
+import UserInfo from "../../components/Userinfo/UserInfo"
+import Introduction from "../../components/Introduction/Introduction"
 
 
 export const FeedPage = () => {
@@ -90,8 +90,7 @@ return (
         userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
         />
       )}
-      <h1>Welcome to your feed</h1>
-      <h1>Create a new Post</h1>
+      <Introduction pageName={"Feed"}/>
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
       {posts.slice().reverse().map((post) => (

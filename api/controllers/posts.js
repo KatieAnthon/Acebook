@@ -127,17 +127,18 @@ const deletePost = async (req, res) => {
 const updatePost = async (req, res) => {
   try {
     const postId = req.params.postId;
-    console.log("Post ID:", postId);
-    console.log("Request Body:", req.body);
-    console.log("Request header:", req.header);
+    const postUpdateData = { message: req.body.content };
+
+    // there was an error, the post was only updating if an and a file were updated. issue now fixed. 
+    if (req.file) {
+      postUpdateData.postImage = req.file.path;
+    }
 
     const updatedPost = await Post.findOneAndUpdate(
       { _id: postId, user: req.user_id },
-      { $set: { message: req.body.content, postImage: req.file.path } },
+      { $set: postUpdateData },
       { new: true }
     );
-
-    console.log("Updated Post:", updatedPost); // Log the updated post
 
     if (!updatedPost) {
       return res.status(404).json({ message: 'Post not found' });

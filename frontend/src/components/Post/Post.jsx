@@ -1,9 +1,9 @@
-import LikeButton from "../LikeButton";
+import LikeButton from "../LikeButton/LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
 
 
-const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit, focusCommentForm }) => {
+const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm }) => {
   return (
     <article className="post">
       <header className="post-header">
@@ -20,13 +20,16 @@ const Post = ({ post, onDelete, showDeleteButton, onCommentSubmit, focusCommentF
             />
           </div>
         )}
-        <div className="post-actions">
-          <LikeButton post_id={post._id} likes={post.likes}/>
-          {showDeleteButton && (
+       <div className="post-actions">
+        <LikeButton post_id={post._id} likes={post.likes} />
+        <button onClick={() => focusCommentForm(post._id)} className="my-button">Comment</button>
+        {showDeleteButton && (
+          <>
             <button className="my-button" onClick={onDelete}>Delete Post</button>
-          )}
-          <button onClick={() => focusCommentForm(post._id)} className="my-button">Comment</button>
-        </div>
+            <button className="my-button" onClick={onEdit}>Edit Post</button>
+          </>
+        )}
+      </div>
         <div className="post-comments">
           <h3>Comments</h3>
           {post.comments.map((comment, index) => (

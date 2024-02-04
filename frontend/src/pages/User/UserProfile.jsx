@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { deletePost } from '../../services/posts'; // import your deletePost function
-
+import { deletePost } from '../../services/posts'; 
 import { getUserInfo } from "../../services/authentication";
-
+import { addCommentToPost } from "../../services/comments";
 import { getSinglePost} from "../../services/posts";
 import { createPost } from '../../services/posts';
 import { updatePost } from '../../services/posts'; 
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
-import NavBar from "../../components/NavBar"
-import UserInfo from "../../components/UserInfo"
+import NavBar from "../../components/NavBar/NavBar"
+import UserInfo from "../../components/Userinfo/UserInfo"
+import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
 
@@ -57,42 +57,57 @@ useEffect(() => {
     } catch (err) {
       console.error('Error deleting post:', err.message);
     }
-
-    
   };
+
+  const focusCommentForm = (postId) => {
+    const form = document.getElementById(`comment-form-${postId}`); 
+    form.scrollIntoView({ behavior: 'smooth' });
+    form.querySelector('textarea').focus();
+  }
+
   const handleEdit = (post) => {
       setSelectedPost(post);
       setIsEditModalOpen(true);
     };
 
-    // Example usage in a component
-    const handlePostSubmit = async (formData, initialData) => {
+  const handlePostSubmit = async (formData, initialData) => {
+    try {
+      if (initialData) {
+        await updatePost(token, initialData._id, formData);
+      } else {
+        await createPost(token, formData);
+      }
+      const updatedPosts = await getSinglePost(token);
+      setPosts(updatedPosts.posts);
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error('Error submitting post:', error.message);
+    }
+  };
+
+
+  const handleCommentSubmit = async (postId, commentText) => {
       try {
-        if (initialData) {
-          // If initialData exists, it's an update
-          await updatePost(token, initialData._id, formData);
-        } else {
-          // If initialData is null, it's a new post
-          await createPost(token, formData);
-        }
-  
-        // Update the posts after creating or updating a post
-        const updatedPosts = await getSinglePost(token);
-        setPosts(updatedPosts.posts);
-  
-        setIsEditModalOpen(false);// Optionally, you can reset the form state or perform additional logic
-      } catch (error) {
-        console.error('Error submitting post:', error.message);
-        // Handle the error, e.g., display an error message to the user
+        const commentResponse = await addCommentToPost(token, postId, commentText);
+        const newComment = commentResponse.comment; 
+    
+        setPosts(currentPosts => currentPosts.map(post => {
+          if (post._id === postId) {
+            const comments = Array.isArray(post.comments) ? post.comments : [];
+            return { ...post, comments: [...comments, newComment] };
+          }
+          return post;
+        }));
+      } catch (err) {
+        console.error('Error adding comment:', err.message);
       }
     };
-    
-    
+
 
   return (
     <>
       <NavBar />
-      <h2>New Post</h2>
+      <Introduction pageName={"Profile"}/>
       {userInfo && (
       <UserInfo
         userName={userInfo.username || 'Default Username'} 
@@ -103,13 +118,16 @@ useEffect(() => {
     
     <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
-        {posts.slice().reverse().map((post) => (
-          <div key={post._id}>
-            <Post post={post} />
-            <button onClick={() => handleDelete(post._id)}>Delete Post</button>
-            <button onClick={() => handleEdit(post)}>Edit Post</button>
-
-          </div>
+    {posts.slice().reverse().map((post) => (
+          <Post
+            key={post._id}
+            post={post}
+            onDelete={() => handleDelete(post._id)}
+            onEdit={() => handleEdit(post)}
+            showDeleteButton={true}
+            onCommentSubmit={handleCommentSubmit}
+            focusCommentForm={() => focusCommentForm(post._id)}
+          />
         ))}
       </div>
     {isEditModalOpen && (
