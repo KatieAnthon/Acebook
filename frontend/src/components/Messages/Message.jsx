@@ -4,13 +4,15 @@ import './Message.css';
 import { getUserInfo } from "../../services/authentication";
 import { getPostById } from "../../services/posts";
 
-function Chat({ postId }) {
+function Chat({ postId, onClose }) {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [userInfo, setUserInfo] = useState(null);
     const [post, setPost] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [socket, setSocket] = useState(null);
+
+
     
     useEffect(() => {
         if (token) {
@@ -62,7 +64,7 @@ function Chat({ postId }) {
 
     const sendMessage = () => {
         if (message && userInfo && post && socket) {
-          console.log(userInfo.username)
+          console.log(userInfo)
             const recipientId = post.post.user;
             socket.emit('sendMessage', {
                 message: message,
@@ -75,22 +77,25 @@ function Chat({ postId }) {
     };
 
     return (
-        <div className="chat-container">
-            <div className="chat-messages">
-                {messages.map((msg, index) => (
-                    <div key={index}>{userInfo.username}: {msg.message}</div>
-                ))}
-            </div>
-            <div className="chat-input-container">
-                <input
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Type a message..."
-                />
-                <button onClick={sendMessage}>Send</button>
-            </div>
-        </div>
-    );
+      <div className="chat-container">
+          <div className="chat-header">
+              <button onClick={onClose} className="close-btn">X</button>
+          </div>
+          <div className="chat-messages">
+              {messages.map((msg, index) => (
+                  <div key={index} className="message">{userInfo.username}: {msg.message}</div>
+              ))}
+          </div>
+          <div className="chat-input-container">
+              <input
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Type a message..."
+              />
+              <button onClick={sendMessage}>Send</button>
+          </div>
+      </div>
+  );
 }
 
 export default Chat;

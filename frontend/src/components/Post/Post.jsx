@@ -10,6 +10,9 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
     setIsChatVisible(!isChatVisible);
   };
 
+  const handleCloseChat = () => {
+    setIsChatVisible(false); 
+};
 
   return (
     <article className="post">
@@ -38,7 +41,7 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
         )}
         <button onClick={toggleChat} className="my-button">Message</button> 
       </div>
-      {isChatVisible && <Chat postId={post._id} />} 
+      {isChatVisible && <Chat postId={post._id}  onClose={handleCloseChat}/>} 
         <div className="post-comments">
           <h3>Comments</h3>
           {post.comments.map((comment, index) => (

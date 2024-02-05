@@ -43,7 +43,6 @@ io.on('connection', (socket) => {
         recipient: recipientId, // Use the recipient's ID
         post: postId, // Use the post's ID
       };
-      console.log(messageData)
       const newMessage = new Message(messageData);
       newMessage.save()
         .then(savedMessage => {
