@@ -36,9 +36,9 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
             <button className="my-button" onClick={onEdit}>Edit Post</button>
           </>
         )}
-        <button onClick={toggleChat} className="my-button">Message</button> {/* Add this line */}
+        <button onClick={toggleChat} className="my-button">Message</button> 
       </div>
-        {isChatVisible && <Chat />}
+      {isChatVisible && <Chat postId={post._id} />} 
         <div className="post-comments">
           <h3>Comments</h3>
           {post.comments.map((comment, index) => (
