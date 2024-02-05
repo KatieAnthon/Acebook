@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getFriendRequestResponse } from "../../services/users";
+import { friendRequestResponse } from "../../services/users";
 
-// fetch friend requests
+// takes user_id of who's logged in to fetch friend requests 
 // return list of friend requests to respond to
 // respond to friend requests
 
@@ -24,25 +25,24 @@ const FriendRequest = () => {
     }, [token]);
 
 
-    const handleAcceptRequest = async () => {
+    const handleAcceptRequest = async (friend) => {
         try {
-            await createPost(token, formData);
-            const updatedPosts = await getPosts(token);
-            setPosts(updatedPosts.posts);
+            // sends the token, user_id of who the friend request is from, and confirmation of request
+            await friendRequestResponse(token, friend.user_id, true);
+            
         } catch (err) {
-            console.error('Error creating post:', err.message);
+            console.error('Error accepting request', err.message);
         }
     };
 
     return (
-<></>
-    // <div className="feed" role="feed">
-    //     {friendRequests.map((friend) => ( 
-    //         friend={friend}
-    //     ))
-    //     <button onClick={handleAcceptRequest}>Add Friend</button>
-    //     }
-    // </div>
+    <div className="feed" role="feed">
+        {friendRequests.map((friend) => ( 
+            friend={friend}
+        ))
+        <button onClick={handleAcceptRequest}>Add Friend</button>
+        }
+    </div>
     )
 }
 
