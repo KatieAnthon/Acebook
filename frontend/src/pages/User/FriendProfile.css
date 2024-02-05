@@ -1,0 +1,7 @@
+
+.profile-picture {
+  height: 300px; /* Fixed height */
+    width: 600px; /* Full width */
+    overflow: hidden; /* Hides the overflowed part of the image */
+    position: relative; /* Relative to its normal position */
+}

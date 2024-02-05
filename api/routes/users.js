@@ -30,4 +30,9 @@ router.get("/friendRequestResponse", tokenChecker, UsersController.getAllFriendR
 
 router.post("/friendRequestResponse", tokenChecker, UsersController.friendRequestResponse);
 
+
+
+
+
+
 module.exports = router;
