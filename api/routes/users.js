@@ -9,11 +9,11 @@ const router = express.Router();
 // Configure Multer for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      console.log("Multer destination function:", file); // Debugging log
+      // console.log("Multer destination function:", file); // Debugging log
       cb(null, 'uploads/');
     },
     filename: (req, file, cb) => {
-      console.log("Multer filename function:", file); // Debugging log
+      // console.log("Multer filename function:", file); // Debugging log
       cb(null, file.fieldname + '-' + Date.now() + require('path').extname(file.originalname));
     }
   });

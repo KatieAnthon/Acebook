@@ -1,6 +1,6 @@
-import { addUserLike } from "../services/posts"
+import { addUserLike } from "../../services/posts"
 import { useState } from "react";
-import { getPosts } from "../services/posts";
+import { getPosts } from "../../services/posts";
 
 const LikeButton = (likes) => {
     const [token] = useState(window.localStorage.getItem("token"));
@@ -22,7 +22,7 @@ const LikeButton = (likes) => {
 
     return (
     <div>
-        <button onClick={handleAddLike} >👍 Likes: {numberLikes}
+        <button className="my-button" onClick={handleAddLike} > {numberLikes > 1 ? '👍 Likes' : '👍 Like'} {numberLikes == 0 ? "" : `: ${numberLikes}`} 
         </button>
     </div>
     )

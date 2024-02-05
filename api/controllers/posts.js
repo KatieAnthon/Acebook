@@ -1,10 +1,18 @@
 const Post = require("../models/post");
 const User = require('../models/user');
+const Comments = require('../models/comments');
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate('user', 'username');
+    const posts = await Post.find().populate({
+      path: 'comments',
+      populate: {
+        path: 'userid',
+        model: 'User',
+        select: 'username'
+      }
+    });
     // console.log(posts); // Add this line to log the posts to the console
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
@@ -29,7 +37,8 @@ const createPost = async (req, res) => {
       message: req.body.content,
       user: user._id, // ObjectId of the user
       username: user.username, // Username of the user
-      postImage:postImage
+      postImage:postImage,
+      comments: []
     });
     await newPost.save();
     res.status(201).json({ message: 'Post created successfully', post: newPost });
@@ -48,13 +57,11 @@ const addUserLike = async(req,res) => {
   if (!post.likes.includes(req.user_id)) {
     post.likes.push(user_id)
     await post.save();
-    console.log(post)
     return res.status(200).json({ message: "User added to likes successfully"});
     // if the likes array of that post includes the id of the user who clicked it - remove them from the array
   } else if (post.likes.includes(req.user_id)) {
     post.likes.pull(user_id)
     await post.save();
-    console.log(post)
     return res.status(200).json({ message: "User unliked successfully"});
 }
 } catch (error) {
@@ -109,17 +116,18 @@ const deletePost = async (req, res) => {
 const updatePost = async (req, res) => {
   try {
     const postId = req.params.postId;
-    console.log("Post ID:", postId);
-    console.log("Request Body:", req.body);
-    console.log("Request header:", req.header);
+    const postUpdateData = { message: req.body.content };
+
+    // there was an error, the post was only updating if an and a file were updated. issue now fixed. 
+    if (req.file) {
+      postUpdateData.postImage = req.file.path;
+    }
 
     const updatedPost = await Post.findOneAndUpdate(
       { _id: postId, user: req.user_id },
-      { $set: { message: req.body.content, postImage: req.file.path } },
+      { $set: postUpdateData },
       { new: true }
     );
-
-    console.log("Updated Post:", updatedPost); // Log the updated post
 
     if (!updatedPost) {
       return res.status(404).json({ message: 'Post not found' });
@@ -141,16 +149,13 @@ const updatePost = async (req, res) => {
   }
 };
 
-
-
-
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   getSinglePost: getSinglePost,
   addUserLike: addUserLike,
   deletePost:deletePost,
-  updatePost:updatePost
+  updatePost:updatePost,
 };
 
 module.exports = PostsController;
