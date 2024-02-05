@@ -26,6 +26,8 @@ router.get("/userinfo",tokenChecker, UsersController.getUsersInformation);
 
 router.post("/sendFriendRequest", tokenChecker, UsersController.sendFriendRequest);
 
+router.get("/friendRequestResponse", tokenChecker, UsersController.getAllFriendRequests);
+
 router.post("/friendRequestResponse", tokenChecker, UsersController.friendRequestResponse);
 
 module.exports = router;

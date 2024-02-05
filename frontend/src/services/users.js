@@ -42,3 +42,20 @@ const data = await response.json();
 console.log("data", data)
 return data;
 };
+
+export const getFriendRequestResponse = async (token) => {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+        Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await fetch(`${BACKEND_URL}/users/friendRequestResponse`, requestOptions);
+
+    if (!response.ok) {
+        throw new Error(`Error fetching user information: ${response.statusText}`);
+    }
+
+    return await response.json();
+};

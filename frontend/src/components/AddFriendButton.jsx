@@ -3,20 +3,17 @@
 
 import { sendFriendRequest } from "../services/users"
 import { useState } from "react";
-import { getPosts } from "../services/posts";
 
-const AddFriendButton = () => {
+// needs to take user_id as props from the profile you're visiting!
+const AddFriendButton = (props) => {
     const [token] = useState(window.localStorage.getItem("token"));
     const [requestStatus, setRequestStatus] = useState('')
 
     const handleSendFriendRequest = async () => {
         try {
-            
-            await sendFriendRequest(token, { post_id: likes.post_id });
-            
-            const updatedPostsData = await getPosts(token);
-            const updatedPost = updatedPostsData.posts.find(post => post._id === likes.post_id);
-            // update the state request status
+            // sending user_id of who's logged in AND user_id of the profile you're visiting
+            await sendFriendRequest(token, { user_id: props.user_id });
+            // update the state of request status
             setRequestStatus('Friend Request Sent');
         } catch (err) {
             console.error("Error handling like", err.message);
@@ -31,4 +28,4 @@ const AddFriendButton = () => {
     )
 }
 
-export default LikeButton;
+export default AddFriendButton;

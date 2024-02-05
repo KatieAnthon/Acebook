@@ -30,6 +30,7 @@ useEffect(() => {
         try {
           const userInfoData = await getUserInfo(token);
           setUserInfo(userInfoData);
+          console.log(userInfoData)
         } catch (err) {
           console.error('Error fetching user information:', err);
         }

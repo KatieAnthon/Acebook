@@ -69,7 +69,6 @@ const handleCommentSubmit = async (postId, commentText) => {
       console.error('Error adding comment:', err.message);
     }
   };
-
   const focusCommentForm = (postId) => {
     const form = document.getElementById(`comment-form-${postId}`); 
     form.scrollIntoView({ behavior: 'smooth' });

@@ -84,11 +84,26 @@ const friendRequestResponse = async (req, res) => {
   }
 }
 
+const getAllFriendRequests = async (req, res) => {
+  try {
+    const userId = req.user_id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({friend_list: user.friend_list});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 const UsersController = {
   create: create,
   getUsersInformation: getUsersInformation,
   sendFriendRequest: sendFriendRequest,
   friendRequestResponse: friendRequestResponse,
+  getAllFriendRequests: getAllFriendRequests,
 };
 
 module.exports = UsersController;
