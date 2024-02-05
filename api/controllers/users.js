@@ -27,7 +27,7 @@ const getUsersInformation = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     } else {
-      res.json({ username: user.username, email: user.email , profilePic: user.profilePic});
+      res.json({ userid: user._id, username: user.username, email: user.email , profilePic: user.profilePic});
     }
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });

@@ -1,10 +1,12 @@
 const Message = require("../models/messages");
 
 const createMessage = async (req, res) => {
-  const { message, userid, username } = req.body;
-  const newMessage = new Message({ message, userid, username });
-  console.log(newMessage, req.body)
+  // Use only the fields that are in the MessageSchema
+  const { message, senderId, recipientId , post } = req.body;
+  
   try {
+    // Create a new message with the fields from your schema
+    const newMessage = new Message({ message, senderId, recipientId, post });
     const savedMessage = await newMessage.save();
     res.status(201).json(savedMessage);
   } catch (err) {
@@ -13,9 +15,14 @@ const createMessage = async (req, res) => {
   }
 };
 
+
+
 const getMessages = async (req, res) => {
   try {
-    const messages = await Message.find().populate('userid', 'username');
+    const messages = await Message.find()
+      .populate('sender', 'username')
+      .populate('recipient', 'username')
+      .populate('post');
     res.json(messages);
   } catch (err) {
     console.error(err);

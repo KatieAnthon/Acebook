@@ -7,21 +7,24 @@ const { connectToDatabase } = require("./db/db.js");
 const Message = require("../api/models/messages.js");
 const User = require('../api/models/user.js');
 const Post = require('../api/models/post.js');
+const { Types } = require('mongoose'); 
+const { getUserIdFromToken } = require('./lib/token'); 
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*", // Adjust according to your requirements
+    origin: "*", 
   },
 });
 
 io.on('connection', (socket) => {
   const token = socket.handshake.query.token;
-  socket.on('joinRoom', ({ userId }) => {
-    socket.join(userId);
-  });
-  socket.on('sendMessage', async ({ senderId, recipientId, text, postId }) => {
-    console.log(senderId, recipientId, text, postId)
+  const userId = getUserIdFromToken(token); 
+
+  if (userId) {
+    socket.join(userId.toString()); // Make the socket join a room named after the user ID
+  }
+  socket.on('sendMessage', async ({ message, senderId, recipientId, postId }) => {
     try {
       // Fetch the sender, recipient, and post based on their IDs
       const [sender, recipient, post] = await Promise.all([
@@ -29,29 +32,25 @@ io.on('connection', (socket) => {
         User.findById(recipientId),
         Post.findById(postId),
       ]);
-      if (!sender || !recipient || !post) {
-        console.error('User or post not found');
-        // Inform the sender that the message failed to send
-        socket.emit('sendMessageError', { error: 'Message failed to send.' });
+      if (!Types.ObjectId.isValid(senderId) || !Types.ObjectId.isValid(recipientId)) {
+        console.error('Invalid ID format');
+        socket.emit('sendMessageError', { error: 'Invalid ID format.' });
         return;
       }
-
       const messageData = {
-        sender: sender._id, // Use the sender's ID
-        recipient: recipient._id, // Use the recipient's ID
-        message: text,
-        post: post._id, // Use the post's ID
-        userid: sender._id, // You can set userid as sender's ID or as needed
-        username: sender.username, // Use sender's username
+        message: message,
+        sender: senderId, // Use the sender's ID
+        recipient: recipientId, // Use the recipient's ID
+        post: postId, // Use the post's ID
       };
-
+      console.log(messageData)
       const newMessage = new Message(messageData);
       newMessage.save()
         .then(savedMessage => {
           // Emit to sender
-          socket.to(senderId).emit('message', savedMessage);
+          io.to(recipientId.toString()).emit('message', savedMessage);
           // Emit to recipient
-          socket.to(recipientId).emit('message', savedMessage);
+          io.to(senderId.toString()).emit('message', savedMessage);
         })
         .catch(err => {
           console.error('Error saving message:', err);
@@ -60,7 +59,6 @@ io.on('connection', (socket) => {
         });
     } catch (error) {
       console.error('Error sending message:', error);
-      // Inform the sender that the message failed to send
       socket.emit('sendMessageError', { error: 'Message failed to send.' });
     }
   });

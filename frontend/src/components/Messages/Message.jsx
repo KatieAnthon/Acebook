@@ -4,62 +4,73 @@ import './Message.css';
 import { getUserInfo } from "../../services/authentication";
 import { getPostById } from "../../services/posts";
 
-
 function Chat({ postId }) {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [userInfo, setUserInfo] = useState(null);
     const [post, setPost] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
+    const [socket, setSocket] = useState(null);
     
-    // Initialize socket connection outside of useEffect to avoid multiple connections
-    const socket = io("http://localhost:3000", {
-        query: {
-            token,
-        },
-    });
-
     useEffect(() => {
-        const fetchData = async () => {
-            if (token) {
+        if (token) {
+            const newSocket = io("http://localhost:3000", {
+                query: {
+                    token,
+                },
+            });
+            setSocket(newSocket);
+
+            const fetchData = async () => {
                 try {
-                    const userInfoData = await getUserInfo(token); // Fetch user info
+                    const userInfoData = await getUserInfo(token);
                     setUserInfo(userInfoData);
                 } catch (err) {
                     console.error('Error fetching user information:', err);
                 }
                 try {
-                  const postsData = await getPostById(token, postId);
-                  setPost(postsData);
+                    const postsData = await getPostById(token, postId);
+                    setPost(postsData);
                 } catch (err) {
-                  console.error('Error fetching posts:', err);
+                    console.error('Error fetching posts:', err);
                 }
+            };
+
+            fetchData();
+
+            newSocket.on('message', (message) => {
+                setMessages((msgs) => [...msgs, message]);
+            });
+
+            // Return cleanup function that removes event listener and closes socket
+            return () => {
+                newSocket.off('message');
+                newSocket.close();
+            };
+        }
+    }, [token, postId]);
+
+    useEffect(() => {
+        // Cleanup useEffect for when component unmounts or socket changes
+        return () => {
+            if (socket) {
+                socket.off('message');
+                socket.close();
             }
         };
-
-        fetchData();
-
-        socket.on('message', (message) => {
-            setMessages((msgs) => [...msgs, message]);
-        });
-
-        // Cleanup function to run when component unmounts
-        return () => {
-            socket.off('message');
-            socket.close(); // Properly close the socket connection
-        };
-    }, [token, postId]); // Dependency array includes token
+    }, [socket]); // This useEffect listens for changes to the socket state
 
     const sendMessage = () => {
-        if (message && userInfo && post) { // Check if message is not empty and userInfo is available
+        if (message && userInfo && post && socket) {
+          console.log(userInfo.username)
+            const recipientId = post.post.user;
             socket.emit('sendMessage', {
-                senderId: post.post.user, // Use user's ID from fetched userInfo
-                senderUsername: userInfo.username,
-                recipientId: post.post.username, // This needs to be dynamically set based on the chat context
-                text: message,
-                postId: post.post._id, // This should be set based on the current post context if applicable
+                message: message,
+                senderId: userInfo.userid,
+                recipientId: recipientId,
+                postId: post.post._id,
             });
-            setMessage(''); 
+            setMessage('');
         }
     };
 
@@ -67,7 +78,7 @@ function Chat({ postId }) {
         <div className="chat-container">
             <div className="chat-messages">
                 {messages.map((msg, index) => (
-                    <div key={index}>{msg}</div>
+                    <div key={index}>{userInfo.username}: {msg.message}</div>
                 ))}
             </div>
             <div className="chat-input-container">
