@@ -1,9 +1,7 @@
 import React from 'react';
-import LikeButton from "../LikeButton"
 import './Post.css'; // Your existing CSS file
 import { Link } from 'react-router-dom';
-import UserInfo from '../UserInfo';
-
+import UserInfo from '../UserInfo/UserInfo';
 import LikeButton from "../LikeButton/LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
@@ -14,12 +12,11 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
     <article className="post">
       <header className="post-header">
         <p className="post-user">
-          Posted by{' '}        
-            <Link to={`/posts/${post.user?.username}`} >
-    {post.user?.username}
+          Posted by {' '}       
+            <Link to={`/posts/${post.username}`} >
+    {post.username}
           </Link>
             </p>
-        <p className="post-user">Posted by {post.username}</p>
       </header>
       <div className="post-content">
         <p className="post-message">{post.message}</p>

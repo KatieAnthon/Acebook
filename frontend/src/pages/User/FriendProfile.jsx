@@ -1,17 +1,9 @@
 import { useState, useEffect,  } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
-
-
+import { useNavigate, useParams } from "react-router-dom";
 // import { getFriendPost } from "../../services/posts"
-import { getSinglePost} from "../../services/posts";
-import { createPost } from '../../services/posts'; 
 import Post from "../../components/Post/Post";
-import NavBar from "../../components/NavBar"
-import UserInfo from "../../components/UserInfo"
+import NavBar from "../../components/NavBar/NavBar"
 import { getFriendInfo } from "../../services/authentication"
-
-
-
 import "../../components/Post/Post.css"
 
 

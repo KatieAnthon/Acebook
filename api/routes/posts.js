@@ -32,13 +32,9 @@ router.get("/", PostsController.getAllPosts);
 
 router.patch("/editingPost/:postId", tokenChecker, upload.single('image'), PostsController.updatePost);
 
-
-
 router.get("/:username",tokenChecker, UsersController.getFriendInformation);
 
-// router.get("/:username",tokenChecker, PostsController.getFriendPosts);
 
-// router.get("/:username",tokenChecker, PostsController.getFriendPost);
 
 
 module.exports = router;

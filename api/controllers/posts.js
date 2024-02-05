@@ -152,34 +152,13 @@ const updatePost = async (req, res) => {
 };
 
 
-// const getFriendPosts = async (req, res) => {
-
-//   try {
-
-//     console.log("controller")
-//     const user = await User.findOne({username: req.params.username});
-
-//     const user_id = user._id
-
-//     const userPosts = await Post.find({ user: userId }).populate('user', 'username');
-//     console.log(userPosts)
-//     if (!userPosts.length) {
-//       return res.status(404).json({ message: 'No posts found for this user' });
-//     }
-//     res.status(200).json({ posts: userPosts });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// };
-
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   getSinglePost: getSinglePost,
   addUserLike: addUserLike,
   deletePost:deletePost,
-  updatePost:updatePost,,
+  updatePost:updatePost,
 };
 
 module.exports = PostsController;
