@@ -1,28 +1,32 @@
-import 
+
 
 .profile-picture-container {
-  text-align: left;
+  text-align: center;
 }
 
 .profile-picture {
+  align-self: left;
   height: 300px; /* Fixed height */
   width: 100%; /* Full width within its container */
   object-fit: cover; /* Maintain aspect ratio while covering the container */
 }
 
 .introduction-container {
-  text-align: left;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-bottom: 2px solid #e1e1e1;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  background-color: ;
+    color: #010101;
+    font-weight: unset;
 }
 
-.centered-container {
-  text-align: center;
-}
-
-.left-aligned-section {
-  text-align: left;
+.sticky-card {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #eff1f7; 
+    color: rgb(10, 0, 0);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: lighter;
+    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
 }
