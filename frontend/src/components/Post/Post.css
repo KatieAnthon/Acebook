@@ -4,6 +4,8 @@
     border-radius: 8px;
     margin-bottom: 15px;
     padding: 16px;
+    overflow: hidden; /* Ensures that content doesn't spill outside the border */
+    position: relative; /* Sets the position context for absolute positioning of children */
   }
   
   .post-header {
@@ -20,20 +22,34 @@
   }
   
   .post-image {
-    width: 100%; /* Set a fixed width */
-    max-height: 400px; /* Set a max height */
-    object-fit: cover; /* This will cover the area without stretching the image */
-    border-radius: 8px;
+    width: 100%; /* Full width of the post container */
+    height: 100%;/* Fixed height for all images */
+    object-fit: cover; /* Covers the area, cropping the image as needed */
+    border-radius: 8px; /* If you want rounded corners */
     margin-top: 10px;
-    margin-bottom: 10px; /* Add bottom margin for spacing */
+    margin-bottom: 10px;
   }
-
+  .post-image-container {
+    height: 300px; /* Fixed height */
+    width: 600px; /* Full width */
+    overflow: hidden; /* Hides the overflowed part of the image */
+    position: relative; /* Relative to its normal position */
+  }
+  .post-image-container img {
+    position: absolute; /* Position absolutely within the .post-image-container */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
   .post-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Align buttons to the center */
     align-items: center;
     margin-top: 10px;
+    border-top: 1px solid #dddfe2; /* Thin line above the buttons */
+    border-bottom: 1px solid #dddfe2; /* Thin line below the buttons */
+    padding: 8px 0; /* Padding above and below the buttons */
   }
   
   .button-style {
@@ -52,10 +68,69 @@
   }
   
   /* Additional specific styles for delete button */
-  .delete-button {
-    background-color: #f44336; /* Red color for delete button */
+  .my-button {
+    color: white;
+    background-color: #4267b2; /* Blue color for the button */
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px; /* Increased padding for better visual */
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 8px; /* Space between buttons */
+    transition: background-color 0.2s ease; /* Smooth transition for hover */
   }
   
-  .delete-button:hover {
-    background-color: #d32f2f; /* Darker red on hover */
+  .my-button:hover {
+    background-color: #365899;
+  }
+
+  .comment-item {
+    list-style: none; /* Remove bullet points */
+    padding: 8px;
+    border-bottom: 1px solid #dddfe2; /* Add a border to separate comments */
+  }
+  
+  .comment-item:last-child {
+    border-bottom: none; /* Remove border from the last item */
+  }
+  
+  .comment-username,
+  .comment-date {
+    font-size: 0.85rem; /* Smaller font size for username and date */
+    color: #365899; /* A blue color for username and date */
+  }
+
+  .post-comments h3 {
+    font-size: 1.5rem; /* Larger font size for headings */
+    color: #365899; /* A deep blue color */
+    margin-bottom: 0.5rem; /* Add some space below the heading */
+    padding-bottom: 0.25rem; /* A bit of padding at the bottom */
+    border-bottom: 2px solid #365899; /* A solid line below the heading for emphasis */
+    display: inline-block; /* Makes the border-bottom only as long as the text */
+    margin-top: rem; /* Add some space above the heading */
+  }
+  
+  .comment-username {
+    margin-bottom: 4px; /* Space between username and message */
+    font-weight: bold; /* Bold username */
+  }
+  
+  .comment-message {
+    margin-bottom: 4px; /* Space between message and date */
+  }
+  
+  .comment-date {
+    text-align: right; /* Align date to the right */
+    color: #777; /* A grey color for the date */
+  }
+
+  .post-message {
+    font-size: 2rem; /* Adjust the font size as needed */
+    line-height: 1.5; /* Increase line-height for better readability */
+    color: #333; /* Darker text color for better contrast */
+    margin: 10px 0; /* Add some margin to the top and bottom */
+    padding: 0.5rem; /* Add some padding for visual comfort */
+    background-color: #f8f9fa; /* A light background to highlight the message */
+    border-left: 4px solid #4267b2; /* A left border for a touch of design */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
   }

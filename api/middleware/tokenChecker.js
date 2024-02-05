@@ -10,7 +10,7 @@ const tokenChecker = (req, res, next) => {
   }
 
   JWT.verify(token, process.env.JWT_SECRET, (err, payload) => {
-    console.log("middleware")
+    // console.log("middleware")
     if (err) {
       console.log(err);
       res.status(401).json({ message: "auth error" });

@@ -1,6 +1,5 @@
 const User = require("../models/user");
 const Post = require("../models/post")
-const { generateToken } = require("../lib/token");
 
 const create = (req, res) => {
   const email = req.body.email;

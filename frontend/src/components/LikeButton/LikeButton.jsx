@@ -1,9 +1,8 @@
-import { addUserLike } from "../services/posts"
+import { addUserLike } from "../../services/posts"
 import { useState } from "react";
-import { getPosts } from "../services/posts";
+import { getPosts } from "../../services/posts";
 
 const LikeButton = (likes) => {
-
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [numberLikes, setNumberLikes] = useState(likes.likes.length)
 
@@ -18,13 +17,13 @@ const LikeButton = (likes) => {
             console.error("Error handling like", err.message);
         }
     };
-
+  
     return (
     <div>
-        <button onClick={handleAddLike} >👍 Likes: {numberLikes}
+        <button className="my-button" onClick={handleAddLike} > {numberLikes > 1 ? '👍 Likes' : '👍 Like'} {numberLikes == 0 ? "" : `: ${numberLikes}`} 
         </button>
     </div>
     )
 }
 
-    export default LikeButton;
+export default LikeButton;
