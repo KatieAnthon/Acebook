@@ -1,9 +1,16 @@
 import LikeButton from "../LikeButton/LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
-
+import Chat from '../Messages/Message'; 
+import React, { useState } from 'react';
 
 const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm }) => {
+  const [isChatVisible, setIsChatVisible] = useState(false);
+  const toggleChat = () => {
+    setIsChatVisible(!isChatVisible);
+  };
+
+
   return (
     <article className="post">
       <header className="post-header">
@@ -29,7 +36,9 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
             <button className="my-button" onClick={onEdit}>Edit Post</button>
           </>
         )}
+        <button onClick={toggleChat} className="my-button">Message</button> {/* Add this line */}
       </div>
+        {isChatVisible && <Chat />}
         <div className="post-comments">
           <h3>Comments</h3>
           {post.comments.map((comment, index) => (

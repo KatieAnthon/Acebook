@@ -1,0 +1,24 @@
+/* Add this in your Chat component's CSS file */
+.chat-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px; /* or any other width */
+    height: 400px; /* or any other height */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chat-messages {
+    flex: 1;
+    overflow: auto;
+  }
+  
+  .chat-input-container {
+    border-top: 1px solid #ccc;
+    padding: 10px;
+  }
