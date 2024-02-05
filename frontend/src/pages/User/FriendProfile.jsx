@@ -5,6 +5,9 @@ import Post from "../../components/Post/Post";
 import NavBar from "../../components/NavBar/NavBar"
 import { getFriendInfo } from "../../services/authentication"
 import "../../components/Post/Post.css"
+import { Card, Col, Row } from 'react-bootstrap';
+import './FriendProfile.css';
+
 
 
 export const FriendProfile = () => {
@@ -39,21 +42,55 @@ const navigate = useNavigate();
   }, [token, username]);
 
   return (
-    <>
+  <>
       <NavBar />
-      <h2>{username}'s Profile </h2>
-      <p>
-      <img 
-      src={`http://localhost:3000/${FriendInfo.profilePic}`}
-      alt="Profile Picture"
-      className="profile-picture"
-      />
-      </p>
-      {posts.map((post) => (
+    <div className="container-fluid">
+      <h2 className="introduction-container" >Welcome to {username}'s Profile </h2>
+      <Row className="align-items-start">
+        <Col lg={4} className="mt-4">
+        <Card className="mt-4 sticky-card">
+          <Card.Img 
+          variant="top" 
+          src={`http://localhost:3000/${FriendInfo.profilePic}`}
+          style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+          />
+          <Card.Body>
+            <Card.Title>{username}</Card.Title>
+            <Card.Text>
+              Welcome to my profile! I am interested in coding
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </Col>
+    
+
+    <Col lg={8}>
+    {posts.map((post) => (
       <Post key={post._id} post={post} />
-      ))}
-    </>
-  );
+    ))}
+    </Col>
+    </Row>
+    </div>
+  </>
+);
 };
 
 export default FriendProfile;
+
+
+
+    //   {/* Left-aligned section
+    //   <div className="left-aligned-section">
+    //     <h3>{username}</h3>
+    //     <div className="profile-picture-container">
+    //       <img
+    //         src={`http://localhost:3000/${FriendInfo.profilePic}`}
+    //         alt="Profile Picture"
+    //         className="profile-picture"
+    //       />
+    //     </div>
+    //   </div> */}
+    
+
+
+    // {/* Centered posts */}
