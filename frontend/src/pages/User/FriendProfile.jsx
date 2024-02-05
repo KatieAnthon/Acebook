@@ -11,19 +11,15 @@ import UserInfo from "../../components/UserInfo"
 import { getFriendInfo } from "../../services/authentication"
 
 
-import "../../components/Post/Post.css";
-import UserProfile from "./UserProfile";
+
+import "../../components/Post/Post.css"
 
 
 export const FriendProfile = () => {
 const [posts, setPosts] = useState([]);
 const [token, setToken] = useState(window.localStorage.getItem("token"));
-const [FriendInfo, setFriendInfo] = useState(null);
+const [FriendInfo, setFriendInfo] = useState([]);
 const { username } = useParams();
-
-console.log("username", username)
-
-
 
 const navigate = useNavigate();
 
@@ -34,24 +30,17 @@ const navigate = useNavigate();
     const fetchData = async () => {
       if (token && username) {
         try {       
-          const FriendInfoData = await getFriendInfo(token, username);
+          const FriendInfoData = await getFriendInfo(token, username);  
           setFriendInfo(FriendInfoData);
+
+          const PostsData = FriendInfoData.posts
+          setPosts(PostsData)
 
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
   
-        try {
-          
-          const postsData = await getSinglePost(token);
-          setPosts(postsData.posts);
-        } catch (err) {
-          console.error('Error fetching posts:', err);
-        }
-      } else {
-        console.log('No token found, navigating to login.');
-        navigate("/login");
-      }
+       }
     };
   
     fetchData();
@@ -60,7 +49,13 @@ const navigate = useNavigate();
   return (
     <>
       <NavBar />
-      <h2> {}'s Profile </h2>
+      <h2> {username}'s Profile </h2>
+      <p>
+      <img 
+      src={`http://localhost:3000/${FriendInfo.profilePic}`}
+      alt="Profile Picture"
+      />
+      </p>
       {posts.map((post) => (
       <Post key={post._id} post={post} />
       ))}

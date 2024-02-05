@@ -35,6 +35,8 @@ router.patch("/editingPost/:postId", tokenChecker, PostsController.updatePost);
 
 router.get("/:username",tokenChecker, UsersController.getFriendInformation);
 
+// router.get("/:username",tokenChecker, PostsController.getFriendPosts);
+
 // router.get("/:username",tokenChecker, PostsController.getFriendPost);
 
 

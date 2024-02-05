@@ -147,29 +147,26 @@ const updatePost = async (req, res) => {
 
 
 
-const getFriendPost = async (req, res) => {
-  try {
-    const username = req.params.username
-    
-    const user = await User.findOne({username: username})
+// const getFriendPosts = async (req, res) => {
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    
-    }
-    const posts = await Post.find({user_id: user.User})
-    console.log(posts)
-    // res.status(200).json({ posts: posts, token: token });
-    res.status(200).json({ post: posts});
-    
-    
-    
-  } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
+//   try {
 
+//     console.log("controller")
+//     const user = await User.findOne({username: req.params.username});
 
+//     const user_id = user._id
+
+//     const userPosts = await Post.find({ user: userId }).populate('user', 'username');
+//     console.log(userPosts)
+//     if (!userPosts.length) {
+//       return res.status(404).json({ message: 'No posts found for this user' });
+//     }
+//     res.status(200).json({ posts: userPosts });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// };
 
 const PostsController = {
   getAllPosts: getAllPosts,

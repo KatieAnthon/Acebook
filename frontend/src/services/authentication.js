@@ -65,6 +65,7 @@ export const getUserInfo = async (token) => {
 };
 
 export const getFriendInfo = async (token, username) => {
+  console.log("services")
   const requestOptions = {
     method: "GET",
     headers: {
@@ -73,7 +74,7 @@ export const getFriendInfo = async (token, username) => {
   };
 
   const response = await fetch(`${BACKEND_URL}/posts/${username}`, requestOptions);
-  console.log('Fetch URL:', `${BACKEND_URL}/posts/${username}`);
+  
   
   if (!response.ok) {
     throw new Error(`Error fetching user information: ${response.statusText}`);

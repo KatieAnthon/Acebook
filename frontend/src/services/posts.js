@@ -130,5 +130,24 @@ export const updatePost = async (token, postId, postData) => {
   return data;
 };
 
+// export const getFriendsPost = async (token, username) => {
+//   console.log(username)
+
+//   const requestOptions = {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
+
+//   const response = await fetch(`${BACKEND_URL}/posts/${username}`, requestOptions);
+
+//   if (response.status !== 200) {
+//     throw new Error("Unable to fetch posts");
+//   }
+
+//   const data = await response.json();
+//   return data;
+// };
 
 
