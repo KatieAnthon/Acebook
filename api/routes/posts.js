@@ -34,6 +34,14 @@ router.patch("/editingPost/:postId", tokenChecker, upload.single('image'), Posts
 
 router.get("/:username",tokenChecker, UsersController.getFriendInformation);
 
+// users routes here because it doesn't work without bodyParser
+
+router.post("/sendFriendRequest", tokenChecker, UsersController.sendFriendRequest);
+
+router.get("/getFriendRequests", tokenChecker, UsersController.getAllFriendRequests);
+
+router.post("/friendRequestResponse", tokenChecker, UsersController.friendRequestResponse);
+
 
 
 

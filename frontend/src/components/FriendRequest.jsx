@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getFriendRequestResponse } from "../../services/users";
-import { friendRequestResponse } from "../../services/users";
-
+import { friendRequestResponse } from "../services/users";
+import { getFriendRequests } from "../services/users"
 // takes user_id of who's logged in to fetch friend requests 
 // return list of friend requests to respond to
 // respond to friend requests
@@ -14,7 +13,8 @@ const FriendRequest = () => {
         const fetchData = async () => {
             if (token) {
                 try {
-                const friendRequestData = await getFriendRequestResponse(token);
+                const friendRequestData = await getFriendRequests(token);
+                console.log(friendRequestData)
                 setFriendRequests(friendRequestData);
                 } catch (err) {
                 console.error('Error fetching user information:', err);
@@ -28,7 +28,7 @@ const FriendRequest = () => {
         try {
             // sends the token, user_id of who the friend request is from, and confirmation of request
             await friendRequestResponse(token, friend.id, true);
-            const updatedRequestData = await getFriendRequestResponse(token);
+            const updatedRequestData = await getFriendRequests(token);
             setFriendRequests(updatedRequestData);
         } catch (err) {
             console.error('Error accepting request', err.message);

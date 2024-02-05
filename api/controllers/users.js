@@ -40,11 +40,12 @@ const sendFriendRequest = async (req, res) => {
   try {
     // find the users entries of the sender and receiver
     const sender = await User.findById(req.user_id);
-    const receiver = await User.findById(req.body.user_id);
+    const receiver = await User.findById(req.body.recipient_id);
     // if a friend request hasn't been sent to that user, send
     const requestExists = receiver.friend_list.some(friend => friend.id.toString() === sender._id.toString() && !friend.confirmed);
     if (!requestExists){
       // add friend request object to both users friend_list
+      console.log(sender._id)
       sender.friend_list.push({id: receiver._id, confirmed: false})
       await sender.save();
       receiver.friend_list.push({id: sender._id, confirmed: false})
@@ -94,13 +95,17 @@ const friendRequestResponse = async (req, res) => {
 }
 
 const getAllFriendRequests = async (req, res) => {
+  console.log('here')
   try {
+    console.log(req)
     const userId = req.user_id;
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
+    }else{
+      res.json({friend_list: user.friend_list});
     }
-    res.json({friend_list: user.friend_list});
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });

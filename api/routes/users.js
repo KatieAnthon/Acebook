@@ -3,7 +3,6 @@ const multer = require('multer');
 const UsersController = require("../controllers/users");
 const tokenChecker = require('../middleware/tokenChecker'); // Your token verification middleware
 
-
 const router = express.Router();
 
 // Configure Multer for file uploads
@@ -23,12 +22,6 @@ const upload = multer({ storage: storage });
 router.post("/", upload.single('profilePic'), UsersController.create);
 
 router.get("/userinfo",tokenChecker, UsersController.getUsersInformation);
-
-router.post("/sendFriendRequest", tokenChecker, UsersController.sendFriendRequest);
-
-router.get("/friendRequestResponse", tokenChecker, UsersController.getAllFriendRequests);
-
-router.post("/friendRequestResponse", tokenChecker, UsersController.friendRequestResponse);
 
 
 

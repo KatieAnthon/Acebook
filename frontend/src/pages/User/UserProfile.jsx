@@ -13,6 +13,7 @@ import UserInfo from "../../components/Userinfo/UserInfo"
 import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
+import FriendRequest from "../../components/FriendRequest";
 
 
 export const UserProfile = () => {
@@ -107,6 +108,7 @@ useEffect(() => {
   return (
     <>
       <NavBar />
+      <FriendRequest />
       <Introduction pageName={"Profile"}/>
       {userInfo && (
       <UserInfo

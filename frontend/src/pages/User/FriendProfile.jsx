@@ -5,6 +5,7 @@ import Post from "../../components/Post/Post";
 import NavBar from "../../components/NavBar/NavBar"
 import { getFriendInfo } from "../../services/authentication"
 import "../../components/Post/Post.css"
+import AddFriendButton from "../../components/AddFriendButton";
 
 
 export const FriendProfile = () => {
@@ -14,9 +15,6 @@ const [FriendInfo, setFriendInfo] = useState([]);
 const { username } = useParams();
 
 const navigate = useNavigate();
-
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,8 +29,7 @@ const navigate = useNavigate();
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
-  
-       }
+      }
     };
   
     fetchData();
@@ -41,6 +38,7 @@ const navigate = useNavigate();
   return (
     <>
       <NavBar />
+      <AddFriendButton user_id={FriendInfo.user_id} />
       <h2>{username}'s Profile </h2>
       <p>
       <img 
