@@ -1,3 +1,7 @@
+import React from 'react';
+import './Post.css'; // Your existing CSS file
+import { Link } from 'react-router-dom';
+import UserInfo from '../UserInfo/UserInfo';
 import LikeButton from "../LikeButton/LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
@@ -17,7 +21,12 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
   return (
     <article className="post">
       <header className="post-header">
-        <p className="post-user">Posted by {post.username}</p>
+        <p className="post-user">
+          Posted by {' '}       
+            <Link to={`/posts/${post.username}`} >
+    {post.username}
+          </Link>
+            </p>
       </header>
       <div className="post-content">
         <p className="post-message">{post.message}</p>

@@ -166,6 +166,7 @@ const updatePost = async (req, res) => {
   }
 };
 
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,

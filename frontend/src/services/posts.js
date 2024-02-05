@@ -141,4 +141,3 @@ export const updatePost = async (token, postId, formData) => {
   }
 };
 
-
