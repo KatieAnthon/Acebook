@@ -4,6 +4,7 @@ const tokenChecker = require('../middleware/tokenChecker');
 const multer = require('multer');
 
 const PostsController = require("../controllers/posts");
+const UsersController = require("../controllers/users");
 
 
 // Configure Multer for file uploads
@@ -31,6 +32,10 @@ router.delete("/posts/:postId", tokenChecker, PostsController.deletePost);
 router.get("/", PostsController.getAllPosts);
 
 router.patch("/editingPost/:postId", tokenChecker, PostsController.updatePost);
+
+router.get("/:username",tokenChecker, UsersController.getFriendInformation);
+
+// router.get("/:username",tokenChecker, PostsController.getFriendPost);
 
 
 module.exports = router;

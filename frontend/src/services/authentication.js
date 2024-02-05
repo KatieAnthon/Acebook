@@ -63,3 +63,23 @@ export const getUserInfo = async (token) => {
 
   return await response.json();
 };
+
+export const getFriendInfo = async (token, username) => {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts/${username}`, requestOptions);
+  console.log('Fetch URL:', `${BACKEND_URL}/posts/${username}`);
+  
+  if (!response.ok) {
+    throw new Error(`Error fetching user information: ${response.statusText}`);
+  }
+
+  return await response.json();
+};
+
+

@@ -130,3 +130,5 @@ export const updatePost = async (token, postId, postData) => {
   return data;
 };
 
+
+

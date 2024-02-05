@@ -35,9 +35,27 @@ const getUsersInformation = async (req, res) => {
   }
 };
 
+const getFriendInformation = async (req, res) => {
+  try {
+    
+    const user = await User.findOne({username: req.params.username});
+    console.log(user)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    } else {
+      res.json({ username: user.username, email: user.email , profilePic: user.profilePic});
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 const UsersController = {
   create: create,
   getUsersInformation: getUsersInformation,
+  getFriendInformation: getFriendInformation,
 };
 
 module.exports = UsersController;

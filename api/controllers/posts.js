@@ -146,13 +146,38 @@ const updatePost = async (req, res) => {
 };
 
 
+
+const getFriendPost = async (req, res) => {
+  try {
+    const username = req.params.username
+    
+    const user = await User.findOne({username: username})
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    
+    }
+    const posts = await Post.find({user_id: user.User})
+    console.log(posts)
+    // res.status(200).json({ posts: posts, token: token });
+    res.status(200).json({ post: posts});
+    
+    
+    
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   getSinglePost: getSinglePost,
   addUserLike: addUserLike,
   deletePost:deletePost,
-  updatePost:updatePost
+  updatePost:updatePost,
 };
 
 module.exports = PostsController;
