@@ -41,11 +41,12 @@ const navigate = useNavigate();
   return (
     <>
       <NavBar />
-      <h2> {username}'s Profile </h2>
+      <h2>{username}'s Profile </h2>
       <p>
       <img 
       src={`http://localhost:3000/${FriendInfo.profilePic}`}
       alt="Profile Picture"
+      className="profile-picture"
       />
       </p>
       {posts.map((post) => (
