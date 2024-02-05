@@ -10,9 +10,9 @@ const Post = ({ post, onDelete, showDeleteButton }) => {
     <article className="post">
       <header className="post-header">
         <p className="post-user">
-          Posted by 
+          Posted by{' '}        
             <Link to={`/posts/${post.user?.username}`} >
-  {post.user?.username}
+    {post.user?.username}
           </Link>
             </p>
       </header>
