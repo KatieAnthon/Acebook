@@ -39,21 +39,30 @@ const navigate = useNavigate();
   }, [token, username]);
 
   return (
-    <>
-      <NavBar />
-      <h2>{username}'s Profile </h2>
-      <p>
-      <img 
-      src={`http://localhost:3000/${FriendInfo.profilePic}`}
-      alt="Profile Picture"
-      className="profile-picture"
-      />
-      </p>
-      {posts.map((post) => (
+  <>
+    <NavBar />
+    <div className="centered-container">
+      <h2 className="introduction-container">Welcome to {username}'s Profile </h2>
+
+      {/* Left-aligned section */}
+      <div className="left-aligned-section">
+        <h3>{username}</h3>
+        <div className="profile-picture-container">
+          <img
+            src={`http://localhost:3000/${FriendInfo.profilePic}`}
+            alt="Profile Picture"
+            className="profile-picture"
+          />
+        </div>
+      </div>
+    </div>
+
+    {/* Centered posts */}
+    {posts.map((post) => (
       <Post key={post._id} post={post} />
-      ))}
-    </>
-  );
+    ))}
+  </>
+);
 };
 
 export default FriendProfile;

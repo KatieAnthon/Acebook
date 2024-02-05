@@ -1,7 +1,28 @@
+import 
+
+.profile-picture-container {
+  text-align: left;
+}
 
 .profile-picture {
   height: 300px; /* Fixed height */
-    width: 600px; /* Full width */
-    overflow: hidden; /* Hides the overflowed part of the image */
-    position: relative; /* Relative to its normal position */
+  width: 100%; /* Full width within its container */
+  object-fit: cover; /* Maintain aspect ratio while covering the container */
+}
+
+.introduction-container {
+  text-align: left;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #e1e1e1;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.centered-container {
+  text-align: center;
+}
+
+.left-aligned-section {
+  text-align: left;
 }
