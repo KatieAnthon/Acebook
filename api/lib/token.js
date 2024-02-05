@@ -19,8 +19,18 @@ const generateToken = (user_id) => {
   );
 };
 
+const getUserIdFromToken = (token) => {
+  try {
+    const decoded = JWT.verify(token, secret);
+    return decoded.user_id;
+  } catch (error) {
+    console.error('Error verifying JWT token:', error);
+    return null;
+  }
+};
+
 const decodeToken = (token) => {
   return JWT.decode(token, secret);
 };
 
-module.exports = { generateToken, decodeToken };
+module.exports = { generateToken, decodeToken, getUserIdFromToken };

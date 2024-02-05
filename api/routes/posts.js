@@ -30,6 +30,8 @@ router.delete("/posts/:postId", tokenChecker, PostsController.deletePost);
 
 router.get("/", PostsController.getAllPosts);
 
+router.get("/postbyid/:postId", tokenChecker, PostsController.getPostById);
+
 router.patch("/editingPost/:postId", tokenChecker, upload.single('image'), PostsController.updatePost);
 
 router.get("/:username",tokenChecker, UsersController.getFriendInformation);

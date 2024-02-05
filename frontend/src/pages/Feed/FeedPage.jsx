@@ -29,7 +29,6 @@ export const FeedPage = () => {
   
         try {
           const fetchedPosts = await getPosts(token);
-          console.log(fetchedPosts)
           const postWithComments = fetchedPosts.posts.map(post => ({
             ...post,
           }))
