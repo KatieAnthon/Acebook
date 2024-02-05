@@ -76,6 +76,13 @@ const friendRequestResponse = async (req, res) => {
 
       return res.status(200).json({ message: "Friend request accepted successfully"});
     }else{
+      const sender_receiver_request = sender.friend_list.find((friend_request) => friend_request.id.toString() === req.body.user_id)
+      const receiver_sender_request = receiver.friend_list.find((friend_request) => friend_request.id.toString() === req.user_id)
+      // remove friend request
+      await sender_receiver_request.remove();
+      await sender.save();
+      await receiver_sender_request.remove();
+      await receiver.save();
       return res.status(200).json({ message: "Friend request denied"});
     }
   } catch (error) {

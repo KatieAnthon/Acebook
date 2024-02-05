@@ -24,24 +24,25 @@ const FriendRequest = () => {
         fetchData()
     }, [token]);
 
-
     const handleAcceptRequest = async (friend) => {
         try {
             // sends the token, user_id of who the friend request is from, and confirmation of request
-            await friendRequestResponse(token, friend.user_id, true);
-            
+            await friendRequestResponse(token, friend.id, true);
+            const updatedRequestData = await getFriendRequestResponse(token);
+            setFriendRequests(updatedRequestData);
         } catch (err) {
             console.error('Error accepting request', err.message);
         }
     };
 
     return (
-    <div className="feed" role="feed">
-        {friendRequests.map((friend) => ( 
-            friend={friend}
-        ))
-        <button onClick={handleAcceptRequest}>Add Friend</button>
-        }
+    <div className="requests" role="requests">
+        {friendRequests.map((friend) => (
+            <div key={friend.id}>
+                <p>{friend.id}</p>
+                <button onClick={() => handleAcceptRequest(friend)}>Add Friend</button>
+            </div>
+        ))}
     </div>
     )
 }
