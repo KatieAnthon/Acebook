@@ -21,7 +21,6 @@ const [token, setToken] = useState(window.localStorage.getItem("token"));
 const [userInfo, setUserInfo] = useState(null);
 const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 const [selectedPost, setSelectedPost] = useState(null);
-const [editedContent, setEditedContent] = useState('');
 
 const navigate = useNavigate();
 useEffect(() => {
