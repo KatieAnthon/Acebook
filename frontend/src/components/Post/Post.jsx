@@ -1,6 +1,5 @@
 import './Post.css'; // Your existing CSS file
 import { Link } from 'react-router-dom';
-import UserInfo from '../UserInfo/UserInfo';
 import LikeButton from "../LikeButton/LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
@@ -8,15 +7,16 @@ import CommentLikeButton from '../LikeButton/CommentLikeButton'
 import Chat from '../Messages/Message'; 
 import React, { useState } from 'react';
 
-const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm, onDeleteComment}) => {
+const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm, onDeleteComment, currentUserInfo}) => {
   const [isChatVisible, setIsChatVisible] = useState(false);
   const toggleChat = () => {
     setIsChatVisible(!isChatVisible);
   };
 
-  const handleCloseChat = () => {
-    setIsChatVisible(false); 
-};
+
+// I added this logic, so the message button only shows to another user 
+const showMessageButton = currentUserInfo.userid !== post.user && currentUserInfo.userid !== post.user._id;
+
 
   return (
     <article className="post">
@@ -24,7 +24,7 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
         <p className="post-user">
           Posted by {' '}       
             <Link to={`/posts/${post.username}`} >
-    {post.username}
+              {post.username}
           </Link>
             </p>
       </header>
@@ -48,9 +48,11 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
             <button className="my-button" onClick={onEdit}>Edit Post</button>
           </>
         )}
-        <button onClick={toggleChat} className="my-button">Message</button> 
+        {showMessageButton && (
+            <button onClick={toggleChat} className="my-button">Message</button> 
+        )}
       </div>
-      {isChatVisible && <Chat postId={post._id}  onClose={handleCloseChat}/>} 
+      {isChatVisible && <Chat postId={post._id} onClose={() => setIsChatVisible(false)} setIsChatVisible={setIsChatVisible} />}
         <div className="post-comments">
           <h3>Comments</h3>
           <div>

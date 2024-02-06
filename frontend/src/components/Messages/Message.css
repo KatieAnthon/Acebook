@@ -16,6 +16,7 @@
 .chat-header {
   padding: 10px;
   background-color: #040b14;
+  color: white;
   border-bottom: 1px solid #ccc;
   display: flex;
   justify-content: flex-end;
@@ -25,25 +26,31 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  color: white;
   font-size: 16px;
 }
 
 .chat-messages {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto; /* Enables scrolling */
   padding: 10px;
   display: flex;
-  flex-direction: column-reverse; /* stack messages from the bottom */
+  flex-direction: column;
+  gap: 10px;
 }
 
 .message {
-  margin-bottom: 10px; /* space between messages */
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 5px 0;
+  max-width: 60%;
+  word-wrap: break-word;
 }
 
 .chat-input-container {
-  border-top: 1px solid #ccc;
   padding: 10px;
-  display: flex;
+  border-top: 1px solid #ccc;
+  background: white; /* Ensures the input area is visually distinct if scrolled */
 }
 
 input {
@@ -57,8 +64,25 @@ input {
 button {
   padding: 5px 15px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: none; /* Adjusted for a cleaner look */
   background-color: #4267b2;
   color: white;
   cursor: pointer;
+}
+
+.sent {
+  align-self: flex-end;
+  background-color: #0078FF; /* A blue shade, typical for sent messages */
+  color: white;
+}
+
+.received {
+  align-self: flex-start;
+  background-color: #E5E5EA; /* A light grey, typical for received messages */
+  color: black;
+}
+
+.message-username {
+  font-size: 0.75rem;
+  margin-bottom: 5px;
 }

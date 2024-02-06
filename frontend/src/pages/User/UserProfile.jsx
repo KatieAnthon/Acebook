@@ -158,19 +158,19 @@ useEffect(() => {
     <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
     {posts.slice().reverse().map((post) => (
-        <Post
-        key={post._id}
-        post={post}
-        onDelete={() => handleDelete(post._id)}
-        onEdit={() => handleEdit(post)}
-        showDeleteButton={true}
-        onCommentSubmit={handleCommentSubmit}
-        focusCommentForm={() => focusCommentForm(post._id)}
-        onDeleteComment={(commentId) => handleDeleteComment(commentId)}
-        >
-      </Post>
-    ))}
-</div>
+          <Post
+            key={post._id}
+            post={post}
+            onDelete={() => handleDelete(post._id)}
+            onEdit={() => handleEdit(post)}
+            showDeleteButton={true}
+            onCommentSubmit={handleCommentSubmit}
+            focusCommentForm={() => focusCommentForm(post._id)}
+            currentUserInfo={userInfo}
+            onDeleteComment={(commentId) => handleDeleteComment(commentId)}
+              />
+            ))}
+          </div>
     {isEditModalOpen && (
     <div className="edit-post-modal-overlay">
     <div className="edit-post-modal">

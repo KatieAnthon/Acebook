@@ -121,14 +121,15 @@ return (
       <div className="feed" role="feed">
       {posts.slice().reverse().map((post) => (
       <Post
-      key={post._id}
-      post={post}
-      showDeleteButton={false}
-      onCommentSubmit={handleCommentSubmit}
-      focusCommentForm={() => focusCommentForm(post._id)}
-      onDeleteComment={(commentId) => handleDeleteComment(commentId)}
-      >
-    </Post>
+        key={post._id} 
+        post={post} 
+        onDelete={() => handleDelete(post._id)} 
+        showDeleteButton={false} 
+        onCommentSubmit={handleCommentSubmit}
+        focusCommentForm={() => focusCommentForm(post._id)}
+        onDeleteComment={(commentId) => handleDeleteComment(commentId)}
+        currentUserInfo={userInfo}
+      />
     ))}
     </div>
     </>
