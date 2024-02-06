@@ -37,6 +37,4 @@ router.patch("/editingPost/:postId", tokenChecker, upload.single('image'), Posts
 router.get("/:username",tokenChecker, UsersController.getFriendInformation);
 
 
-
-
 module.exports = router;

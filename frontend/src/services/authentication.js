@@ -60,8 +60,12 @@ export const getUserInfo = async (token) => {
   if (!response.ok) {
     throw new Error(`Error fetching user information: ${response.statusText}`);
   }
+  const userInfo = await response.json();
 
-  return await response.json();
+  // Add user ID to the userInfo object
+  userInfo.userId = userInfo._id;
+
+  return userInfo;
 };
 
 export const getFriendInfo = async (token, username) => {

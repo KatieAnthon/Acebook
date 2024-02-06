@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import LikeButton from "../LikeButton/LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
+import CommentLikeButton from '../LikeButton/CommentLikeButton'
 import Chat from '../Messages/Message'; 
 import React, { useState } from 'react';
 
-const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm, currentUserInfo }) => {
+const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm, onDeleteComment, currentUserInfo}) => {
   const [isChatVisible, setIsChatVisible] = useState(false);
   const toggleChat = () => {
     setIsChatVisible(!isChatVisible);
@@ -54,15 +55,20 @@ const showMessageButton = currentUserInfo.userid !== post.user && currentUserInf
       {isChatVisible && <Chat postId={post._id} onClose={() => setIsChatVisible(false)} setIsChatVisible={setIsChatVisible} />}
         <div className="post-comments">
           <h3>Comments</h3>
+          <div>
           {post.comments.map((comment, index) => (
-            <li key={index} className="comment-item">
+             <li key={index} className="comment-item">
               <div className="comment-username">{comment.username}</div>
               <div className="comment-message">{comment.message}</div>
               <div className="comment-date">{comment.date.split("T")[0]}</div>
+              <CommentLikeButton comment_id={comment._id} likes={comment.likes} />
+              <button className="my-button" onClick={() => onDeleteComment(comment._id)}>
+                Delete comment
+              </button>
             </li>
-          ))}
-         
-          <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
+            ))}
+          </div>    
+              <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
         </div>
      
       </div>

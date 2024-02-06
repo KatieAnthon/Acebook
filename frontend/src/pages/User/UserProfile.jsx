@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { deletePost } from '../../services/posts'; 
 import { getUserInfo } from "../../services/authentication";
 import { addCommentToPost } from "../../services/comments";
+import { getAllComments } from "../../services/comments";
+import { deleteComment } from "../../services/comments";
 import { getSinglePost} from "../../services/posts";
 import { createPost } from '../../services/posts';
 import { updatePost } from '../../services/posts'; 
@@ -17,6 +19,7 @@ import "../../components/Post/Post.css";
 
 export const UserProfile = () => {
 const [posts, setPosts] = useState([]);
+const [comments, setComments] = useState([]);
 const [token, setToken] = useState(window.localStorage.getItem("token"));
 const [userInfo, setUserInfo] = useState(null);
 const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -39,6 +42,14 @@ useEffect(() => {
         } catch (err) {
           console.error('Error fetching posts:', err);
         }
+        try {
+          // Fetch comments and update state
+          const commentsData = await getAllComments(token);
+          setComments(commentsData.comments);
+        } catch (err) {
+          console.error('Error fetching comments:', err);
+        }
+        
       } else {
         console.log('No token found, navigating to login.');
         navigate("/login");
@@ -58,6 +69,33 @@ useEffect(() => {
     }
   };
 
+  const handleDeleteComment = async (commentId) => {
+    console.log('Deleting comment with ID:', commentId);
+  
+    try {
+      await deleteComment(token, commentId);
+      console.log('Comment deleted successfully');
+  
+      // Update the comments state
+      const updatedComments = comments.filter(comment => comment._id !== commentId);
+      setComments(updatedComments);
+  
+      // Update the posts state to remove the deleted comment
+      setPosts(currentPosts =>
+        currentPosts.map(post => {
+          if (post.comments.some(comment => comment._id === commentId)) {
+            // If the post contains the deleted comment, remove it
+            const updatedPostComments = post.comments.filter(comment => comment._id !== commentId);
+            return { ...post, comments: updatedPostComments };
+          }
+          return post;
+        })
+      );
+    } catch (err) {
+      console.error('Error deleting comment:', err.message);
+    }
+  };
+  
   const focusCommentForm = (postId) => {
     const form = document.getElementById(`comment-form-${postId}`); 
     form.scrollIntoView({ behavior: 'smooth' });
@@ -86,21 +124,23 @@ useEffect(() => {
 
 
   const handleCommentSubmit = async (postId, commentText) => {
-      try {
-        const commentResponse = await addCommentToPost(token, postId, commentText);
-        const newComment = commentResponse.comment; 
-    
-        setPosts(currentPosts => currentPosts.map(post => {
+    try {
+      const commentResponse = await addCommentToPost(token, postId, commentText);
+      const newComment = commentResponse.comment;
+  
+      setPosts(currentPosts =>
+        currentPosts.map(post => {
           if (post._id === postId) {
             const comments = Array.isArray(post.comments) ? post.comments : [];
             return { ...post, comments: [...comments, newComment] };
           }
           return post;
-        }));
-      } catch (err) {
-        console.error('Error adding comment:', err.message);
-      }
-    };
+        })
+      );
+    } catch (err) {
+      console.error('Error adding comment:', err.message);
+    }
+  };
 
 
   return (
@@ -127,9 +167,10 @@ useEffect(() => {
             onCommentSubmit={handleCommentSubmit}
             focusCommentForm={() => focusCommentForm(post._id)}
             currentUserInfo={userInfo}
-          />
-        ))}
-      </div>
+            onDeleteComment={(commentId) => handleDeleteComment(commentId)}
+              />
+            ))}
+          </div>
     {isEditModalOpen && (
     <div className="edit-post-modal-overlay">
     <div className="edit-post-modal">

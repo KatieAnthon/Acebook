@@ -114,8 +114,7 @@ const deletePost = async (req, res) => {
   try {
     // Extract post ID from request parameters
     const postId = req.params.postId;
-    // console.log("Post ID:", postId); // Log the Post ID
-
+    
     // Fetch the post
     const post = await Post.findById(postId);
     if (!post) {

@@ -4,6 +4,7 @@ import { getPosts} from "../../services/posts";
 import { addCommentToPost } from "../../services/comments";
 import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
+import { deleteComment } from "../../services/comments";
 import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar/NavBar"
@@ -13,6 +14,7 @@ import Introduction from "../../components/Introduction/Introduction"
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
+  const [comments, setComments] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
@@ -71,7 +73,32 @@ const handleCommentSubmit = async (postId, commentText) => {
       console.error('Error adding comment:', err.message);
     }
   };
-
+  const handleDeleteComment = async (commentId) => {
+    console.log('Deleting comment with ID:', commentId);
+  
+    try {
+      await deleteComment(token, commentId);
+      console.log('Comment deleted successfully');
+  
+      // Update the comments state
+      const updatedComments = comments.filter(comment => comment._id !== commentId);
+      setComments(updatedComments);
+  
+      // Update the posts state to remove the deleted comment
+      setPosts(currentPosts =>
+        currentPosts.map(post => {
+          if (post.comments.some(comment => comment._id === commentId)) {
+            // If the post contains the deleted comment, remove it
+            const updatedPostComments = post.comments.filter(comment => comment._id !== commentId);
+            return { ...post, comments: updatedPostComments };
+          }
+          return post;
+        })
+      );
+    } catch (err) {
+      console.error('Error deleting comment:', err.message);
+    }
+  };
   const focusCommentForm = (postId) => {
     const form = document.getElementById(`comment-form-${postId}`); 
     form.scrollIntoView({ behavior: 'smooth' });
@@ -100,6 +127,7 @@ return (
         showDeleteButton={false} 
         onCommentSubmit={handleCommentSubmit}
         focusCommentForm={() => focusCommentForm(post._id)}
+        onDeleteComment={(commentId) => handleDeleteComment(commentId)}
         currentUserInfo={userInfo}
       />
     ))}
