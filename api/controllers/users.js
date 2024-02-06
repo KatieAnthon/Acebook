@@ -43,6 +43,7 @@ const sendFriendRequest = async (req, res) => {
     const receiver = await User.findById(req.body.recipient_id);
     // if a friend request hasn't been sent to that user, send
     const requestExists = receiver.friend_list.some(friend => friend.id.toString() === sender._id.toString() && !friend.confirmed);
+    console.log("request exists", requestExists)
     if (!requestExists){
       // add friend request object to both users friend_list
       console.log(sender._id)
@@ -81,6 +82,9 @@ const friendRequestResponse = async (req, res) => {
 
     console.log("sender", sender)
     console.log("receiver", receiver)
+
+    console.log("After update - sender:", sender);
+    console.log("After update - receiver:", receiver);
     return res.status(200).json({ message: "Friend request accepted successfully"});
     // }else{
     //   const sender_receiver_request = sender.friend_list.find((friend_request) => friend_request.id.toString() === req.body.user_id)
@@ -102,6 +106,8 @@ const getAllFriendRequests = async (req, res) => {
   try {
     const userId = req.user_id;
     const user = await User.findById(userId);
+    console.log("get request",user.friend_list)
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }else{

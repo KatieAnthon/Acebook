@@ -13,10 +13,13 @@ const FriendRequest = () => {
         const fetchData = async () => {
             if (token) {
                 try {
+
+                
                     
                 const friendRequestData = await getFriendRequests(token);
 
                 setFriendRequests(friendRequestData.friend_list);
+                console.log("friend list", friendRequests)
                 
                 } catch (err) {
                 console.error('Error fetching user information:', err);
@@ -30,25 +33,33 @@ const FriendRequest = () => {
         try {
             // sends the token, user_id of who the friend request is from, and confirmation of request
             await friendRequestResponse(token, friend.id, true);
-            const updatedRequestData = await getFriendRequests(token);
+            const updatedRequestData =await getFriendRequests(token);
             console.log("updated data",updatedRequestData)
-            setFriendRequests(updatedRequestData);
+            setFriendRequests(updatedRequestData.friend_list);
         } catch (err) {
             console.error('Error accepting request', err.message);
         }
     };
 
     return (
-    <div className="requests" role="requests">
-    Friend Requests
-        {friendRequests.map((friend) => (
-            <div key={friend.id}>
-                <p>{friend.id}</p>
+        <div className="requests" role="requests">
+        {friendRequests && friendRequests.friend_list ? (
+          <>
+            <h3>Friend Requests</h3>
+            {friendRequests.map((friend) => (
+              <div key={friend.userid}>
+                <p>{friend.userid}</p>
                 <button onClick={() => handleAcceptRequest(friend)}>Add Friend</button>
-            </div>
-        ))}
-    </div>
-    )
+              </div>
+            ))}
+          </>
+        ) : (
+          <p>No friend requests</p>
+        )}
+      </div>
+    );
+
 }
 
-export default FriendRequest
+
+export default FriendRequest;
