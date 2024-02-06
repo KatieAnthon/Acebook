@@ -41,11 +41,11 @@ function Chat({ postId, onClose }) {
       
       newSocket.on('message', (newMessage) => {
         setIsChatVisible(true);
-        setChatMessages((msgs) => {
-          if (!msgs.some(msg => msg._id === newMessage._id)) {
-            return [...msgs, newMessage];
+        setChatMessages((prevMessages) => {
+          if (!prevMessages.length || !prevMessages.some(msg => msg._id === newMessage._id)) {
+            return [...prevMessages, newMessage];
           } else {
-            return msgs;
+            return prevMessages;
           }
         });
       });
@@ -80,7 +80,15 @@ function Chat({ postId, onClose }) {
           </div>
           <div className="chat-messages">
               {chatMessages.map((msg, index) => (
-                  <div key={index} className="message">{msg.senderUsername}: {msg.message} </div>
+                <div
+                  key={index}
+                  className={`message ${msg.senderUsername === userInfo.username ? 'sent' : 'received'}`}
+                >
+                  <div className="message-username">
+                    {msg.senderUsername === userInfo.username ? 'You' : msg.senderUsername}
+                  </div>
+                  {msg.message}
+                </div>
               ))}
           </div>
           <div className="chat-input-container">

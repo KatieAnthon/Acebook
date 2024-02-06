@@ -50,9 +50,9 @@ io.on('connection', (socket) => {
       newMessage.save()
         .then(savedMessage => {
           // Emit to sender
-          io.to(recipientId.toString()).emit('message', savedMessage);
-          // Emit to recipient
           io.to(senderId.toString()).emit('message', savedMessage);
+          // Emit to recipient
+          io.to(recipientId.toString()).emit('message', savedMessage);
         })
         .catch(err => {
           console.error('Error saving message:', err);
