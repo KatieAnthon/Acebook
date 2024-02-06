@@ -11,7 +11,7 @@ export const sendFriendRequest = async (token, recipient_id) => {
     },
     body: JSON.stringify({recipient_id}),
 };
-console.log(requestOptions)
+
 
 const response = await fetch(`${BACKEND_URL}/posts/sendFriendRequest`, requestOptions);
 if (response.status !== 200) {
@@ -24,13 +24,14 @@ return data;
 
 
 export const friendRequestResponse = async (token, user_id, confirmed) => {
+    
     const requestOptions = {
     method: "POST",
     headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify(user_id, confirmed),
+    body: JSON.stringify({user_id, confirmed}),
 };
 
 const response = await fetch(`${BACKEND_URL}/posts/friendRequestResponse`, requestOptions);
@@ -49,8 +50,7 @@ export const getFriendRequests = async (token) => {
         Authorization: `Bearer ${token}`,
         },
     };
-    console.log("get request",requestOptions)
-
+   
     const response = await fetch(`${BACKEND_URL}/users/getFriendRequests`, requestOptions);
 
     if (!response.ok) {

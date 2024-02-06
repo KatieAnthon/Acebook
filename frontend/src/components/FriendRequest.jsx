@@ -15,7 +15,7 @@ const FriendRequest = () => {
                 try {
                     
                 const friendRequestData = await getFriendRequests(token);
-                console.log("friend_request",friendRequestData)
+
                 setFriendRequests(friendRequestData.friend_list);
                 
                 } catch (err) {
@@ -31,6 +31,7 @@ const FriendRequest = () => {
             // sends the token, user_id of who the friend request is from, and confirmation of request
             await friendRequestResponse(token, friend.id, true);
             const updatedRequestData = await getFriendRequests(token);
+            console.log("updated data",updatedRequestData)
             setFriendRequests(updatedRequestData);
         } catch (err) {
             console.error('Error accepting request', err.message);
