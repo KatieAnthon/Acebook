@@ -11,20 +11,21 @@ const { Types } = require('mongoose');
 const { getUserIdFromToken } = require('./lib/token'); 
 
 const server = http.createServer(app);
+
 const io = new Server(server, {
   cors: {
     origin: "*", 
   },
-});
+}); 
+
 
 io.on('connection', (socket) => {
   const token = socket.handshake.query.token;
   const userId = getUserIdFromToken(token); 
-
   if (userId) {
     socket.join(userId.toString()); // Make the socket join a room named after the user ID
   }
-  socket.on('sendMessage', async ({ message, senderId, recipientId, postId }) => {
+  socket.on('sendMessage', async ({ message, senderId, recipientId, postId, senderUsername, receiverUsername }) => {
     try {
       // Fetch the sender, recipient, and post based on their IDs
       const [sender, recipient, post] = await Promise.all([
@@ -39,9 +40,11 @@ io.on('connection', (socket) => {
       }
       const messageData = {
         message: message,
-        sender: senderId, // Use the sender's ID
-        recipient: recipientId, // Use the recipient's ID
-        post: postId, // Use the post's ID
+        senderId: senderId, // Use the sender's ID
+        recipientId: recipientId, // Use the recipient's ID
+        postId: postId, // Use the post's ID
+        receiverUsername:receiverUsername,
+        senderUsername:senderUsername,
       };
       const newMessage = new Message(messageData);
       newMessage.save()

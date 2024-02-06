@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 import './Message.css';
 import { getUserInfo } from "../../services/authentication";
@@ -6,73 +6,66 @@ import { getPostById } from "../../services/posts";
 
 function Chat({ postId, onClose }) {
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
+    const socketRef = useRef(null);
     const [userInfo, setUserInfo] = useState(null);
     const [post, setPost] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [socket, setSocket] = useState(null);
-    const [isChatVisible, setIsChatVisible] = useState(false);
-
-
+    const [isChatVisible, setIsChatVisible] = useState(false); 
+    const [chatMessages, setChatMessages] = useState([]);
     
     useEffect(() => {
-        if (token) {
-            const newSocket = io("http://localhost:3000", {
-                query: {
-                    token,
-                },
-            });
-            setSocket(newSocket);
-
-            const fetchData = async () => {
-                try {
-                    const userInfoData = await getUserInfo(token);
-                    setUserInfo(userInfoData);
-                } catch (err) {
-                    console.error('Error fetching user information:', err);
-                }
-                try {
-                    const postsData = await getPostById(token, postId);
-                    setPost(postsData);
-                } catch (err) {
-                    console.error('Error fetching posts:', err);
-                }
-            };
-
-            fetchData();
-
-            newSocket.on('message', (message) => {
-                if (message) {
-                   console.log(message)
-                }
-                setMessages((msgs) => [...msgs, message]);
-            });
-
-            // Return cleanup function that removes event listener and closes socket
-            return () => {
-                newSocket.off('message');
-                newSocket.close();
-            };
+      const fetchData = async () => {
+        try {
+          const userInfoData = await getUserInfo(token);
+          setUserInfo(userInfoData);
+        } catch (err) {
+          console.error('Error fetching user information:', err);
         }
-    }, [token, postId]);
-
-    useEffect(() => {
-        // Cleanup useEffect for when component unmounts or socket changes
-        return () => {
-            if (socket) {
-                socket.off('message');
-                socket.close();
-            }
-        };
-    }, [socket]); // This useEffect listens for changes to the socket state
+        try {
+          const postsData = await getPostById(token, postId);
+          setPost(postsData);
+          setupSocket();
+        } catch (err) {
+          console.error('Error fetching posts:', err);
+        }
+      };
+    
+      if (token) {
+        fetchData();
+      } 
+    function setupSocket() {
+      const newSocket = io("http://localhost:3000", { query: { token } });
+      setSocket(newSocket);
+      socketRef.current = newSocket;
+      
+      newSocket.on('message', (newMessage) => {
+        setIsChatVisible(true);
+        setChatMessages((msgs) => {
+          if (!msgs.some(msg => msg._id === newMessage._id)) {
+            return [...msgs, newMessage];
+          } else {
+            return msgs;
+          }
+        });
+      });
+  
+      return () => {
+        newSocket.off('message');
+        newSocket.close();
+      };
+    }
+  }, [token, postId]);
 
     const sendMessage = () => {
-        if (message && userInfo && post && socket) {
+
+        if (message && userInfo && post && socketRef.current) {
             const recipientId = post.post.user;
-            // console.log(userInfo.userid, recipientId)
-            socket.emit('sendMessage', {
+            socketRef.current.emit('sendMessage', {
                 message: message,
                 senderId: userInfo.userid,
+                senderUsername: userInfo.username,
+                receiverUsername: post.post.username,
                 recipientId: recipientId,
                 postId: post.post._id,
             });
@@ -86,8 +79,8 @@ function Chat({ postId, onClose }) {
               <button onClick={onClose} className="close-btn">X</button>
           </div>
           <div className="chat-messages">
-              {messages.map((msg, index) => (
-                  <div key={index} className="message">{userInfo.username}: {msg.message}</div>
+              {chatMessages.map((msg, index) => (
+                  <div key={index} className="message">{msg.senderUsername}: {msg.message} </div>
               ))}
           </div>
           <div className="chat-input-container">
@@ -96,7 +89,7 @@ function Chat({ postId, onClose }) {
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Type a message..."
               />
-              <button onClick={sendMessage}>Send</button>
+             <button type="button" onClick={sendMessage}>Send</button>
           </div>
       </div>
   );
