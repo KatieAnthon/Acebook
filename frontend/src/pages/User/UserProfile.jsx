@@ -126,6 +126,7 @@ useEffect(() => {
             showDeleteButton={true}
             onCommentSubmit={handleCommentSubmit}
             focusCommentForm={() => focusCommentForm(post._id)}
+            currentUserInfo={userInfo}
           />
         ))}
       </div>

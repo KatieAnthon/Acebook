@@ -15,7 +15,9 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
   const handleCloseChat = () => {
     setIsChatVisible(false); 
 };
- const showMessageButton = currentUserInfo.userid != post.user
+// I added this logic, so the message button only shows to another user 
+const showMessageButton = currentUserInfo.userid !== post.user && currentUserInfo.userid !== post.user._id;
+
 
   return (
     <article className="post">
@@ -47,8 +49,8 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
             <button className="my-button" onClick={onEdit}>Edit Post</button>
           </>
         )}
-         {showMessageButton && (
-        <button onClick={toggleChat} className="my-button">Message</button> 
+        {showMessageButton && (
+            <button onClick={toggleChat} className="my-button">Message</button> 
         )}
       </div>
       {isChatVisible && <Chat postId={post._id}  onClose={handleCloseChat}/>} 
