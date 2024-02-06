@@ -1,4 +1,3 @@
-import React from 'react';
 import './Post.css'; // Your existing CSS file
 import { Link } from 'react-router-dom';
 import UserInfo from '../UserInfo/UserInfo';
