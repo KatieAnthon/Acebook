@@ -38,9 +38,9 @@ router.get("/:username",tokenChecker, UsersController.getFriendInformation);
 
 router.post("/sendFriendRequest", tokenChecker, UsersController.sendFriendRequest);
 
-router.get("/getFriendRequests", tokenChecker, UsersController.getAllFriendRequests);
+// router.get("/getFriendRequests", tokenChecker, UsersController.getAllFriendRequests);
 
-router.post("/friendRequestResponse", tokenChecker, UsersController.friendRequestResponse);
+// router.post("/friendRequestResponse", tokenChecker, UsersController.friendRequestResponse);
 
 
 

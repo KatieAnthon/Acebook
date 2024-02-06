@@ -13,9 +13,11 @@ const FriendRequest = () => {
         const fetchData = async () => {
             if (token) {
                 try {
+                    
                 const friendRequestData = await getFriendRequests(token);
-                console.log(friendRequestData)
-                setFriendRequests(friendRequestData);
+                console.log("friend_request",friendRequestData)
+                setFriendRequests(friendRequestData.friend_list);
+                
                 } catch (err) {
                 console.error('Error fetching user information:', err);
                 }

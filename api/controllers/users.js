@@ -97,9 +97,10 @@ const friendRequestResponse = async (req, res) => {
 const getAllFriendRequests = async (req, res) => {
   console.log('here')
   try {
-    console.log(req)
+    console.log("getall_friend_requests")
     const userId = req.user_id;
     const user = await User.findById(userId);
+    console.log(userId)
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }else{

@@ -23,6 +23,9 @@ router.post("/", upload.single('profilePic'), UsersController.create);
 
 router.get("/userinfo",tokenChecker, UsersController.getUsersInformation);
 
+router.get("/getFriendRequests", tokenChecker, UsersController.getAllFriendRequests);
+
+
 
 
 

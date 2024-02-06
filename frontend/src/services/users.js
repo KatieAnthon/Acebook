@@ -49,9 +49,9 @@ export const getFriendRequests = async (token) => {
         Authorization: `Bearer ${token}`,
         },
     };
-    console.log(requestOptions)
+    console.log("get request",requestOptions)
 
-    const response = await fetch(`${BACKEND_URL}/posts/getFriendRequests`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/users/getFriendRequests`, requestOptions);
 
     if (!response.ok) {
         throw new Error(`Error fetching user information: ${response.statusText}`);
