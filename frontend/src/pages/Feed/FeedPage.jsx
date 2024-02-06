@@ -100,6 +100,7 @@ return (
         showDeleteButton={false} 
         onCommentSubmit={handleCommentSubmit}
         focusCommentForm={() => focusCommentForm(post._id)}
+        currentUserInfo={userInfo}
       />
     ))}
     </div>

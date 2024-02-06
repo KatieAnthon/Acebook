@@ -11,6 +11,7 @@ function Chat({ postId, onClose }) {
     const [post, setPost] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [socket, setSocket] = useState(null);
+    const [isChatVisible, setIsChatVisible] = useState(false);
 
 
     
@@ -41,6 +42,9 @@ function Chat({ postId, onClose }) {
             fetchData();
 
             newSocket.on('message', (message) => {
+                if (message) {
+                   console.log(message)
+                }
                 setMessages((msgs) => [...msgs, message]);
             });
 
@@ -64,8 +68,8 @@ function Chat({ postId, onClose }) {
 
     const sendMessage = () => {
         if (message && userInfo && post && socket) {
-          console.log(userInfo)
             const recipientId = post.post.user;
+            // console.log(userInfo.userid, recipientId)
             socket.emit('sendMessage', {
                 message: message,
                 senderId: userInfo.userid,

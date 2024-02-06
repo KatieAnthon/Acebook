@@ -1,14 +1,12 @@
-import React from 'react';
 import './Post.css'; // Your existing CSS file
 import { Link } from 'react-router-dom';
-import UserInfo from '../UserInfo/UserInfo';
 import LikeButton from "../LikeButton/LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
 import Chat from '../Messages/Message'; 
 import React, { useState } from 'react';
 
-const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm }) => {
+const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm, currentUserInfo }) => {
   const [isChatVisible, setIsChatVisible] = useState(false);
   const toggleChat = () => {
     setIsChatVisible(!isChatVisible);
@@ -17,6 +15,7 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
   const handleCloseChat = () => {
     setIsChatVisible(false); 
 };
+ const showMessageButton = currentUserInfo.userid != post.user
 
   return (
     <article className="post">
@@ -48,7 +47,9 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
             <button className="my-button" onClick={onEdit}>Edit Post</button>
           </>
         )}
+         {showMessageButton && (
         <button onClick={toggleChat} className="my-button">Message</button> 
+        )}
       </div>
       {isChatVisible && <Chat postId={post._id}  onClose={handleCloseChat}/>} 
         <div className="post-comments">
