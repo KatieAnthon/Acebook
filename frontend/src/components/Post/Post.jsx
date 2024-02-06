@@ -1,9 +1,11 @@
 import LikeButton from "../LikeButton/LikeButton";
 import './Post.css'; 
 import CommentForm from './CommentFormHandle';
+import CommentLikeButton from '../LikeButton/CommentLikeButton'
 
 
-const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm }) => {
+const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm, onDeleteComment }) => {
+  
   return (
     <article className="post">
       <header className="post-header">
@@ -32,15 +34,20 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
       </div>
         <div className="post-comments">
           <h3>Comments</h3>
+          <div>
           {post.comments.map((comment, index) => (
-            <li key={index} className="comment-item">
+             <li key={index} className="comment-item">
               <div className="comment-username">{comment.username}</div>
               <div className="comment-message">{comment.message}</div>
               <div className="comment-date">{comment.date.split("T")[0]}</div>
+              <CommentLikeButton comment_id={comment._id} likes={comment.likes} />
+              <button className="my-button" onClick={() => onDeleteComment(comment._id)}>
+                Delete comment
+              </button>
             </li>
-          ))}
-         
-          <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
+            ))}
+          </div>    
+              <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
         </div>
      
       </div>

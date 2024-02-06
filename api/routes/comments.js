@@ -4,11 +4,17 @@ const tokenChecker = require('../middleware/tokenChecker');
 const CommentsController = require("../controllers/comments");
 
 
-router.post('/commentPost', tokenChecker, CommentsController.commentPost)
+router.post('/commentPost', tokenChecker, CommentsController.commentPost);
 
-router.get('/comments', tokenChecker, CommentsController.getAllComments)
+router.get('/comments', tokenChecker, CommentsController.getAllComments);
 
 router.get('/byPost/:postId', tokenChecker, CommentsController.getCommentsByPostId);
+
+router.post("/likes", tokenChecker, CommentsController.addLikeComment);
+
+router.delete("/comments/:commentId", tokenChecker, CommentsController.deleteComment);
+
+//router.patch("/editcomment/:commentId", tokenChecker, CommentsController.updateComment);
 
 
 module.exports = router;
