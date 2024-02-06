@@ -32,6 +32,4 @@ router.get("/", PostsController.getAllPosts);
 router.patch("/editingPost/:postId", tokenChecker, upload.single('image'), PostsController.updatePost);
 
 
-
-
 module.exports = router;
