@@ -19,7 +19,6 @@ if (response.status !== 200) {
 }
 
 const data = await response.json();
-console.log("data", data)
 return data;
 };
 
@@ -40,7 +39,6 @@ if (response.status !== 200) {
 }
 
 const data = await response.json();
-console.log("data", data)
 return data;
 };
 

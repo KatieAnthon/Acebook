@@ -37,6 +37,7 @@ const FriendRequest = () => {
 
     return (
     <div className="requests" role="requests">
+    Friend Requests
         {friendRequests.map((friend) => (
             <div key={friend.id}>
                 <p>{friend.id}</p>
