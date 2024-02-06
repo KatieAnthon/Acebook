@@ -25,7 +25,6 @@ const [userInfo, setUserInfo] = useState(null);
 const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 const [selectedPost, setSelectedPost] = useState(null);
 
-
 const navigate = useNavigate();
 useEffect(() => {
     const fetchData = async () => {

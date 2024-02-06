@@ -25,4 +25,9 @@ router.post("/", upload.single('profilePic'), UsersController.create);
 router.get("/userinfo",tokenChecker, UsersController.getUsersInformation);
 
 
+
+
+
+
+
 module.exports = router;

@@ -1,0 +1,64 @@
+.chat-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000; /* make sure it's above other elements */
+}
+
+.chat-header {
+  padding: 10px;
+  background-color: #040b14;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column-reverse; /* stack messages from the bottom */
+}
+
+.message {
+  margin-bottom: 10px; /* space between messages */
+}
+
+.chat-input-container {
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+}
+
+input {
+  flex: 1; /* input field takes up the remaining space */
+  margin-right: 10px; /* space between input field and send button */
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #4267b2;
+  color: white;
+  cursor: pointer;
+}
