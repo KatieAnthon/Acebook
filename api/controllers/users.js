@@ -47,8 +47,8 @@ const sendFriendRequest = async (req, res) => {
     if (!requestExists){
       // add friend request object to both users friend_list
       console.log(sender._id)
-      sender.friend_list.push({id: receiver._id, confirmed: false})
-      await sender.save();
+      //sender.friend_list.push({id: receiver._id, confirmed: false})
+      //await sender.save();
       receiver.friend_list.push({username: sender.username, id: sender._id, confirmed: false})
       await receiver.save();
       return res.status(200).json({ message: "Friend request sent successfully"});
@@ -68,6 +68,12 @@ const friendRequestResponse = async (req, res) => {
     const sender = await User.findById(req.user_id);
     const receiver = await User.findById(req.body.user_id);
     const response = req.body.confirmed;
+    console.log("sender", sender)
+    console.log("receiver", receiver)
+    console.log("response", response)
+    //example test4 adding test1
+              //receiver.friend_list.push({id: receiver._id, confirmed: true})
+              //await receiver.save();
     // if friend request is accepted
     // if (response === true){
       // find the friend request object sent from sender to receiver and vice versa
@@ -75,7 +81,8 @@ const friendRequestResponse = async (req, res) => {
     const receiver_sender_request = receiver.friend_list.find((friend_request) => friend_request.id.toString() === req.user_id)
       // modify friend object of both users to true
     sender_receiver_request.confirmed = response
-    receiver_sender_request.confirmed = response
+    receiver.friend_list.push({id: receiver._id, confirmed: true})
+    //receiver_sender_request.confirmed = response
 
     await sender.save();
     await receiver.save();
