@@ -7,7 +7,7 @@ import CommentLikeButton from '../LikeButton/CommentLikeButton'
 import Chat from '../Messages/Message'; 
 import React, { useState } from 'react';
 
-const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm, onDeleteComment, currentUserInfo}) => {
+const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focusCommentForm, onDeleteComment}) => {
   const [isChatVisible, setIsChatVisible] = useState(false);
   const toggleChat = () => {
     setIsChatVisible(!isChatVisible);
@@ -15,7 +15,6 @@ const Post = ({ post, onDelete, onEdit, showDeleteButton, onCommentSubmit, focus
 
 
 // I added this logic, so the message button only shows to another user 
-const showMessageButton = currentUserInfo.userid !== post.user && currentUserInfo.userid !== post.user._id;
 
 
   return (
@@ -48,9 +47,9 @@ const showMessageButton = currentUserInfo.userid !== post.user && currentUserInf
             <button className="my-button" onClick={onEdit}>Edit Post</button>
           </>
         )}
-        {showMessageButton && (
+   
             <button onClick={toggleChat} className="my-button">Message</button> 
-        )}
+     
       </div>
       {isChatVisible && <Chat postId={post._id} onClose={() => setIsChatVisible(false)} setIsChatVisible={setIsChatVisible} />}
         <div className="post-comments">
