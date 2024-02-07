@@ -157,19 +157,22 @@ useEffect(() => {
     <Container fluid >
       <NavBar />
       <Stack gap={3}>
-        
+      {userInfo && (
         <Card>
           
           <Card.Img style={{height: 500}} src="../profile_cover_photo/banner.jpg" />
             <Card.ImgOverlay>
-              
-                <Image variant="top" style={{height: 100}}  src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} roundedCircle />
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+            <div style={{ textAlign: "center", textDecorationColor: "color" }}>
+                <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover'}}  src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} roundedCircle fluid />
                 <Card.Body>
-                  <Card.Title>{userInfo.username || 'Default Username'}</Card.Title>
+                  <Card.Title style={{color: "white"}}>{userInfo.username || 'Default Username'}</Card.Title>
                 </Card.Body>
+                </div>
+                </div>
             </Card.ImgOverlay>
             
-        </Card>
+        </Card>)}
       </Stack>
     </Container>
 
@@ -179,13 +182,13 @@ useEffect(() => {
 
 
       <Introduction pageName={"Profile"}/>
-      {/* {userInfo && (
-      <UserInfo
-        userName={userInfo.username || 'Default Username'} 
-        userEmail={userInfo.email || 'Default Email'} 
-        userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
-        />
-      )}    */}
+      
+      {/* // <UserInfo
+      //   userName={userInfo.username || 'Default Username'} 
+      //   userEmail={userInfo.email || 'Default Email'} 
+      //   userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
+      //   />
+      // )}    */}
     
     <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
