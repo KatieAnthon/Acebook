@@ -7,7 +7,7 @@ const FriendRequest = ({ friend, handleAcceptRequest }) => {
   // Component logic for rendering each friend request
   return (
     <div key={friend._id}>
-      <p>{friend._id} send you a friend request</p>
+      <p>{friend.username} send you a friend request</p>
       <button onClick={() => handleAcceptRequest(friend)}>Add Friend</button>
     </div>
   );
@@ -23,7 +23,7 @@ const FriendRequestList = () => {
         try {
           const friendRequestData = await getFriendRequests(token);
           setFriendRequests(friendRequestData.friend_list);
-          console.log("friendrequestdata", friendRequestData);
+          console.log("friendrequestdata", friendRequests);
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
