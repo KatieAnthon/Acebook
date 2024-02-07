@@ -21,7 +21,6 @@ const FriendRequestList = () => {
         try {
           const friendRequestData = await getFriendRequests(token);
           setFriendRequests(friendRequestData.friend_list);
-          console.log("friendrequestdata", friendRequestData);
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
