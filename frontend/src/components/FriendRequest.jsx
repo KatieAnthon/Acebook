@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { friendRequestResponse, getFriendRequests } from "../services/users";
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
 
 const FriendRequest = ({ friend, handleAcceptRequest }) => {
   // Component logic for rendering each friend request
@@ -46,21 +48,26 @@ const FriendRequestList = () => {
 
   return (
     <div className="requests" role="requests">
-      {friendRequests && (friendRequests.filter(friend => !friend.confirmed)).length > 0 ? (
-        <>
-          <h3>Friend Requests</h3>
-          {friendRequests
-          .map((friend) => (
-            <FriendRequest key={friend._id} 
-                            friend={friend} 
-                            handleAcceptRequest={handleAcceptRequest} />
-          ))}
-        </>
-      ) : (
-        <p>No friend requests</p>
-      )}
-    </div>
-  );
+<NavDropdown title="Friend Requests">
+
+{friendRequests && (friendRequests.filter(friend => !friend.confirmed)).length > 0 ? (
+    <>
+        <h3>Friend Requests</h3>
+        {friendRequests
+        .map((friend) => (
+        <FriendRequest key={friend._id} 
+                        friend={friend} 
+                        handleAcceptRequest={handleAcceptRequest} />
+        ))}
+    </>
+    ) : (
+    <p>No friend requests</p>
+    )}
+
+</NavDropdown>
+    
+</div>
+);
 };
 
 export default FriendRequestList;
