@@ -29,11 +29,9 @@ const createPost = async (req, res) => {
   try {
     // Fetch the user's information using req.user_id
     const user = await User.findById(req.user_id);
-
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
     // Create a new post with the user's ID and username
     const newPost = new Post({
       message: req.body.content,
@@ -42,8 +40,6 @@ const createPost = async (req, res) => {
       postImage:postImage,
       comments: []
     });
-    
-    console.log(newPost)
     await newPost.save();
     res.status(201).json({ message: 'Post created successfully', post: newPost });
   } catch (error) {
@@ -52,28 +48,22 @@ const createPost = async (req, res) => {
   }
 };
 
-// const getUserPosts  =  async(req,res) =>{
-
 const addUserLike = async(req,res) => {
   try {
+    // find the liked post
     const post = await Post.findById(req.body.post_id);
     const user_id = req.user_id;
-    
+    // if the likes array of that post doesn't include the id of the user who clicked it - add them to the array
   if (!post.likes.includes(req.user_id)) {
-    // db.student.update( { "subjects" : "gkn" },{ $push: { "achieve": 95 } });
-    // db.collection(Post).updateOne( { "_id": req.body.post_id }, {$push: { "likes": req.user_id } }  ).done()
     post.likes.push(user_id)
     await post.save();
     return res.status(200).json({ message: "User added to likes successfully"});
-    
+    // if the likes array of that post includes the id of the user who clicked it - remove them from the array
   } else if (post.likes.includes(req.user_id)) {
-    post.likes.pull(req.user_id)
-
     post.likes.pull(user_id)
     await post.save();
     return res.status(200).json({ message: "User unliked successfully"});
 }
-
 } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
@@ -127,7 +117,6 @@ const deletePost = async (req, res) => {
     if (post.user.toString() !== req.user_id) {
       return res.status(403).json({ message: 'You are not authorized to delete this post' });
     }
-
     // Delete the post
     await post.deleteOne();
     res.status(200).json({ message: 'Post deleted successfully' });
@@ -157,8 +146,17 @@ const updatePost = async (req, res) => {
     if (!updatedPost) {
       return res.status(404).json({ message: 'Post not found' });
     }
-
+    console.log("Post:", post); // Log the Post object
+    console.log("User ID from request:", req.user_id); // Log the user ID for debugging
+    // Check if the user making the request is the owner of the post
+    if (post.user.toString() !== req.user_id) {
+      return res.status(403).json({ message: 'You are not authorized to update this post' });
+    }
+    // Perform the update
+    const updateData = req.body; // Assuming the updated post data is sent in the request body
+    await Post.updateOne({ _id: postId }, updateData);
     res.status(200).json({ message: 'Post updated successfully', updatedPost });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });

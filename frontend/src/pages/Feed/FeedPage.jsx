@@ -29,7 +29,6 @@ export const FeedPage = () => {
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
-  
         try {
           const fetchedPosts = await getPosts(token);
           const postWithComments = fetchedPosts.posts.map(post => ({
@@ -44,7 +43,6 @@ export const FeedPage = () => {
         navigate("/login");
       }
     };
-  
     fetchData();
   }, [token, navigate]);
 

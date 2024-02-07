@@ -7,7 +7,7 @@
     date: { type: Date, default: Date.now },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     username: String,
-    likes: { type: Array, default: [] },
+    likes: { type: Array },
     postImage: { type: String },
     comments: {type: Array, default: []}
   });
