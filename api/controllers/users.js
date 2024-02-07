@@ -9,7 +9,7 @@ const create = (req, res) => {
   const profilePicUrl = req.file ? req.file.path : ''; // Get the file path from Multer// multer is a lirary that we will need to add on our api end. 
 
   const user = new User({ email, password, username, profilePic: profilePicUrl });
-
+  
   user
     .save()
     .then((user) => {

@@ -4,16 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 import './NavBar.css'; 
 import FriendRequestList from '../FriendRequest';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-{/* <NavDropdown title="Friend Requests">
-
-                        <NavDropdown.Item></NavDropdown.Item>
-                        
-                    </NavDropdown> */}
-
-
-const NavBar = () => {
+const NavBar = ({onMessagesClick}) => {
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -23,9 +16,8 @@ const NavBar = () => {
                 <Nav className="me-auto">
                     <Nav.Link href="/posts">Home</Nav.Link>
                     <Nav.Link href="/myprofile">Profile</Nav.Link>
-                    <Nav.Link href="/messages">Messages</Nav.Link>
-
                     <FriendRequestList />
+                    <Nav.Link href="#" onClick={onMessagesClick}>Messages</Nav.Link>
 
                     <Nav.Link href="/"
                     onClick = {()=> {console.log(
@@ -41,3 +33,8 @@ const NavBar = () => {
 }
 
 export default NavBar
+
+
+
+
+

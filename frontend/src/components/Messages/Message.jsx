@@ -68,6 +68,7 @@ function Chat({ postId, onClose }) {
                 receiverUsername: post.post.username,
                 recipientId: recipientId,
                 postId: post.post._id,
+                userPicute: userInfo.profilePic
             });
             setMessage('');
         }

@@ -16,6 +16,7 @@ import UserInfo from "../../components/Userinfo/UserInfo"
 // import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
+import { MyMessages } from "../../pages/Message/MessagePage"
 import FriendRequest from "../../components/FriendRequest";
 // styling 
 import Stack from 'react-bootstrap/Stack';
@@ -31,6 +32,8 @@ const [token, setToken] = useState(window.localStorage.getItem("token"));
 const [userInfo, setUserInfo] = useState(null);
 const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 const [selectedPost, setSelectedPost] = useState(null);
+const [isModalOpen, setIsModalOpen] = useState(false);
+
 
 const navigate = useNavigate();
 useEffect(() => {
@@ -114,6 +117,7 @@ useEffect(() => {
       setIsEditModalOpen(true);
     };
 
+
   const handlePostSubmit = async (formData, initialData) => {
     try {
       if (initialData) {
@@ -155,15 +159,18 @@ useEffect(() => {
     }
   };
 
-{/* <Image style={{height: 500}} src="../profile_cover_photo/banner.jpg"  />; */}
-{/* <div className="d-flex align-items-center justify-content-center vh-100"> */}
-{/* </div> */}
+const openMessagesModal = (event) => {
+    event.preventDefault(); 
+    setIsModalOpen(true);   
+  };
 
   return (
     <>
     <Container fluid >
-      <NavBar />
+      <NavBar onMessagesClick={openMessagesModal}/> 
+      {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
       <Stack gap={3}>
+
       {userInfo && (
         <Card>
           
