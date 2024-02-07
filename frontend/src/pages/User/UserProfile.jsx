@@ -12,7 +12,7 @@ import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
-import Introduction from "../../components/Introduction/Introduction"
+// import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
 import FriendRequest from "../../components/FriendRequest";
@@ -160,7 +160,7 @@ useEffect(() => {
       {userInfo && (
         <Card>
           
-          <Card.Img style={{height: 500}} src="../profile_cover_photo/banner.jpg" />
+          <Card.Img style={{width: 1000, height: 500}} src="../profile_cover_photo/banner.jpg" />
             <Card.ImgOverlay>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
             <div style={{ textAlign: "center", textDecorationColor: "color" }}>
@@ -173,24 +173,7 @@ useEffect(() => {
             </Card.ImgOverlay>
             
         </Card>)}
-      </Stack>
-    </Container>
-
-
-
-      <FriendRequest />
-
-
-      <Introduction pageName={"Profile"}/>
-      
-      {/* // <UserInfo
-      //   userName={userInfo.username || 'Default Username'} 
-      //   userEmail={userInfo.email || 'Default Email'} 
-      //   userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
-      //   />
-      // )}    */}
-    
-    <PostForm onSubmit={handlePostSubmit} />
+        <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
     {posts.slice().reverse().map((post) => (
           <Post
@@ -214,7 +197,13 @@ useEffect(() => {
     </div>
   </div>
   )}
-    </>
+      </Stack>
+    </Container>
+
+
+
+      <FriendRequest />
+      </>
   );
 };
 
