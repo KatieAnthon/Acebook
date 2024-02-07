@@ -1,6 +1,5 @@
 import './Post.css'; // Your existing CSS file
 import { Link } from 'react-router-dom';
-import UserInfo from '../UserInfo/UserInfo';
 import LikeButton from "../LikeButton/LikeButton";
 import './Post.css';
 import '../../App'
@@ -16,10 +15,12 @@ const Post = ({ post,
                 onCommentSubmit, 
                 focusCommentForm, 
                 onDeleteComment, 
-                onUpdateComment}) => {
+                onUpdateComment,
+                currentUserInfo}) => {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedComment, setSelectedComment] = useState(null); 
+
   const [isChatVisible, setIsChatVisible] = useState(false);
 
   const toggleChat = () => {
@@ -35,6 +36,9 @@ const handleCommentEdit = async (comment) => {
   setSelectedComment(comment);
 };
 
+// I added this logic, so the message button only shows to another user 
+const showMessageButton = currentUserInfo.userid !== post.user && currentUserInfo.userid !== post.user._id;
+
 
   return (
     <article className="post">
@@ -42,7 +46,7 @@ const handleCommentEdit = async (comment) => {
         <p className="post-user">
           Posted by {' '}       
             <Link to={`/posts/${post.username}`} >
-    {post.username}
+              {post.username}
           </Link>
             </p>
       </header>
@@ -66,9 +70,11 @@ const handleCommentEdit = async (comment) => {
             <button className="my-button" onClick={onEdit}>Edit Post</button>
           </>
         )}
-        <button onClick={toggleChat} className="my-button">Message</button> 
+        {showMessageButton && (
+            <button onClick={toggleChat} className="my-button">Message</button> 
+        )}
       </div>
-      {isChatVisible && <Chat postId={post._id}  onClose={handleCloseChat}/>} 
+      {isChatVisible && <Chat postId={post._id} onClose={() => setIsChatVisible(false)} setIsChatVisible={setIsChatVisible} />}
         <div className="post-comments">
           <h3>Comments</h3>
           <div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { deletePost } from '../../services/posts'; 
+import { deletePost } from '../../services/posts';
 import { getUserInfo } from "../../services/authentication";
 import { addCommentToPost } from "../../services/comments";
 import { getAllComments } from "../../services/comments";
@@ -16,6 +16,7 @@ import UserInfo from "../../components/Userinfo/UserInfo"
 import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
+import FriendRequest from "../../components/FriendRequest";
 
 
 export const UserProfile = () => {
@@ -153,6 +154,7 @@ useEffect(() => {
   return (
     <>
       <NavBar />
+      <FriendRequest />
       <Introduction pageName={"Profile"}/>
       {userInfo && (
       <UserInfo
@@ -165,19 +167,19 @@ useEffect(() => {
     <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
     {posts.slice().reverse().map((post) => (
-        <Post
-        key={post._id}
-        post={post}
-        onDelete={() => handleDelete(post._id)}
-        onEdit={() => handleEdit(post)}
-        showDeleteButton={true}
-        onCommentSubmit={handleCommentSubmit}
-        focusCommentForm={() => focusCommentForm(post._id)}
-        onDeleteComment={(commentId) => handleDeleteComment(commentId)}
-        >
-      </Post>
-    ))}
-</div>
+          <Post
+            key={post._id}
+            post={post}
+            onDelete={() => handleDelete(post._id)}
+            onEdit={() => handleEdit(post)}
+            showDeleteButton={true}
+            onCommentSubmit={handleCommentSubmit}
+            focusCommentForm={() => focusCommentForm(post._id)}
+            currentUserInfo={userInfo}
+            onDeleteComment={(commentId) => handleDeleteComment(commentId)}
+              />
+            ))}
+          </div>
     {isEditModalOpen && (
     <div className="edit-post-modal-overlay">
     <div className="edit-post-modal">
