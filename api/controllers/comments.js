@@ -115,6 +115,44 @@ const addLikeComment = async(req,res) => {
   }
 };
 
+const updateComment = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const postUpdateData = { message: req.body.content };
+
+    // Update comment in the Comments table
+    const updatedComment = await Comments.findOneAndUpdate(
+      { _id: postId, user: req.user_id },
+      { $set: postUpdateData },
+      { new: true }
+    );
+
+    // Check if the comment was not found in the Comments table
+    if (!updatedComment) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+
+    // Update the same comment in the Post table
+    const updatedPost = await Post.findOneAndUpdate(
+      { _id: postId, user: req.user_id },
+      { $set: postUpdateData },
+      { new: true }
+    );
+
+    // Check if the post was not found in the Post table
+    if (!updatedPost) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Send a success response with the updated comment and post data
+    res.status(200).json({ message: 'Comment and Post updated successfully', updatedComment, updatedPost });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 
 const CommentsController = {
     commentPost:commentPost,
@@ -122,6 +160,7 @@ const CommentsController = {
     getCommentsByPostId:getCommentsByPostId,
     addLikeComment:addLikeComment,
     deleteComment: deleteComment,
+    updateComment:updateComment,
   };
   
 module.exports = CommentsController;
