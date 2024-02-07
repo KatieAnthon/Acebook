@@ -9,7 +9,8 @@
     username: String,
     likes: { type: Array },
     postImage: { type: String },
-    comments: {type: Array, default: []}
+    comments: {type: Array, default: []},
+    userPorfilePicture:String
   });
 
   // We use the Schema to create the Post model. Models are classes which we can

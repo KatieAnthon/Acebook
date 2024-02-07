@@ -9,7 +9,6 @@ import Modal from 'react-bootstrap/Modal';
 
 export const MyMessages = ({isModalOpen, closeModal}) => {
     const [token, setToken] = useState(window.localStorage.getItem("token"));
-    const [userInfo, setUserInfo] = useState([]);
     const [messages, setUserMessages] = useState([]);
     const navigate = useNavigate();
 
@@ -17,8 +16,6 @@ export const MyMessages = ({isModalOpen, closeModal}) => {
       const fetchData = async () => {
         if (token) {
           try {
-            const userInfoData = await getUserInfo(token);
-            setUserInfo(userInfoData || []);
             const userMessages = await getMessagesByUser(token);
             setUserMessages(userMessages || []);
           } catch (err) {

@@ -19,9 +19,6 @@ const createMessage = async (req, res) => {
 
 
 const getMessagesByUser = async (req, res) => {
- 
-  const user = await User.findById(req.user_id);
-
   try {
     const messages = await Message.find({ recipientId: req.user_id})
       .populate('senderUsername', 'username')

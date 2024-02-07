@@ -8,7 +8,8 @@ const MessageSchema = new mongoose.Schema({
   postId: String,
   senderUsername: String,
   receiverUsername:String,
-  userPicute:String
+  userPicute:String,
+  receiverPicture:String
 });
   
 const Messages = mongoose.model("Message", MessageSchema);
