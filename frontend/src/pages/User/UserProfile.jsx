@@ -16,6 +16,11 @@ import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
 import FriendRequest from "../../components/FriendRequest";
+// styling 
+import Stack from 'react-bootstrap/Stack';
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
 
 
 export const UserProfile = () => {
@@ -143,19 +148,44 @@ useEffect(() => {
     }
   };
 
+{/* <Image style={{height: 500}} src="../profile_cover_photo/banner.jpg"  />; */}
+{/* <div className="d-flex align-items-center justify-content-center vh-100"> */}
+{/* </div> */}
 
   return (
     <>
+    <Container fluid >
       <NavBar />
+      <Stack gap={3}>
+        
+        <Card>
+          
+          <Card.Img style={{height: 500}} src="../profile_cover_photo/banner.jpg" />
+            <Card.ImgOverlay>
+              
+                <Image variant="top" style={{height: 100}}  src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} roundedCircle />
+                <Card.Body>
+                  <Card.Title>{userInfo.username || 'Default Username'}</Card.Title>
+                </Card.Body>
+            </Card.ImgOverlay>
+            
+        </Card>
+      </Stack>
+    </Container>
+
+
+
       <FriendRequest />
+
+
       <Introduction pageName={"Profile"}/>
-      {userInfo && (
+      {/* {userInfo && (
       <UserInfo
         userName={userInfo.username || 'Default Username'} 
         userEmail={userInfo.email || 'Default Email'} 
         userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
         />
-      )}   
+      )}    */}
     
     <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
