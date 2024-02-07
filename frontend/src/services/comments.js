@@ -22,7 +22,6 @@ export const addCommentToPost = async (token, postId, commentText) => {
   
 };
 
-
   export const getAllComments = async (token) => {
     const requestOptions = {
       method: "GET",
@@ -57,3 +56,58 @@ export const addCommentToPost = async (token, postId, commentText) => {
     const data = await response.json();
     return data.comments; // Assuming the backend sends the comments in a 'comments' key
   };
+
+export const addLikeComment = async (token, comment_id) => {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(comment_id),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/comments/likes`, requestOptions);
+  if (response.status !== 200) {
+    throw new Error("Unable to like comment");
+  }
+
+  const data = await response.json();
+  // console.log("data", data)
+  return data;
+};
+
+export const deleteComment = async (token, commentId) => {
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const url = `${BACKEND_URL}/comments/comments/${commentId}`;
+
+  try {
+    const response = await fetch(url, requestOptions);
+    console.log('Delete comment response:', response);
+
+    if (!response.ok) {
+      throw new Error(`Error in deleting comment: ${response.statusText}`);
+    }
+
+    // Check if the response contains JSON data
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json();
+      console.log('Deleted comment data:', data);
+      return data;
+    } else {
+      // Handle the case where the response doesn't contain JSON data
+      console.log('Deleted comment successfully');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error in deleteComment:', error);
+    throw error; // Make sure to re-throw the error if it occurs.
+  }
+};

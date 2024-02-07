@@ -1,0 +1,88 @@
+.chat-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000; /* make sure it's above other elements */
+}
+
+.chat-header {
+  padding: 10px;
+  background-color: #040b14;
+  color: white;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto; /* Enables scrolling */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 5px 0;
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+.chat-input-container {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  background: white; /* Ensures the input area is visually distinct if scrolled */
+}
+
+input {
+  flex: 1; /* input field takes up the remaining space */
+  margin-right: 10px; /* space between input field and send button */
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: none; /* Adjusted for a cleaner look */
+  background-color: #4267b2;
+  color: white;
+  cursor: pointer;
+}
+
+.sent {
+  align-self: flex-end;
+  background-color: #0078FF; /* A blue shade, typical for sent messages */
+  color: white;
+}
+
+.received {
+  align-self: flex-start;
+  background-color: #E5E5EA; /* A light grey, typical for received messages */
+  color: black;
+}
+
+.message-username {
+  font-size: 0.75rem;
+  margin-bottom: 5px;
+}
