@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.thumbnail-img {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    object-fit: cover; /* Maintain aspect ratio while covering the thumbnail area */
+    border-radius: 50%; /* Add rounded corners to the thumbnail */
+  }
+  
+  /* Optional: Define additional styling for the thumbnail container */
+  .thumbnail {
+    /* Add margin or padding if necessary */
+  }

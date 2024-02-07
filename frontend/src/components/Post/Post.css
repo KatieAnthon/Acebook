@@ -4,8 +4,10 @@
     border-radius: 8px;
     margin-bottom: 15px;
     padding: 16px;
-    overflow: hidden; /* Ensures that content doesn't spill outside the border */
-    position: relative; /* Sets the position context for absolute positioning of children */
+    overflow: hidden; 
+    position: relative;/* Ensures that content doesn't spill outside the border */
+    width: 100%;
+    margin: 0 auto; /* Sets the position context for absolute positioning of children */
   }
   
   .post-header {

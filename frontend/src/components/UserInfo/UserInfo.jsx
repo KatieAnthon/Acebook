@@ -12,12 +12,7 @@ const UserInfo = ({ userName, userEmail, userPicture }) => {
         </div>
         <nav id="navbar" className="nav-menu navbar">
           <ul>
-            <li><Link to="#hero" className="nav-link scrollto active"><i className="bx bx-home"></i> <span>Home</span></Link></li>
-            <li><Link to="#about" className="nav-link scrollto"><i className="bx bx-user"></i> <span>About</span></Link></li>
-            <li><Link to="#Saved" className="nav-link scrollto"><i className="bi bi-graph-up"></i> <span>Saved</span></Link></li>
-            <li><Link to="#Friends" className="nav-link scrollto"><i className="bx bx-file-blank"></i> <span>Friends</span></Link></li>
-            <li><Link to="#Groups" className="nav-link scrollto"><i className="bx bx-book-content"></i> <span>Groups</span></Link></li>
-            <li><Link to="#Video" className="nav-link scrollto"><i className="bx bx-envelope"></i> <span>Videos</span></Link></li>
+            <li></li>
           </ul>
         </nav>
       </div>

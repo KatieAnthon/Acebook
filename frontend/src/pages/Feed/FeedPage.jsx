@@ -10,11 +10,16 @@ import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
 import Introduction from "../../components/Introduction/Introduction"
+import "./FeedPage.css"
+import { Card, Col, Row } from 'react-bootstrap';
+import FriendToggle from '../../components/FriendToggle';
+// import FriendToggle from "../../components/FriendToggle"
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [friends, setfriends] = useState([])
   const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
 
@@ -23,7 +28,14 @@ export const FeedPage = () => {
       if (token) {
         try {
           const userInfoData = await getUserInfo(token);
+          
+  
           setUserInfo(userInfoData);
+
+          console.log("this information",userInfoData.friends)
+          setfriends(userInfoData.friends)
+          
+          
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
@@ -103,17 +115,37 @@ const handleCommentSubmit = async (postId, commentText) => {
   }
 
   
+  
 return (
-    <>
-      <NavBar />
+    <div className="page-wrapper">
+     <NavBar />
+     <Introduction pageName={"Feed"}/>
+     <div class="container">
+  <div class="row">
+    <div class="col">
+        <Card className="mt-4 sticky-card">   
     {userInfo && (
       <UserInfo
-        userName={userInfo.username || 'Default Username'} 
+        userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'}
+        userName={userInfo.username || 'Default Username'}
         userEmail={userInfo.email || 'Default Email'} 
-        userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
         />
       )}
-      <Introduction pageName={"Feed"}/>
+       </Card>
+       <div className="friend-list">
+       <h2>Friends</h2>
+         <div className="friend-table">
+       {friends.map((friend) => (
+       <FriendToggle 
+       key={friend._id}
+       friend = {friend.username}
+       picture ={`http://localhost:3000/${friend.friendProfilePic}`}
+       />
+       ))}
+       </div>
+       </div>
+       </div>
+      <div class="col">
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
       {posts.slice().reverse().map((post) => (
@@ -128,8 +160,12 @@ return (
         currentUserInfo={userInfo}
       />
     ))}
+    
     </div>
-    </>
+    </div>
+  </div>
+    </div>
+    </div>
   );
 };
 

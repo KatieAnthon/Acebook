@@ -25,11 +25,15 @@ const create = (req, res) => {
 const getUsersInformation = async (req, res) => {
   try {
     const user = await User.findById(req.user_id);
+    console.log(user)
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
+    } else if (user.friend_list.length === 0){
+      res.json({ userid: user._id, username: user.username, email: user.email , profilePic: user.profilePic, friends: []});
     } else {
-      res.json({ userid: user._id, username: user.username, email: user.email , profilePic: user.profilePic});
+      res.json({ userid: user._id, username: user.username, email: user.email , profilePic: user.profilePic, friends: user.friend_list});
     }
+      
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -48,7 +52,7 @@ const sendFriendRequest = async (req, res) => {
       console.log(sender._id)
       //sender.friend_list.push({id: receiver._id, confirmed: false})
       //await sender.save();
-      receiver.friend_list.push({username: sender.username, id: sender._id, confirmed: false})
+      receiver.friend_list.push({username: sender.username, id: sender._id, confirmed: false, friendProfilePic: sender.profilePic})
       await receiver.save();
       return res.status(200).json({ message: "Friend request sent successfully"});
     }else{
@@ -67,9 +71,7 @@ const friendRequestResponse = async (req, res) => {
     const sender = await User.findById(req.user_id);
     const receiver = await User.findById(req.body.user_id);
     const response = req.body.confirmed;
-    console.log("sender", sender)
-    console.log("receiver", receiver)
-    console.log("response", response)
+    
     //example test4 adding test1
               //receiver.friend_list.push({id: receiver._id, confirmed: true})
               //await receiver.save();
@@ -80,14 +82,11 @@ const friendRequestResponse = async (req, res) => {
     const receiver_sender_request = receiver.friend_list.find((friend_request) => friend_request.id.toString() === req.user_id)
       // modify friend object of both users to true
     sender_receiver_request.confirmed = response
-    receiver.friend_list.push({id: receiver._id, confirmed: true})
+    receiver.friend_list.push({ confirmed: true, id: sender._id, username: sender.username, friendProfilePic: sender.profilePic})
     //receiver_sender_request.confirmed = response
 
     await sender.save();
     await receiver.save();
-
-    console.log("sender", sender)
-    console.log("receiver", receiver)
 
     console.log("After update - sender:", sender);
     console.log("After update - receiver:", receiver);
@@ -112,7 +111,7 @@ const getAllFriendRequests = async (req, res) => {
   try {
     const userId = req.user_id;
     const user = await User.findById(userId);
-    console.log("get request",user.friend_list)
+    
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
