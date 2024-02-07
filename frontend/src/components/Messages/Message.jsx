@@ -61,6 +61,7 @@ function Chat({ postId, onClose }) {
 
         if (message && userInfo && post && socketRef.current) {
             const recipientId = post.post.user;
+            console.log(post)
             socketRef.current.emit('sendMessage', {
                 message: message,
                 senderId: userInfo.userid,

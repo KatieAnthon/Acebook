@@ -33,7 +33,6 @@ export const MyMessages = ({isModalOpen, closeModal}) => {
       fetchData();
     }, [token, navigate]);
 
-    console.log(isModalOpen)
 
 
     return (
@@ -46,10 +45,10 @@ export const MyMessages = ({isModalOpen, closeModal}) => {
                     {messages.map((message, messageIndex) => (
                       <React.Fragment key={messageIndex}>
                         <li className="media hover-media">
-                        <img src={message.userPicute ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} alt="msg" width="60px" height="60px" className="rounded-circle mr-3"></img>
+                        <img src={message.userPicute ? `http://localhost:3000/${message.userPicute}` : 'default-picture-url'} alt="msg" width="60px" height="60px" className="rounded-circle mr-3"></img>
                           <div className="media-body text-dark">
                             <h6 className="media-header">From: {message.senderUsername}</h6>
-                            <p className="media-text">{message.message}</p>       
+                            <p className="media-text">{message.message}</p>
                           </div>
                         </li>
                         <hr className="my-3" />
