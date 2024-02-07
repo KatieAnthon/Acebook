@@ -15,6 +15,7 @@ import UserInfo from "../../components/Userinfo/UserInfo"
 import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
+import { MyMessages } from "../../pages/Message/MessagePage"
 
 
 export const UserProfile = () => {
@@ -24,6 +25,8 @@ const [token, setToken] = useState(window.localStorage.getItem("token"));
 const [userInfo, setUserInfo] = useState(null);
 const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 const [selectedPost, setSelectedPost] = useState(null);
+const [isModalOpen, setIsModalOpen] = useState(false);
+
 
 const navigate = useNavigate();
 useEffect(() => {
@@ -107,6 +110,7 @@ useEffect(() => {
       setIsEditModalOpen(true);
     };
 
+
   const handlePostSubmit = async (formData, initialData) => {
     try {
       if (initialData) {
@@ -142,10 +146,18 @@ useEffect(() => {
     }
   };
 
+  const openMessagesModal = (event) => {
+    event.preventDefault(); 
+    setIsModalOpen(true);   
+  };
+
 
   return (
     <>
-      <NavBar />
+     <>
+      <NavBar onMessagesClick={openMessagesModal} />
+      {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
+    </>
       <Introduction pageName={"Profile"}/>
       {userInfo && (
       <UserInfo

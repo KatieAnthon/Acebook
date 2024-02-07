@@ -10,7 +10,7 @@ import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
 import Introduction from "../../components/Introduction/Introduction"
-
+import { MyMessages } from "../../pages/Message/MessagePage"
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -18,6 +18,7 @@ export const FeedPage = () => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -105,10 +106,18 @@ const handleCommentSubmit = async (postId, commentText) => {
     form.querySelector('textarea').focus();
   }
 
+  const openMessagesModal = (event) => {
+    event.preventDefault(); 
+    setIsModalOpen(true);   
+  };
+
   
 return (
     <>
-      <NavBar />
+      <>
+      <NavBar onMessagesClick={openMessagesModal} />
+      {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
+    </>
     {userInfo && (
       <UserInfo
         userName={userInfo.username || 'Default Username'} 
