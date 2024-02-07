@@ -30,9 +30,21 @@ const getMessages = async (req, res) => {
   }
 };
 
+const getMessagesByUser = async (req, res) => {
+  try {
+    const messages = await Message.find()
+      .populate('senderUsername', 'username')
+    res.json(messages);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching messages" });
+  }
+};
+
 const MessageController = {
     getMessages:getMessages,
     createMessage:createMessage,
+    getMessagesByUser:getMessagesByUser
   };
 
 module.exports = MessageController;

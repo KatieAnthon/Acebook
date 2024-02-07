@@ -2,8 +2,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import './NavBar.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const NavBar = () => {
+const NavBar = ({onMessagesClick}) => {
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -13,7 +14,7 @@ const NavBar = () => {
                 <Nav className="me-auto">
                     <Nav.Link href="/posts">Home</Nav.Link>
                     <Nav.Link href="/myprofile">Profile</Nav.Link>
-                    <Nav.Link href="/messages">Messages</Nav.Link>
+                    <Nav.Link href="#" onClick={onMessagesClick}>Messages</Nav.Link>
                     <Nav.Link href="/"
                     onClick = {()=> {console.log(
                         'logging out');
@@ -27,3 +28,8 @@ const NavBar = () => {
 }
 
 export default NavBar
+
+
+
+
+
