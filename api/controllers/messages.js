@@ -34,7 +34,6 @@ const getMessagesByUser = async (req, res) => {
   try {
     const messages = await Message.find()
       .populate('senderUsername', 'username')
-    console.log(messages)
     res.json(messages);
   } catch (err) {
     console.error(err);

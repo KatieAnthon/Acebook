@@ -36,7 +36,6 @@ const commentPost = async (req, res) => {
 const getAllComments = async (req, res) => {
   try {
     const comments = await Comments.find().populate('userid postid');
-    console.log(comments)
     res.status(200).json({ comments });
   } catch (error) {
     console.error(error);
@@ -49,7 +48,6 @@ const getCommentsByPostId = async (req, res) => {
    const postId = req.params.postId;
     
    const comments = await Comments.find({ postid: postId });
-    console.log(comments)
     res.status(200).json({ comments });
   } catch (error) {
     console.error(error);

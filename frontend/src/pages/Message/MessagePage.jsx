@@ -3,13 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { getUserInfo } from "../../services/authentication";
 import { getMessagesByUser } from '../../services/message';
 import { useNavigate } from "react-router-dom";
+import './Message.css'; 
+
 
 export const MyMessages = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
-    const [userInfo, setUserInfo] = useState(null);
+    const [userInfo, setUserInfo] = useState([]);
     const [messages, setUserMessages] = useState([]);
     const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ export const MyMessages = () => {
         if (token) {
           try {
             const userInfoData = await getUserInfo(token);
-            setUserInfo(userInfoData);
+            setUserInfo(userInfoData || []);
             const userMessages = await getMessagesByUser(token);
             setUserMessages(userMessages || []);
           } catch (err) {
@@ -32,7 +34,6 @@ export const MyMessages = () => {
     
       fetchData();
     }, [token, navigate]);
-
     return (
         <>
           <nav className="navbar navbar-expand-md navbar-dark" style={{backgroundColor: '#3097D1'}}>
@@ -49,16 +50,17 @@ export const MyMessages = () => {
                 </div>
                 <div className="modal-body">
                   <ul className="list-unstyled">
-                    {messages.map((message, index) => (
-                      <li key={index} className="media hover-media">
-                        {/* Image placeholder or message content here */}
-                        <div className="media-body text-dark">
-                          {/* Assuming `message` object has relevant properties */}
-                          <h6 className="media-header">From: {message.senderUsername}</h6>
-                          <p className="media-text">{message.message}</p>
-                        </div>
-                        <hr className="my-3"></hr>
-                      </li>    
+                    {messages.map((message, messageIndex) => (
+                      <React.Fragment key={messageIndex}>
+                        <li className="media hover-media">
+                        <img src={message.userPicute ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} alt="img" width="60px" height="60px" className="rounded-circle mr-3"></img>
+                          <div className="media-body text-dark">
+                            <h6 className="media-header">From: {message.senderUsername}</h6>
+                            <p className="media-text">{message.message}</p>       
+                          </div>
+                        </li>
+                        <hr className="my-3" />
+                      </React.Fragment>    
                     ))}
                   </ul>           
                 </div>
