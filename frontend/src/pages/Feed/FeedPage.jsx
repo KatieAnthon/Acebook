@@ -11,7 +11,6 @@ import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
 import Introduction from "../../components/Introduction/Introduction"
 
-
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
@@ -28,7 +27,6 @@ export const FeedPage = () => {
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
-  
         try {
           const fetchedPosts = await getPosts(token);
           const postWithComments = fetchedPosts.posts.map(post => ({
@@ -43,7 +41,6 @@ export const FeedPage = () => {
         navigate("/login");
       }
     };
-  
     fetchData();
   }, [token, navigate]);
 

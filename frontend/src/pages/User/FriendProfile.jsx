@@ -5,6 +5,7 @@ import Post from "../../components/Post/Post";
 import NavBar from "../../components/NavBar/NavBar"
 import { getFriendInfo } from "../../services/authentication"
 import "../../components/Post/Post.css"
+import AddFriendButton from "../../components/AddFriendButton";
 import { Card, Col, Row } from 'react-bootstrap';
 import './FriendProfile.css';
 
@@ -17,9 +18,6 @@ const [FriendInfo, setFriendInfo] = useState([]);
 const { username } = useParams();
 
 const navigate = useNavigate();
-
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,8 +32,7 @@ const navigate = useNavigate();
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
-  
-       }
+      }
     };
   
     fetchData();
@@ -44,6 +41,7 @@ const navigate = useNavigate();
   return (
   <>
       <NavBar />
+      <AddFriendButton user_id={FriendInfo.user_id} />
     <div className="container-fluid">
       <h2 className="introduction-container" >Welcome to {username}'s Profile </h2>
       <Row className="align-items-start">
