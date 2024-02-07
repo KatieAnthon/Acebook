@@ -5,6 +5,7 @@ import { getUserInfo } from "../../services/authentication";
 import { addCommentToPost } from "../../services/comments";
 import { getAllComments } from "../../services/comments";
 import { deleteComment } from "../../services/comments";
+import { updateComment } from "../../services/comments";
 import { getSinglePost} from "../../services/posts";
 import { createPost } from '../../services/posts';
 import { updatePost } from '../../services/posts'; 
@@ -129,22 +130,28 @@ useEffect(() => {
   };
 
 
-  const handleCommentSubmit = async (postId, commentText) => {
+  const handleCommentSubmit = async (postId, commentText, isEdit) => {
     try {
-      const commentResponse = await addCommentToPost(token, postId, commentText);
-      const newComment = commentResponse.comment;
+      if (isEdit) {
+        // Call the function to update the comment
+        await onUpdateComment(postId, commentText);
+      } else {
+        // Call the function to create a new comment
+        await addCommentToPost(token, postId, commentText);
+      }
   
-      setPosts(currentPosts =>
-        currentPosts.map(post => {
-          if (post._id === postId) {
-            const comments = Array.isArray(post.comments) ? post.comments : [];
-            return { ...post, comments: [...comments, newComment] };
-          }
-          return post;
-        })
-      );
+      // Update the state or perform any other necessary actions
     } catch (err) {
-      console.error('Error adding comment:', err.message);
+      console.error('Error handling comment:', err.message);
+    }
+  };
+  const onUpdateComment = async (commentId, newCommentText) => {
+    try {
+      // Implement the service function to update the comment
+      await updateComment(token, commentId, newCommentText);
+    } catch (error) {
+      console.error('Error updating comment:', error.message);
+      throw error; // Re-throw the error to handle it in the calling function if needed
     }
   };
 

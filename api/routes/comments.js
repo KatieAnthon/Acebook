@@ -14,6 +14,9 @@ router.post("/likes", tokenChecker, CommentsController.addLikeComment);
 
 router.delete("/comments/:commentId", tokenChecker, CommentsController.deleteComment);
 
+router.patch("/comments/:commentId", tokenChecker, CommentsController.updateComment);
+
+
 //router.patch("/editcomment/:commentId", tokenChecker, CommentsController.updateComment);
 
 

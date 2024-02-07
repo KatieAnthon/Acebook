@@ -111,3 +111,40 @@ export const deleteComment = async (token, commentId) => {
     throw error; // Make sure to re-throw the error if it occurs.
   }
 };
+
+export const updateComment = async (token, commentId, formData) => {
+  const requestOptions = {
+    method: 'PATCH', // or 'PUT' depending on your API
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  };
+
+  const url = `${BACKEND_URL}/comments/comments/${commentId}`;
+
+  try {
+    const response = await fetch(url, requestOptions);
+    console.log('Update comment response:', response);
+
+    if (!response.ok) {
+      throw new Error(`Error in updating comment: ${response.statusText}`);
+    }
+
+    // Check if the response contains JSON data
+    const contentType = response.headers.get('content-type');
+
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json();
+      console.log('Updated comment data:', data);
+      return data;
+    } else {
+      // Handle the case where the response doesn't contain JSON data
+      console.log('Updated comment successfully');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error in updateComment:', error);
+    throw error; // Make sure to re-throw the error if it occurs.
+  }
+};
