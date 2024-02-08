@@ -36,7 +36,7 @@ export const LoginPage = () => {
     <div className="container mt-5">
       <div className="row">
       <div className="col-md-12"> 
-          <h2 className="mb-3 text-center">Please log IN</h2>
+          <h2 className="mb-3 text-center">Please Log In</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <input
@@ -65,12 +65,12 @@ export const LoginPage = () => {
                 type="submit"
                 className="btn btn-primary"
               >
-                Submit
+                Log In
               </button>
             </div>
           </form>
           <div className="d-grid gap-2">
-            <Link to="/signup" className="btn btn-primary">Sign Up</Link>      
+            <Link to="/signup" className="btn btn-sign-up">Sign Up</Link>      
           </div>
         </div>
       </div>

@@ -1,8 +1,15 @@
 .d-grid.gap-2 {
     padding: 5px;
+
 }
 
 .form-control::placeholder {
     text-align: center;
   }
+
+.btn.btn-sign-up{
+    background-color: rgb(56, 189, 56);
+    color: white;
+
+}
   

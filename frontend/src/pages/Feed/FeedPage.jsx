@@ -173,7 +173,8 @@ const handleCommentSubmit = async (postId, commentText) => {
               </div>
             </div>
             <div className="col-12 col-lg-6">
-              <PostForm onSubmit={handlePostSubmit} />
+              <div className="right-column">
+      <PostForm onSubmit={handlePostSubmit} />
               <div className="feed" role="feed">
                 {posts.slice().reverse().map((post) => (
                   <Post
@@ -189,6 +190,7 @@ const handleCommentSubmit = async (postId, commentText) => {
                 ))}
               </div>
             </div>
+  </div>
           </div>
         </div>
       </div>

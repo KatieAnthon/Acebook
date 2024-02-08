@@ -104,7 +104,7 @@ export const SignupPage = () => {
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-10 offset-md-1">
-          <h2 className="mb-3 text-center">Signup</h2>
+          <h2 className="mb-3 text-center">Sign Up</h2>
           {formErrors.submission && <div className="alert alert-danger">{formErrors.submission}</div>}
 
           <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -128,7 +128,7 @@ export const SignupPage = () => {
             </div>
 
             <div className="d-grid gap-2">
-              <input role="submit-button" id="submit" type="submit" value="Submit" className="btn btn-primary" />
+    <button role="submit-button" id="submit" type="submit" className="btn btn-sign-up">Sign Up</button>
             </div>
           </form>
           <div className="d-grid gap-2">
