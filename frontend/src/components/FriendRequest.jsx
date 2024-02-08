@@ -24,7 +24,8 @@ const FriendRequestList = () => {
       if (token) {
         try {
           const friendRequestData = await getFriendRequests(token);
-          setFriendRequests(friendRequestData.friend_list);
+          const unconfirmedFriendRequests = friendRequestData.filter(friend => !friend.confirmed)
+          setFriendRequests(unconfirmedFriendRequests);
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
