@@ -6,14 +6,16 @@ import NavBar from "../../components/NavBar/NavBar"
 import { getFriendInfo } from "../../services/authentication"
 import "../../components/Post/Post.css"
 import AddFriendButton from "../../components/AddFriendButton";
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import './FriendProfile.css';
-
-
+// styling
+import Stack from 'react-bootstrap/Stack';
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
 
 export const FriendProfile = () => {
 const [posts, setPosts] = useState([]);
-const [token, setToken] = useState(window.localStorage.getItem("token"));
+const [token] = useState(window.localStorage.getItem("token"));
 const [FriendInfo, setFriendInfo] = useState([]);
 const { username } = useParams();
 
@@ -40,55 +42,33 @@ const navigate = useNavigate();
 
   return (
   <>
-      <NavBar />
-      <AddFriendButton user_id={FriendInfo.user_id} />
-    <div className="container-fluid">
-      <h2 className="introduction-container" >Welcome to {username}'s Profile </h2>
-      <Row className="align-items-start">
-        <Col lg={4} className="mt-4">
-        <Card className="mt-4 sticky-card">
-          <Card.Img 
-          variant="top" 
-          src={`http://localhost:3000/${FriendInfo.profilePic}`}
-          style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
-          />
-          <Card.Body>
-            <Card.Title>{username}</Card.Title>
-            <Card.Text>
-              Welcome to my profile! I am interested in coding
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
-    
-
-    <Col lg={8}>
-    {posts.map((post) => (
-      <Post key={post._id} post={post} />
-    ))}
-    </Col>
-    </Row>
-    </div>
+    <Container fluid >
+        <NavBar />
+        <Stack>
+          <Card>   
+            <Card.Img style={{width: 1000, height: 500}} src="../profile_cover_photo/friend_banner.jpg" />
+              <Card.ImgOverlay>
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+              <div style={{ textAlign: "center", textDecorationColor: "color" }}>
+                  <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover'}}  src={`http://localhost:3000/${FriendInfo.profilePic}`} roundedCircle fluid />
+                  <Card.Body>
+                    <Card.Title style={{color: "white"}}>{username}</Card.Title>
+                    <Card.Text style={{color: "white"}}>
+                      Welcome to my profile! I am interested in coding
+                    </Card.Text>
+                    <AddFriendButton user_id={FriendInfo.user_id} />
+                  </Card.Body>
+                  </div>
+                  </div>
+              </Card.ImgOverlay>
+          </Card>
+        {posts.map((post) => (
+          <Post key={post._id} post={post} />
+        ))}
+      </Stack>
+    </Container>
   </>
 );
 };
 
 export default FriendProfile;
-
-
-
-    //   {/* Left-aligned section
-    //   <div className="left-aligned-section">
-    //     <h3>{username}</h3>
-    //     <div className="profile-picture-container">
-    //       <img
-    //         src={`http://localhost:3000/${FriendInfo.profilePic}`}
-    //         alt="Profile Picture"
-    //         className="profile-picture"
-    //       />
-    //     </div>
-    //   </div> */}
-    
-
-
-    // {/* Centered posts */}

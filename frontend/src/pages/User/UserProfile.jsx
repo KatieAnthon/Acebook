@@ -13,11 +13,16 @@ import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
-import Introduction from "../../components/Introduction/Introduction"
+// import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
 import { MyMessages } from "../../pages/Message/MessagePage"
 import FriendRequest from "../../components/FriendRequest";
+// styling 
+import Stack from 'react-bootstrap/Stack';
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
 
 
 export const UserProfile = () => {
@@ -154,29 +159,35 @@ useEffect(() => {
     }
   };
 
-  const openMessagesModal = (event) => {
+const openMessagesModal = (event) => {
     event.preventDefault(); 
     setIsModalOpen(true);   
   };
 
-
   return (
     <>
-     <>
-        <NavBar onMessagesClick={openMessagesModal} />
-        {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
-      </>
-      <FriendRequest />
-      <Introduction pageName={"Profile"}/>
+    <Container fluid >
+      <NavBar onMessagesClick={openMessagesModal}/> 
+      {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
+      <Stack gap={3}>
+
       {userInfo && (
-      <UserInfo
-        userName={userInfo.username || 'Default Username'} 
-        userEmail={userInfo.email || 'Default Email'} 
-        userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
-        />
-      )}   
-    
-    <PostForm onSubmit={handlePostSubmit} />
+        <Card>
+          
+          <Card.Img style={{width: 1000, height: 500}} src="../profile_cover_photo/banner.jpg" />
+            <Card.ImgOverlay>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+            <div style={{ textAlign: "center", textDecorationColor: "color" }}>
+                <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover'}}  src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} roundedCircle fluid />
+                <Card.Body>
+                  <Card.Title style={{color: "white"}}>{userInfo.username || 'Default Username'}</Card.Title>
+                </Card.Body>
+                </div>
+                </div>
+            </Card.ImgOverlay>
+            
+        </Card>)}
+        <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
     {posts.slice().reverse().map((post) => (
           <Post
@@ -200,7 +211,13 @@ useEffect(() => {
     </div>
   </div>
   )}
-    </>
+      </Stack>
+    </Container>
+
+
+
+      <FriendRequest />
+      </>
   );
 };
 
