@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NavBar = ({onMessagesClick}) => {
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="navbar-custom">
             <Container>
                 <Navbar.Brand href="/posts">Acebook</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -32,9 +32,4 @@ const NavBar = ({onMessagesClick}) => {
     )
 }
 
-export default NavBar
-
-
-
-
-
+export default NavBar;

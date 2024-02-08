@@ -9,7 +9,9 @@ const UserSchema = new mongoose.Schema({
     {
     username: {type: String },
     confirmed: { type: Boolean, default: false },
-    userid: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    userid: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    username: { type: String },
+    friendProfilePic: { type: String },
 }]
 });
 

@@ -38,6 +38,7 @@ const handleCommentEdit = async (comment) => {
 };
 
 // I added this logic, so the message button only shows to another user 
+// const showMessageButton = currentUserInfo.userid !== post.user && currentUserInfo.userid !== post.user._id;
 // const showMessageButton = currentUserInfo.userid !== post.user && currentUserInfo.userid !== post.user;
 
 
