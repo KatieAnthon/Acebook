@@ -9,7 +9,6 @@ import AddFriendButton from "../../components/AddFriendButton";
 import { Card } from 'react-bootstrap';
 import './FriendProfile.css';
 // styling
-import Stack from 'react-bootstrap/Stack';
 import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 
@@ -65,7 +64,6 @@ const navigate = useNavigate();
         {posts.map((post) => (
           <Post key={post._id} post={post} />
         ))}
-    
   </>
 );
 };

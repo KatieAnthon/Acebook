@@ -43,11 +43,6 @@ const AddFriendButton = (props) => {
             console.error("Error handling friend request:", err.message);
         }
     };
-
-    // return res.status(200).json({ message: "Show add friend button"});
-    // }else{
-    //   return res.status(200).json({ message: "Don't show add friend button"});
-
     return (
         <>
         {showButton && (
