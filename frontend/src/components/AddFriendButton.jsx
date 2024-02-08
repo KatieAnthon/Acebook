@@ -1,13 +1,36 @@
 // find user_id from user profile
 // find user_id from token
 
-import { sendFriendRequest } from "../services/users"
-import { useState } from "react";
+import { sendFriendRequest, checkIdInFriendList } from "../services/users"
+import { useState, useEffect } from "react";
 
 // needs to take user_id as props from the profile you're visiting!
 const AddFriendButton = (props) => {
     const [token] = useState(window.localStorage.getItem("token"));
     const [requestStatus, setRequestStatus] = useState('Add Friend 😁')
+    const [showButton, setShowButton] = useState(false)
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (token, props.user_id) {
+                try {
+                    const friendRequestData = await checkIdInFriendList(token, props.user_id);
+                    console.log(friendRequestData)
+                    if(friendRequestData.message === "Show add friend button"){
+                        setShowButton(true);
+                    }
+                } 
+                catch (err) {
+                    console.error('Error fetching user information:', err);
+                }
+            }
+        };
+    
+        fetchData();
+      }, [token, props.user_id]); // Corrected dependency array
+    
+    
 
     const handleSendFriendRequest = async () => {
         try {
@@ -20,12 +43,15 @@ const AddFriendButton = (props) => {
             console.error("Error handling friend request:", err.message);
         }
     };
-
     return (
-    <div>
-        <button onClick={handleSendFriendRequest}>{requestStatus}
-        </button>
-    </div>
+        <>
+        {showButton && (
+            <div>
+                <button onClick={handleSendFriendRequest}>{requestStatus}
+                </button>
+            </div>
+        )}
+        </> 
     )
 }
 

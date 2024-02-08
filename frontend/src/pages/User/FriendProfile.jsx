@@ -9,7 +9,6 @@ import AddFriendButton from "../../components/AddFriendButton";
 import { Card } from 'react-bootstrap';
 import './FriendProfile.css';
 // styling
-import Stack from 'react-bootstrap/Stack';
 import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 
@@ -42,11 +41,10 @@ const navigate = useNavigate();
 
   return (
   <>
-    <Container fluid >
+    <Container className="vw-100" fluid >
         <NavBar />
-        <Stack>
           <Card>   
-            <Card.Img style={{width: 1000, height: 500}} src="../profile_cover_photo/friend_banner.jpg" />
+            <Card.Img style={{height: 500}} src="../profile_cover_photo/friend_banner.jpg" />
               <Card.ImgOverlay>
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
               <div style={{ textAlign: "center", textDecorationColor: "color" }}>
@@ -62,11 +60,10 @@ const navigate = useNavigate();
                   </div>
               </Card.ImgOverlay>
           </Card>
+        </Container>
         {posts.map((post) => (
           <Post key={post._id} post={post} />
         ))}
-      </Stack>
-    </Container>
   </>
 );
 };
