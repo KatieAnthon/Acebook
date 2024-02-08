@@ -1,6 +1,7 @@
 .home {
   display: flex;
   flex-direction: column;
+  margin: 2px;
 }
 
 
@@ -20,4 +21,20 @@
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.d-grid.gap-2{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Optional: To center the buttons horizontally */
+}
+
+.btn {
+  width: 100%;
+  margin-bottom: 10px;  /* Optional: Add some spacing between the buttons */
+}
+
+.text-center.mb-4{
+  color: #1877F2;
 }
