@@ -52,9 +52,7 @@ const sendFriendRequest = async (req, res) => {
     const requestExists = receiver.friend_list.some(friend => friend.id.toString() === sender._id.toString() && !friend.confirmed);
     console.log("request exists", requestExists)
     if (!requestExists){
-      // add friend request object to both users friend_list
-      //sender.friend_list.push({id: receiver._id, confirmed: false})
-      //await sender.save();
+      // add friend request object to receiver friend_list
       receiver.friend_list.push({username: sender.username, id: sender._id, confirmed: false, friendProfilePic: sender.profilePic})
       await receiver.save();
       return res.status(200).json({ message: "Friend request sent successfully"});
@@ -69,42 +67,43 @@ const sendFriendRequest = async (req, res) => {
 
 const friendRequestResponse = async (req, res) => {
   try {
-
     // find the users entries of the sender and receiver
     const sender = await User.findById(req.user_id);
     const receiver = await User.findById(req.body.user_id);
     const response = req.body.confirmed;
-    //example test4 adding test1
-              //receiver.friend_list.push({id: receiver._id, confirmed: true})
-              //await receiver.save();
-    // if friend request is accepted
-    // if (response === true){
       // find the friend request object sent from sender to receiver and vice versa
     const sender_receiver_request = sender.friend_list.find((friend_request) => friend_request.id.toString() === req.body.user_id)
-    const receiver_sender_request = receiver.friend_list.find((friend_request) => friend_request.id.toString() === req.user_id)
       // modify friend object of both users to true
     sender_receiver_request.confirmed = response
     receiver.friend_list.push({ confirmed: true, id: sender._id, username: sender.username, friendProfilePic: sender.profilePic})
-    //receiver_sender_request.confirmed = response
-
     await sender.save();
     await receiver.save();
     return res.status(200).json({ message: "Friend request accepted successfully"});
-    // }else{
-    //   const sender_receiver_request = sender.friend_list.find((friend_request) => friend_request.id.toString() === req.body.user_id)
-    //   const receiver_sender_request = receiver.friend_list.find((friend_request) => friend_request.id.toString() === req.user_id)
-    //   // remove friend request
-    //   await sender_receiver_request.remove();
-    //   await sender.save();
-    //   await receiver_sender_request.remove();
-    //   await receiver.save();
-    //   return res.status(200).json({ message: "Friend request denied"});
-    
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+const checkIdInFriendList = async (req, res) => {
+  try {
+    // find the user visiting profile page
+    const user = await User.findById(req.user_id);
+    
+    // find user who's profile it is
+    const profileVisited = await User.findById(req.params.userId);
+
+    // if the users are not friends AND user and profile are not the same - show the add friend button
+    if (user.friend_list.some(friend_request => friend_request.id.toString() === profileVisited.id) === false && req.user_id != req.params.userId){
+      return res.status(200).json({ message: "Show add friend button"});
+    }else{
+      return res.status(200).json({ message: "Don't show add friend button"});
+    } 
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
 
 const getAllFriendRequests = async (req, res) => {
   try {
@@ -148,6 +147,7 @@ const UsersController = {
   friendRequestResponse: friendRequestResponse,
   getAllFriendRequests: getAllFriendRequests,
   getFriendInformation: getFriendInformation,
+  checkIdInFriendList: checkIdInFriendList,
 };
 
 module.exports = UsersController;

@@ -36,7 +36,7 @@ export const FeedPage = () => {
   
           setUserInfo(userInfoData);
 
-          console.log("this information",userInfoData.friends)
+
           setfriends(userInfoData.friends)
           
           

@@ -50,7 +50,6 @@ export const getFriendRequests = async (token) => {
         Authorization: `Bearer ${token}`,
         },
     };
-   
     const response = await fetch(`${BACKEND_URL}/users/getFriendRequests`, requestOptions);
 
     if (!response.ok) {
@@ -60,3 +59,20 @@ export const getFriendRequests = async (token) => {
     const data = await response.json();
     return data;
 };
+
+export const checkIdInFriendList = async (token, profileId) => {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+        Authorization: `Bearer ${token}`,
+        },
+    };
+    const response = await fetch(`${BACKEND_URL}/posts/checkIdInFriendList/${profileId}`, requestOptions);
+    if (!response.ok) {
+        throw new Error(`Error fetching user information: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+};
+

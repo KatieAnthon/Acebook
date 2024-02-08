@@ -57,7 +57,7 @@ return (
         <div className="media">
           <img src={post.userPorfilePicture ? `http://localhost:3000/${post.userPorfilePicture}` : 'default-picture-url'} alt="msg" width="55px" height="55px" className="rounded-circle mr-3"></img>
           <div className="media-body">
-          <h5>{post.username}</h5>
+          <Link to={`/posts/${post.username}`} > {post.username} </Link>
           <div className="card-text text-justify message">
             {displayText}
             {isTextTooLong && !showAllText && (
