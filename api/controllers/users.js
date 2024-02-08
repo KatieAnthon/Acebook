@@ -92,9 +92,13 @@ const checkIdInFriendList = async (req, res) => {
       return res.status(200).json({ message: "Show add friend button"});
     }else{
       return res.status(200).json({ message: "Don't show add friend button"});
+    } 
     }
-  }
-}
+      catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
 
 const getAllFriendRequests = async (req, res) => {
   try {

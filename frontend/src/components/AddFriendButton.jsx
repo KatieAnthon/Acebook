@@ -1,22 +1,25 @@
 // find user_id from user profile
 // find user_id from token
 
-import { sendFriendRequest } from "../services/users"
-import { useState } from "react";
+import { sendFriendRequest, checkIdInFriendList } from "../services/users"
+import { useState, useEffect } from "react";
 
 // needs to take user_id as props from the profile you're visiting!
 const AddFriendButton = (props) => {
     const [token] = useState(window.localStorage.getItem("token"));
     const [requestStatus, setRequestStatus] = useState('Add Friend 😁')
+    const [showButton, setShowButton] = useState('')
 
 
-    seEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
           if (token) {
             try {
-              const friendRequestData = await getFriendRequests(token);
-              setFriendRequests(friendRequestData.friend_list);
-            } catch (err) {
+              const friendRequestData = await checkIdInFriendList(token, props.user_id);
+              setShowButton(friendRequestData.message);
+            } 
+            
+            catch (err) {
               console.error('Error fetching user information:', err);
             }
           }
@@ -24,7 +27,7 @@ const AddFriendButton = (props) => {
     
         fetchData();
       }, [token]); // Corrected dependency array
-    checkIdInFriendList
+    
     
 
     const handleSendFriendRequest = async () => {
