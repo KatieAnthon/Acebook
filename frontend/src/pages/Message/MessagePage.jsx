@@ -9,7 +9,6 @@ import Modal from 'react-bootstrap/Modal';
 
 export const MyMessages = ({isModalOpen, closeModal}) => {
     const [token, setToken] = useState(window.localStorage.getItem("token"));
-    const [userInfo, setUserInfo] = useState([]);
     const [messages, setUserMessages] = useState([]);
     const navigate = useNavigate();
 
@@ -17,8 +16,6 @@ export const MyMessages = ({isModalOpen, closeModal}) => {
       const fetchData = async () => {
         if (token) {
           try {
-            const userInfoData = await getUserInfo(token);
-            setUserInfo(userInfoData || []);
             const userMessages = await getMessagesByUser(token);
             setUserMessages(userMessages || []);
           } catch (err) {
@@ -33,7 +30,6 @@ export const MyMessages = ({isModalOpen, closeModal}) => {
       fetchData();
     }, [token, navigate]);
 
-    console.log(isModalOpen)
 
 
     return (
@@ -46,10 +42,10 @@ export const MyMessages = ({isModalOpen, closeModal}) => {
                     {messages.map((message, messageIndex) => (
                       <React.Fragment key={messageIndex}>
                         <li className="media hover-media">
-                        <img src={message.userPicute ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} alt="msg" width="60px" height="60px" className="rounded-circle mr-3"></img>
+                        <img src={message.userPicute ? `http://localhost:3000/${message.userPicute}` : 'default-picture-url'} alt="msg" width="60px" height="60px" className="rounded-circle mr-3"></img>
                           <div className="media-body text-dark">
                             <h6 className="media-header">From: {message.senderUsername}</h6>
-                            <p className="media-text">{message.message}</p>       
+                            <p className="media-text">{message.message}</p>
                           </div>
                         </li>
                         <hr className="my-3" />

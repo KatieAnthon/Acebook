@@ -29,6 +29,7 @@ const createPost = async (req, res) => {
   try {
     // Fetch the user's information using req.user_id
     const user = await User.findById(req.user_id);
+    console.log(user)
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -38,7 +39,8 @@ const createPost = async (req, res) => {
       user: user._id, // ObjectId of the user
       username: user.username, // Username of the user
       postImage:postImage,
-      comments: []
+      comments: [],
+      userPorfilePicture: user.profilePic
     });
     await newPost.save();
     res.status(201).json({ message: 'Post created successfully', post: newPost });

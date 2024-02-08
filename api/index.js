@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
   if (userId) {
     socket.join(userId.toString()); // Make the socket join a room named after the user ID
   }
-  socket.on('sendMessage', async ({ message, senderId, recipientId, postId, senderUsername, receiverUsername, userPicute }) => {
+  socket.on('sendMessage', async ({ message, senderId, recipientId, postId, senderUsername, receiverUsername, userPicute, receiverPicture }) => {
     try {
       // Fetch the sender, recipient, and post based on their IDs
       const [sender, recipient, post] = await Promise.all([
@@ -45,7 +45,9 @@ io.on('connection', (socket) => {
         postId: postId, // Use the post's ID
         receiverUsername:receiverUsername,
         senderUsername:senderUsername,
-        userPicute:userPicute
+        userPicute:userPicute,
+        receiverPicture:receiverPicture
+
       };
       const newMessage = new Message(messageData);
       newMessage.save()

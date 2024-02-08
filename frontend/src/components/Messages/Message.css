@@ -12,15 +12,23 @@
   flex-direction: column;
   z-index: 1000; /* make sure it's above other elements */
 }
-
 .chat-header {
   padding: 10px;
   background-color: #040b14;
   color: white;
   border-bottom: 1px solid #ccc;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between; 
+  align-items: center; 
 }
+
+.chat-header-img {
+  border-radius: 50%; 
+  width: 60px; 
+  height: 60px; 
+  margin-right: auto; 
+}
+
 
 .close-btn {
   border: none;
