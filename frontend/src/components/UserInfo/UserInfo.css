@@ -1,5 +1,26 @@
-.hello-text {
-  color: black; /* Set text color to black */
+.user-container {
+  background-image: url('img/banner.jpg'); /* Set background image */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; /* Set height */
+  width: 100%;
+}
+
+.card-image-background {
+  height: 10%;
+  width: 100%; /* Adjust as needed to fill the top half */
+  background-image: url(../profile_cover_photo/banner.jpg); /* Set the background image */
+  background-size: cover;
+  background-position: center;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.user-container h1 {
+  color: #fff; /* Set text color to white */
+  font-size: 24px; /* Adjust font size */
+  text-align: center; /* Center align text */
+  margin-top: 150px; /* Adjust margin top */
 }
   /*--------------------------------------------------------------
   # Header
@@ -9,27 +30,27 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 100%;
     /* transition: all ease-in-out 0.5s; */
-    z-index: 9997;
     transition: all 0.5s;
-    padding: 1 100px;
     background: hsl(0, 0%, 100%);
     overflow-y: auto;
   }
-  
-  #header .profile img {
-    margin: 10px auto;
-    display: block;
-    width: 190px;
-    height: 190px;
-   
+
+  .img-fluid.rounded-circle {
+    position: absolute;
+    top: 50%; /* Position the image in the middle of the top half */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; /* Adjust the width of the circle */
+    height: 200px; /* Adjust the height of the circle */
+    border: 1px solid white; /* Optional: Add border */
+    border-radius: 50%; /* Make it a circle */
   }
+  
+  
   
   #header .profile h1 {
     font-size: 24px;
-    margin: 0;
-    padding: 0;
     font-weight: 100;
     color: #000003 !important;
     text-emphasis-color: black;
@@ -38,12 +59,12 @@
     font-family: "Poppins", sans-serif;
   }
   
-  #header .profile h1 a,
+  /* #header .profile h1 a,
   #header .profile h1 a:hover {
     color: #050505;
     text-decoration: none;
-  }
-  
+  } */
+/*   
   #header .profile .social-links a {
     font-size: 18px;
     display: inline-block;
@@ -51,29 +72,26 @@
     color: #0c0000;
     line-height: 1;
     padding: 8px 0;
-    margin-right: 4px;
     border-radius: 50%;
     text-align: center;
     width: 36px;
     height: 36px;
     transition: 0.3s;
-  }
-  
+  } */
+/*   
   #header .profile .social-links a:hover {
     background: #149ddd;
     color: #fff;
     text-decoration: none;
   }
-  
+   */
   
   /*--------------------------------------------------------------
-  # Navigation Menu
+  /* # Navigation Menu
   --------------------------------------------------------------*/
   /* Desktop Navigation */
-  
+/*   
   .nav-menu * {
-    margin: 0;
-    padding: 0;
     list-style: none;
   }
   
@@ -95,7 +113,6 @@
   .nav-menu a i,
   .nav-menu a:focus i {
     font-size: 20px;
-    padding-right: 8px;
     color: #f7f7f9;
   }
   
@@ -115,9 +132,9 @@
   .nav-menu .active:focus i,
   .nav-menu li:hover>a i {
     color: #149ddd;
-  }
-  
-  /* Mobile Navigation */
+  } */
+   
+  /* Mobile Navigation
   .mobile-nav-toggle {
     position: fixed;
     right: 15px;
@@ -126,7 +143,6 @@
     border: 0;
     font-size: 24px;
     transition: all 0.4s;
-    outline: none !important;
     color: #fcf9f9;
     --tw-text-opacity: 1;
     background: rgb(20 200 180/var(--tw-text-opacity));
@@ -138,8 +154,8 @@
     line-height: 0;
     border-radius: 50px;
     cursor: pointer;
-  }
-  
+  } */
+/*   
   .mobile-nav-active {
     overflow: hidden;
   }
@@ -148,16 +164,15 @@
     left: 0;
   }
   
-  
+   */
   
   /*--------------------------------------------------------------
   # Footer
   --------------------------------------------------------------*/
-  #footer {
-    padding: 15px;
+  /* #footer {
+    padding: 10px;
     --tw-text-opacity: 1;
     color: rgb(50 150 146/var(--tw-text-opacity));
-    text-shadow: 2px 2px 4px rgba(11, 0, 0, 0.5);  font-size: 14px;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -172,4 +187,4 @@
  
   
   
-  
+   */

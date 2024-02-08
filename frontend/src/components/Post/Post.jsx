@@ -21,6 +21,7 @@ const Post = ({ post,
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedComment, setSelectedComment] = useState(null); 
 
+
   const [isChatVisible, setIsChatVisible] = useState(false);
 
   const toggleChat = () => {
@@ -38,6 +39,8 @@ const handleCommentEdit = async (comment) => {
 
 // I added this logic, so the message button only shows to another user 
 // const showMessageButton = currentUserInfo.userid !== post.user && currentUserInfo.userid !== post.user._id;
+// const showMessageButton = currentUserInfo.userid !== post.user && currentUserInfo.userid !== post.user;
+
 
 
   return (
@@ -70,9 +73,9 @@ const handleCommentEdit = async (comment) => {
             <button className="my-button" onClick={onEdit}>Edit Post</button>
           </>
         )}
-        {/* {showMessageButton && (
-      //       <button onClick={toggleChat} className="my-button">Message</button> 
-      //   )} */}
+        
+            <button onClick={toggleChat} className="my-button">Message</button> 
+
       </div>
       {isChatVisible && <Chat postId={post._id} onClose={() => setIsChatVisible(false)} setIsChatVisible={setIsChatVisible} />}
         <div className="post-comments">

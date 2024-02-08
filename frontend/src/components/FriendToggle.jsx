@@ -11,9 +11,10 @@ const FriendToggle = ({friend, picture}) => {
 
 
   return (
+   
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
       <div className="friend-toggle-container"></div>
-      <p>{friend}</p>
+      <h6>{friend}</h6>
         <img
           src={picture} // Assuming each picture object has a 'url' property
           alt={`Picture ${friend}`} // Provide a meaningful alt text

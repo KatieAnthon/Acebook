@@ -1,11 +1,11 @@
 const Message = require("../models/messages");
+const User = require('../models/user');
 
 const createMessage = async (req, res) => {
   // Use only the fields that are in the MessageSchema
   const { message, senderId, recipientId , post } = req.body;
   
   try {
-    // Create a new message with the fields from your schema
     const newMessage = new Message({ message, senderId, recipientId, post });
     const savedMessage = await newMessage.save();
     res.status(201).json(savedMessage);
@@ -17,12 +17,11 @@ const createMessage = async (req, res) => {
 
 
 
-const getMessages = async (req, res) => {
+
+const getMessagesByUser = async (req, res) => {
   try {
-    const messages = await Message.find()
-      .populate('sender', 'username')
-      .populate('recipient', 'username')
-      .populate('post');
+    const messages = await Message.find({ recipientId: req.user_id})
+      .populate('senderUsername', 'username')
     res.json(messages);
   } catch (err) {
     console.error(err);
@@ -31,8 +30,8 @@ const getMessages = async (req, res) => {
 };
 
 const MessageController = {
-    getMessages:getMessages,
     createMessage:createMessage,
+    getMessagesByUser:getMessagesByUser
   };
 
 module.exports = MessageController;

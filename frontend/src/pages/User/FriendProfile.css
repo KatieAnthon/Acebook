@@ -19,13 +19,12 @@
 
 .sticky-card {
   position: sticky;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
   top: 0;
   z-index: 100;
   background-color: #eff1f7; 
     color: rgb(10, 0, 0);
     border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
     cursor: pointer;
     font-weight: lighter;
     transition: background-color 0.2s ease; /* Smooth transition for hover effect */

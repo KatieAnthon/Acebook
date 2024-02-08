@@ -7,13 +7,13 @@ const UserInfo = ({ userName, userEmail, userPicture }) => {
     <header id="header">
       <div className="d-flex flex-column">
         <div className="profile">
+          <img className="card-image-background" src="../profile_cover_photo/banner.jpg"></img>
           <img src={userPicture} alt="" className="img-fluid rounded-circle"></img>
           <h1 className="text-light hello-text">Hello {userName}</h1>
+          <div> Hi I am studying Software Development</div>
         </div>
         <nav id="navbar" className="nav-menu navbar">
-          <ul>
-            <li></li>
-          </ul>
+  
         </nav>
       </div>
     </header>

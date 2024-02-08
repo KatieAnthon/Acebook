@@ -6,21 +6,24 @@
 
 } 
 
+.left-column {
+  max-width: 400px; /* Adjust the max-width as needed */
+}
+
 .user-container {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
-  padding: 10px; /* Add padding as needed */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
   border-radius: 9px; /* Add border radius as needed */
-  width: calc(100%);
+  grid-gap: 10px;
 }
 
 .friend-list {
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .friend-table {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill);
+  gap: 20px;
 }
 
 .friend-item {
@@ -35,15 +38,46 @@
 }
 
 .sticky-card {
-  width: 100%; /* Set the width of the card to fill the available space */
+  width: 100%;
+  border: 1px solid #212529; /* Specify border properties */
+ 
 }
 
 .container-friends{
-
+  position: sticky;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
-  padding: 10px; /* Add padding as needed */
-  border-radius: 9px; /* Add border radius as needed */
-  width: calc(200%);
+  top: 0;
+  z-index: 100;
+  background-color: #fff; 
+    color: rgb(5, 0, 0);
+    border: none;
+    cursor: pointer;
+    font-weight: lighter ;
+    font-display: inherit;
+    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
 }
 
+
+body{
+    background-color: #F5F8FA;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #080808;
+    text-align: left;
+}
+
+.container-about-me{
+  position: sticky;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
+  top: 0;
+  z-index: 100;
+  background-color: #eff1f7; 
+    color: rgb(1, 1, 1);
+    border: none;
+    cursor: pointer;
+    font-weight: lighter;
+    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
+}
 

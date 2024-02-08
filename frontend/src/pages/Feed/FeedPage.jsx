@@ -14,6 +14,8 @@ import "./FeedPage.css"
 import { Card, Col, Row } from 'react-bootstrap';
 import FriendToggle from '../../components/FriendToggle';
 // import FriendToggle from "../../components/FriendToggle"
+import { MyMessages } from "../../pages/Message/MessagePage"
+import AboutMe from '../../components/UserInfo/AboutMe';
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -22,6 +24,7 @@ export const FeedPage = () => {
   const [friends, setfriends] = useState([])
   const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -115,17 +118,27 @@ const handleCommentSubmit = async (postId, commentText) => {
   }
 
   
+  const openMessagesModal = (event) => {
+    event.preventDefault(); 
+    setIsModalOpen(true);   
+  };
+
   
 return (
+    <>
     <div className="page-wrapper">
-     <NavBar/>
-     <Introduction pageName={"Feed"}/>
-     <div class="container">
-  <div class="row">
-    <div class="col">
-        <Card className="mt-4 sticky-card">   
-        <div className="user-container">
-    {userInfo && (
+      <NavBar onMessagesClick={openMessagesModal} />
+      {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
+    </div>   
+    <Introduction pageName={"Feed"}/>
+    <div className="container">
+ <div className="row">
+   <div className="col">
+    <div className="left-column">
+    <div className="card-container">
+       <Card className="mt-4 sticky-card">   
+       <div className="user-container">
+   {userInfo && (
       <UserInfo
         userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'}
         userName={userInfo.username || 'Default Username'}
@@ -133,9 +146,22 @@ return (
         />
       )}
       </div>
+      
        </Card>
+       
+       <div style={{ marginTop: '60px' }}> {/* Adjust margin-top as needed */}
+       <Card>
+        
+        <div className="container-about-me">
+          
+        </div>
+        <AboutMe />
+      </Card>
+      </div>
+      
+
        <div className="friend-list">
-       <h2>🫂 Friends</h2>
+       <h2>🫂</h2>
          <div className="friend-table">
           <div className="container-friends">
        {friends.map((friend) => ( 
@@ -149,8 +175,10 @@ return (
        </div>
        </div>
        </div>
+       </div>
+       </div>
        
-      <div class="col">
+      <div className="col">
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
       {posts.slice().reverse().map((post) => (
@@ -165,12 +193,12 @@ return (
         currentUserInfo={userInfo}
       />
     ))}
-    
     </div>
     </div>
   </div>
+    
     </div>
-    </div>
+    </>
   );
 };
 
