@@ -1,10 +1,8 @@
-.page-wrapper {
-  background-color: #ffffff; /* Set the background color */
-  margin: 0; /* Remove default body margin */
-  padding: 0; /* Remove default body padding */
-  width: 1500px;
-
-} 
+.container {
+  max-width: 80vw; /* 80% of the viewport width */
+  margin: auto; /* Centers the container */
+  padding: 0 15px; /* Optional: adds padding inside the container */
+}
 
 .left-column {
   max-width: 400px; /* Adjust the max-width as needed */
@@ -58,17 +56,6 @@
     transition: background-color 0.2s ease; /* Smooth transition for hover effect */
 }
 
-
-body{
-    background-color: #F5F8FA;
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    margin: 0;
-    font-weight: 300;
-    line-height: 1.6;
-    color: #080808;
-    text-align: left;
-}
-
 .container-about-me{
   position: sticky;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
@@ -80,5 +67,12 @@ body{
     cursor: pointer;
     font-weight: lighter;
     transition: background-color 0.2s ease; /* Smooth transition for hover effect */
+}
+
+.main-wrapper {
+  flex-grow: 1; /* Allow the wrapper to fill the space */
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Or whatever max width you desire */
+  margin: auto; /* Center the wrapper */
 }
 

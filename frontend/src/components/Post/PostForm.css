@@ -6,6 +6,10 @@
   flex-direction: column;
   margin-bottom: 20px;
 }
+.post-form-container, .feed {
+  width: 100%; /* This makes them take the full width of their parent element */
+}
+
 
 .form-content {
   display: flex; /* Align items horizontally */
