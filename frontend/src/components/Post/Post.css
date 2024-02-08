@@ -96,15 +96,11 @@
     text-align: center;
     /* Add other styles as needed */
   }
-  .my-like-button.clicked {
+  .my-like-button.liked {
     background-color: green;
-    border: 2px solid black;
-    width: 5%;
-    height: 5%;
-    text-align: center;
-
-    /* Add other styles for clicked state */
+    /* Add any other styles you want for the liked state */
   }
+  
   .my-button:hover {
     background-color: #365899;
   }

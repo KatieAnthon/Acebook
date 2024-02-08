@@ -1,50 +1,67 @@
 import { addUserLike } from "../../services/posts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getPosts } from "../../services/posts";
 import '../Post/Post.css';
 import '../../App.css';
 
-const LikeButton = ({ post_id, likes, currentUserInfo }) => {
+const LikeButton = ({ post_id, likes }) => {
   const [token] = useState(window.localStorage.getItem("token"));
   const [numberLikes, setNumberLikes] = useState(likes.length);
-  const [isClicked, setIsClicked] = useState(likes.includes(currentUserInfo?._id));
   const [isLikeListModalOpen, setIsLikeListModalOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [isLiked, setIsLiked] = useState(false); 
+
+  useEffect(() => {
+    const likedPosts = JSON.parse(localStorage.getItem("likedPosts")) || [];
+    setIsLiked(likedPosts.includes(post_id));
+  }, [post_id]);
 
   const handleAddLike = async () => {
     try {
-      if (isClicked) {
-        // Unlike the post
-        await addUserLike(token, { post_id });
-        setNumberLikes((prevLikes) => prevLikes - 1);
-      } else {
-        // Like the post
-        await addUserLike(token, { post_id });
-        setNumberLikes((prevLikes) => prevLikes + 1);
-      }
+        // deal with like in the backend - add or remove from the likes array
+        await addUserLike(token, { post_id: post_id });
+        // Update the number of likes by fetching the updated data from the backend
+        const updatedPostsData = await getPosts(token);
+        const updatedPost = updatedPostsData.posts.find(post => post._id === post_id);
+        // update the state of NumberLikes and refresh the count
+        setNumberLikes(updatedPost.likes.length);
+        const likedPosts = JSON.parse(localStorage.getItem("likedPosts")) || [];
+        if (likedPosts.includes(post_id)) {
+          const updatedLikedPosts = likedPosts.filter(id => id !== post_id);
+          localStorage.setItem("likedPosts", JSON.stringify(updatedLikedPosts));
+        } else {
+          localStorage.setItem("likedPosts", JSON.stringify([...likedPosts, post_id]));
+        }
+        setIsLiked(prevIsLiked => !prevIsLiked);
 
-      // Toggle the like status
-      setIsClicked((prevIsClicked) => !prevIsClicked);
     } catch (err) {
-      console.error("Error handling like", err.message);
+        console.error("Error handling like", err.message);
     }
-  };
+};
 
-  const handleLikeList = async (post) => {
+const handleLikeList = async (post) => {
+  try {
+    // Fetch the updated post information before opening the modal
+    const updatedPostsData = await getPosts(token);
+    const updatedPost = updatedPostsData.posts.find((p) => p._id === post._id);
+    
     setIsLikeListModalOpen(true);
-    setSelectedPost(post);
-  };
+    setSelectedPost(updatedPost);
+  } catch (err) {
+    console.error("Error fetching updated post information", err.message);
+  }
+};
 
   return (
     <div>
         <button
-        className={`my-like-button ${isClicked ? 'clicked' : ''}`}
+        className={`my-like-button ${isLiked ? 'liked' : ''}`}
         onClick={handleAddLike}>
             👍
         </button>
 
         <button 
-        onDoubleClick={() => handleLikeList({ _id: post_id, likes })}> 
+        onClick={() => handleLikeList({ _id: post_id, likes })}> 
         See Who's liked
         </button>
       <>number of likes {numberLikes}</>
@@ -56,12 +73,11 @@ const LikeButton = ({ post_id, likes, currentUserInfo }) => {
             <h3>Liked by:</h3>
             <ul>
               {selectedPost && selectedPost.likes && selectedPost.likes.map(like => (
+                console.log("like:", like),
                 <li key={like.user_id}>
                     
                   <img className="like-profile-pic" src={`http://localhost:3000/${like.profilePic}`} alt={`${like.username}'s profile pic`} />
                     {like.username}
-                    {console.log(like.username)}
-                    {console.log(like.profilePic)}
                 </li>
                 
               ))}
