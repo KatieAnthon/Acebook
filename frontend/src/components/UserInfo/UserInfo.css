@@ -1,10 +1,4 @@
-.user-container {
-  background-image: url('img/banner.jpg'); /* Set background image */
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center; /* Set height */
-  width: 100%;
-}
+
 
 .card-image-background {
   height: 10%;
