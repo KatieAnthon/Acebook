@@ -39,9 +39,11 @@ const handleCommentEdit = async (comment) => {
   setSelectedComment(comment);
 };
 
+
 const toggleShowAllText = () => {
   setShowAllText(!showAllText);
 };
+
 
 const isTextTooLong = post.message.length > MAX_LENGTH;
 const displayText = showAllText || !isTextTooLong ? post.message : `${post.message.substring(0, MAX_LENGTH)}...`;

@@ -1,0 +1,11 @@
+.navbar-custom {
+    position: sticky;
+    top: 0;
+    background-color: #4267b2; /* Facebook blue */
+    padding: 10px 20px; /* Add padding as needed */
+    z-index: 1000; /* Ensure the navigation bar appears above other content */
+  }
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav-link {
+      color: #fff; /* Set text color to white */
+  }
