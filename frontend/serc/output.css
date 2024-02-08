@@ -578,6 +578,10 @@ video {
   }
 }
 
+.sticky {
+  position: sticky;
+}
+
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -635,6 +639,10 @@ video {
   border-radius: 0.25rem;
 }
 
+.border {
+  border-width: 1px;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -646,6 +654,16 @@ video {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.outline {
+  outline-style: solid;
 }
 
 .filter {
@@ -664,10 +682,13 @@ video {
   /* Add rounded corners to the thumbnail */
 }
 
-/* Optional: Define additional styling for the thumbnail container */
-
-.thumbnail {
-  /* Add margin or padding if necessary */
+.custom-background {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  /* Add padding as needed */
+  border-radius: 8px;
+  /* Add border radius as needed */
 }
 
 @media (min-width: 640px) {
@@ -687,3 +708,5 @@ video {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
+
+  

@@ -5,7 +5,7 @@ import './NavBar.css';
 
 const NavBar = () => {
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="navbar-custom">
             <Container>
                 <Navbar.Brand href="/posts">Acebook</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -26,4 +26,4 @@ const NavBar = () => {
     )
 }
 
-export default NavBar
+export default NavBar;

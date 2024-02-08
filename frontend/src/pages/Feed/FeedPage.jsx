@@ -118,12 +118,13 @@ const handleCommentSubmit = async (postId, commentText) => {
   
 return (
     <div className="page-wrapper">
-     <NavBar />
+     <NavBar/>
      <Introduction pageName={"Feed"}/>
      <div class="container">
   <div class="row">
     <div class="col">
         <Card className="mt-4 sticky-card">   
+        <div className="user-container">
     {userInfo && (
       <UserInfo
         userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'}
@@ -131,11 +132,13 @@ return (
         userEmail={userInfo.email || 'Default Email'} 
         />
       )}
+      </div>
        </Card>
        <div className="friend-list">
-       <h2>Friends</h2>
+       <h2>🫂 Friends</h2>
          <div className="friend-table">
-       {friends.map((friend) => (
+          <div className="container-friends">
+       {friends.map((friend) => ( 
        <FriendToggle 
        key={friend._id}
        friend = {friend.username}
@@ -145,6 +148,8 @@ return (
        </div>
        </div>
        </div>
+       </div>
+       
       <div class="col">
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">

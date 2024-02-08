@@ -1,15 +1,16 @@
 .page-wrapper {
-  background-color: #f4f6f7; /* Set the background color */
+  background-color: #ffffff; /* Set the background color */
   margin: 0; /* Remove default body margin */
   padding: 0; /* Remove default body padding */
   width: 1500px;
+
 } 
 
-.user-info-box {
-  border: 0.5px solid #ccc; /* Border style */
-  padding: 5px; /* Padding around the box content */
-  border-radius: 5px; /* Rounded corners */
-  background-color: #040404; /* Background color */
+.user-container {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
+  padding: 10px; /* Add padding as needed */
+  border-radius: 9px; /* Add border radius as needed */
+  width: calc(100%);
 }
 
 .friend-list {
@@ -19,7 +20,7 @@
 .friend-table {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 10px;
+  gap: 15px;
 }
 
 .friend-item {
@@ -32,3 +33,17 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+.sticky-card {
+  width: 100%; /* Set the width of the card to fill the available space */
+}
+
+.container-friends{
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
+  padding: 10px; /* Add padding as needed */
+  border-radius: 9px; /* Add border radius as needed */
+  width: calc(200%);
+}
+
+

@@ -10,7 +10,11 @@
     border-radius: 50%; /* Add rounded corners to the thumbnail */
   }
   
-  /* Optional: Define additional styling for the thumbnail container */
-  .thumbnail {
-    /* Add margin or padding if necessary */
+  .custom-background {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Add padding as needed */
+    border-radius: 8px; /* Add border radius as needed */
   }
+
+  

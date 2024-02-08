@@ -8,13 +8,11 @@ import "./FriendToggle.css"
 
 
 const FriendToggle = ({friend, picture}) => {
-  console.log("workinf",picture)
-
-
 
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="friend-toggle-container"></div>
       <p>{friend}</p>
         <img
           src={picture} // Assuming each picture object has a 'url' property
