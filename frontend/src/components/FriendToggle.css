@@ -13,7 +13,7 @@
   .custom-background {
     background-color: hsl(0, 0%, 100%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px; /* Add padding as needed */
+    padding: 30px; /* Add padding as needed */
     border-radius: 8px; /* Add border radius as needed */
   }
 
@@ -25,7 +25,7 @@
   
   .friend-card {
     width: 200px; /* Set width for each FriendToggle card */
-    margin: 10px; /* Add margin between cards */
+    margin: 20px; /* Add margin between cards */
   }
   
   .friend-card img {
@@ -35,7 +35,7 @@
   
   .friend-card p {
     text-align: center; /* Center align text */
-    margin-top: 10px; /* Add margin top */
-    font-weight: bold; /* Make text bold */
+    margin-top: 20px; /* Add margin top */
+    font-weight: lighter; /* Make text bold */
   }
   

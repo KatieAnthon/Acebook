@@ -150,13 +150,10 @@ return (
        </Card>
        
        <div style={{ marginTop: '60px' }}> {/* Adjust margin-top as needed */}
-       <Card>
-        
-        <div className="container-about-me">
-          
-        </div>
+       <div className="container-about-me">
+      
         <AboutMe />
-      </Card>
+      </div>
       </div>
       
 

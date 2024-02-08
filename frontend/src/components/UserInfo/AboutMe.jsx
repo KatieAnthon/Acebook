@@ -10,7 +10,7 @@ const AboutMe = () => {
 
 
           <div className="job-title"> 💼 Software Engineer </div>
-        </div>
+        
 
 
         <div className="education"> ✏️ Makers Academy </div>
@@ -23,6 +23,7 @@ const AboutMe = () => {
         <div>
         <nav id="navbar" className="nav-menu navbar">
         </nav>
+        </div>
         </div>
     </header>
   );
