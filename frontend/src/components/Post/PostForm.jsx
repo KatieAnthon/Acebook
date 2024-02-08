@@ -1,10 +1,13 @@
 
 import React, { useState, useEffect} from 'react';
 import './PostForm.css'; 
+import { getUserInfo } from "../../services/authentication";
 
 const PostForm = ({ onSubmit, initialData }) => {
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
+  const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [userInfo, setUserInfo] = useState(null);
 
 
   const handleContentChange = (event) => {
@@ -17,13 +20,29 @@ const PostForm = ({ onSubmit, initialData }) => {
     setImage(event.target.files[0]);
   };
 
+
   useEffect(() => {
-    // Set the initial content when initialData changes
+    const fetchData = async () => {
+      if (token) {
+        try {
+          const userInfoData = await getUserInfo(token);
+          setUserInfo(userInfoData);
+        } catch (err) {
+          console.error('Error fetching user information:', err);
+        }
+      } else {
+        console.log('No token found, navigating to login.');
+        navigate("/login");
+      }
+    };
+    fetchData();
+
     if (initialData) {
       setContent(initialData.message || ''); // Adjust property name if needed
       setImage(initialData.image || null);
     }
-  }, [initialData]);
+    fetchData();
+  }, [token, initialData]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,14 +60,32 @@ const PostForm = ({ onSubmit, initialData }) => {
   };
   
   return (
-    <div className="post-form-container">
-    <form onSubmit={handleSubmit} className="post-form">
-      <textarea value={content} placeholder="What are you thinking?" className="post-textarea" onChange={handleContentChange} name="content"/>
-      <input type="file" className="post-input-file" accept="image/*" onChange={handleImageChange} />
-      <button type="submit" className="post-submit-button">{initialData ? 'Update Post' : 'Create Post'}</button>
-    </form>
-    </div>  
-  );
+        <div className="post-form-container">
+        <form onSubmit={handleSubmit} className="post-form" id="post-form">
+          <div className="form-content">
+            <img
+              src={userInfo?.profilePic ? `http://localhost:3000/${userInfo?.profilePic}` : 'default-picture-url'}
+              alt="User Avatar"
+              className="user-avatar"
+            />
+            <textarea
+              value={content}
+              placeholder={userInfo ? `What are you thinking ${userInfo.username}?` : "What are you thinking?"}
+              className="post-textarea"
+              onChange={handleContentChange}
+              name="content"
+            />
+            <label htmlFor="file-upload" className="custom-file-upload">
+              Upload Image
+            </label>
+            <input id="file-upload" type="file" className="post-input-file" accept="image/*" onChange={handleImageChange} />
+          </div>
+          <button type="submit" className="post-submit-button">
+            {initialData ? 'Update Post' : 'Create Post'}
+          </button>
+        </form>
+      </div>
+    );
 };
 
 export default PostForm;

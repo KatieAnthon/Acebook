@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import { HomePage } from "./pages/Home/HomePage";
 import { MyMessages } from "./pages/Message/MessagePage";

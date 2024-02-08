@@ -1,38 +1,61 @@
 .post-form-container {
-    background-color: #f0f2f5;
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .post-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .post-textarea {
-    border: 1px solid #ccd0d5;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    padding: 8px;
-    resize: vertical;
-  }
-  
-  .post-input-file {
-    margin-bottom: 8px;
-  }
-  
-  .post-submit-button {
-    background-color: #4267b2;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-  
-  .post-submit-button:hover {
-    background-color: #365899;
-  }
+  background-color: #f0f2f5;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
 
+.form-content {
+  display: flex; /* Align items horizontally */
+  flex-direction: row; /* Place items in a row */
+  align-items: center; /* Align items vertically */
+  margin-bottom: 8px; /* Add space between the form content and the button */
+  width: 100%; /* Take the full width of the container */
+}
 
+.user-avatar {
+  width: 55px; /* Set the width of the image */
+  height: 55px; /* Set the height of the image */
+  border-radius: 50%; /* Make it round */
+  margin-right: 10px; /* Add space between the avatar and the textarea */
+  object-fit: cover; /* Ensure the image covers the area */
+}
+
+.post-textarea {
+  flex-grow: 1; /* Let the textarea grow to fill available space */
+  border: 1px solid #ccd0d5;
+  border-radius: 8px;
+  padding: 8px;
+  resize: none; /* Disable resizing */
+}
+
+.custom-file-upload {
+  padding: 8px 16px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px; /* Space between the upload label and the button */
+  margin-left: 10px;
+}
+
+.post-input-file {
+  display: none; /* Hide the file input */
+}
+
+.post-submit-button {
+  padding: 8px 16px;
+  background-color: #4267b2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%; /* The button takes the full width */
+  margin-top: 8px; /* Space between the button and the other form elements */
+}
+
+.post-submit-button:hover {
+  background-color: #365899;
+}
