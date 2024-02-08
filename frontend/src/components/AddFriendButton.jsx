@@ -9,6 +9,24 @@ const AddFriendButton = (props) => {
     const [token] = useState(window.localStorage.getItem("token"));
     const [requestStatus, setRequestStatus] = useState('Add Friend 😁')
 
+
+    seEffect(() => {
+        const fetchData = async () => {
+          if (token) {
+            try {
+              const friendRequestData = await getFriendRequests(token);
+              setFriendRequests(friendRequestData.friend_list);
+            } catch (err) {
+              console.error('Error fetching user information:', err);
+            }
+          }
+        };
+    
+        fetchData();
+      }, [token]); // Corrected dependency array
+    checkIdInFriendList
+    
+
     const handleSendFriendRequest = async () => {
         try {
             // sending user_id of who's logged in AND user_id of the profile you're visiting

@@ -166,15 +166,12 @@ const openMessagesModal = (event) => {
 
   return (
     <>
-    <Container fluid >
+    <Container className="vw-100" fluid >
       <NavBar onMessagesClick={openMessagesModal}/> 
       {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
-      <Stack gap={3}>
-
       {userInfo && (
         <Card>
-          
-          <Card.Img style={{width: 1000, height: 500}} src="../profile_cover_photo/banner.jpg" />
+          <Card.Img style={{height: 500}} src="../profile_cover_photo/banner.jpg" />
             <Card.ImgOverlay>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
             <div style={{ textAlign: "center", textDecorationColor: "color" }}>
@@ -185,8 +182,8 @@ const openMessagesModal = (event) => {
                 </div>
                 </div>
             </Card.ImgOverlay>
-            
         </Card>)}
+    </Container>
         <PostForm onSubmit={handlePostSubmit} />
     <div className="feed" role="feed">
     {posts.slice().reverse().map((post) => (
@@ -211,12 +208,6 @@ const openMessagesModal = (event) => {
     </div>
   </div>
   )}
-      </Stack>
-    </Container>
-
-
-
-      <FriendRequest />
       </>
   );
 };

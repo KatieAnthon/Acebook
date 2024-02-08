@@ -25,6 +25,9 @@ router.get("/userinfo",tokenChecker, UsersController.getUsersInformation);
 
 router.get("/getFriendRequests", tokenChecker, UsersController.getAllFriendRequests);
 
+router.get("/checkIdInFriendList", tokenChecker, UsersController.checkIdInFriendList);
+
+
 
 
 
