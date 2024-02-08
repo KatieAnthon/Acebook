@@ -2,6 +2,7 @@
   background-color: #f0f2f5;
   border-radius: 10px;
   padding: 16px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
@@ -27,6 +28,7 @@
   flex-grow: 1; /* Let the textarea grow to fill available space */
   border: 1px solid #ccd0d5;
   border-radius: 8px;
+  height: 100%;
   padding: 8px;
   resize: none; /* Disable resizing */
 }
@@ -35,6 +37,7 @@
   padding: 8px 16px;
   background-color: #ddd;
   border: 1px solid #ccc;
+  height: 100%;
   border-radius: 4px;
   cursor: pointer;
   margin-right: 10px; /* Space between the upload label and the button */

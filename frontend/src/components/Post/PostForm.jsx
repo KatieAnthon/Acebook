@@ -76,7 +76,7 @@ const PostForm = ({ onSubmit, initialData }) => {
               name="content"
             />
             <label htmlFor="file-upload" className="custom-file-upload">
-              Upload Image
+            📷
             </label>
             <input id="file-upload" type="file" className="post-input-file" accept="image/*" onChange={handleImageChange} />
           </div>

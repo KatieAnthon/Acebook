@@ -54,7 +54,9 @@ return (
         <div className="media">
           <img src={post.userPorfilePicture ? `http://localhost:3000/${post.userPorfilePicture}` : 'default-picture-url'} alt="msg" width="55px" height="55px" className="rounded-circle mr-3"></img>
           <div className="media-body">
-          <h5>{post.username}</h5>
+          <Link to={`/posts/${post.username}`} >
+            {post.username}
+            </Link>
           <div className="card-text text-justify message">
             {displayText}
             {isTextTooLong && !showAllText && (
@@ -76,15 +78,15 @@ return (
       </div>
       <div className="post-actions">
           <LikeButton post_id={post._id} likes={post.likes} />
-          <button onClick={() => focusCommentForm(post._id)} className="my-button">Comment</button>
+          <button onClick={() => focusCommentForm(post._id)} className="my-button comment-button">💬 Comment</button>
           {showDeleteButton && (
             <>
-              <button className="my-button" onClick={onDelete}>Delete Post</button>
-              <button className="my-button" onClick={onEdit}>Edit Post</button>
+              <button className="my-button delete-button" onClick={onDelete}>Delete Post</button>
+              <button className="my-button edit-button" onClick={onEdit}>Edit Post</button>
             </>
           )}
           
-              <button onClick={toggleChat} className="my-button">Message</button> 
+              <button onClick={toggleChat} className="my-button message-button">📥 Message</button> 
 
         </div>
         {isChatVisible && <Chat postId={post._id} onClose={() => setIsChatVisible(false)} setIsChatVisible={setIsChatVisible} />}

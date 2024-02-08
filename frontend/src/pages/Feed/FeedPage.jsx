@@ -176,6 +176,7 @@ return (
        </div>
        
       <div className="col">
+      <div className="right-column">
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
       {posts.slice().reverse().map((post) => (
@@ -192,6 +193,7 @@ return (
         ))}
     </div>
     </div>
+  </div>
   </div>
     
     </div>
