@@ -8,25 +8,27 @@ import { useState, useEffect } from "react";
 const AddFriendButton = (props) => {
     const [token] = useState(window.localStorage.getItem("token"));
     const [requestStatus, setRequestStatus] = useState('Add Friend 😁')
-    const [showButton, setShowButton] = useState('')
+    const [showButton, setShowButton] = useState(false)
 
 
     useEffect(() => {
         const fetchData = async () => {
-          if (token) {
-            try {
-              const friendRequestData = await checkIdInFriendList(token, props.user_id);
-              setShowButton(friendRequestData.message);
-            } 
-            
-            catch (err) {
-              console.error('Error fetching user information:', err);
+            if (token) {
+                try {
+                    const friendRequestData = await checkIdInFriendList(token, props.user_id);
+                    console.log(friendRequestData)
+                    if(friendRequestData.message === "Show add friend button"){
+                        setShowButton(true);
+                    }
+                } 
+                catch (err) {
+                    console.error('Error fetching user information:', err);
+                }
             }
-          }
         };
     
         fetchData();
-      }, [token]); // Corrected dependency array
+      }, [token, props.user_id]); // Corrected dependency array
     
     
 
@@ -42,11 +44,19 @@ const AddFriendButton = (props) => {
         }
     };
 
+    // eturn res.status(200).json({ message: "Show add friend button"});
+    // }else{
+    //   return res.status(200).json({ message: "Don't show add friend button"});
+
     return (
-    <div>
-        <button onClick={handleSendFriendRequest}>{requestStatus}
-        </button>
-    </div>
+        <>
+        {showButton && (
+            <div>
+                <button onClick={handleSendFriendRequest}>{requestStatus}
+                </button>
+            </div>
+        )}
+        </> 
     )
 }
 

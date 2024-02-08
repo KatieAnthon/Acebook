@@ -66,10 +66,8 @@ export const checkIdInFriendList = async (token, profileId) => {
         headers: {
         Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({profileId}),
     };
-    const response = await fetch(`${BACKEND_URL}/users/checkIdInFriendList`, requestOptions);
-
+    const response = await fetch(`${BACKEND_URL}/posts/checkIdInFriendList/${profileId}`, requestOptions);
     if (!response.ok) {
         throw new Error(`Error fetching user information: ${response.statusText}`);
     }

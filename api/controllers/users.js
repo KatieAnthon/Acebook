@@ -85,16 +85,17 @@ const checkIdInFriendList = async (req, res) => {
   try {
     // find the user visiting profile page
     const user = await User.findById(req.user_id);
+    
     // find user who's profile it is
-    const profileVisited = await User.findById(req.body.user_id);
-    // if the users are not friends - show the add friend button
-    if (user.friend_list.find((friend_request) => friend_request.id.toString() === profileVisited.id) === null){
+    const profileVisited = await User.findById(req.params.userId);
+
+    // if the users are not friends AND user and profile are not the same - show the add friend button
+    if (user.friend_list.some(friend_request => friend_request.id.toString() === profileVisited.id) === false && req.user_id != req.params.userId){
       return res.status(200).json({ message: "Show add friend button"});
     }else{
       return res.status(200).json({ message: "Don't show add friend button"});
     } 
-    }
-      catch (error) {
+    }catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
       }
