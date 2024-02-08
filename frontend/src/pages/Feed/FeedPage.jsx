@@ -10,6 +10,7 @@ import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
 import Introduction from "../../components/Introduction/Introduction"
+import '../../components/Post/Post.css'
 import "./FeedPage.css"
 import { Card, Col, Row } from 'react-bootstrap';
 import FriendToggle from '../../components/FriendToggle';
@@ -126,6 +127,7 @@ const handleCommentSubmit = async (postId, commentText) => {
   
   return (
     <>
+
       <div className="main-wrapper">
         <div className="page-wrapper">
           <NavBar onMessagesClick={openMessagesModal} />

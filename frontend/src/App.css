@@ -14,10 +14,46 @@
   justify-content: center;
   align-items: center;
 }
-
+.like-profile-pic {
+  width: 100px; /* Adjust the width to your preference */
+  height: 100px; /* Adjust the height to your preference */
+  border-radius: 50%; /* Optional: to make it round */
+}
 .edit-post-modal {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
   z-index: 999; /* Set a high z-index to ensure it appears on top of other elements */
+}
+.comment-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.comment-dropdown h3 {
+  background-color: #f0f0f0;
+  padding: 8px;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.comment-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comment-dropdown li {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comment-dropdown li:last-child {
+  border-bottom: none;
 }

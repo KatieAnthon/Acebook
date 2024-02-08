@@ -28,7 +28,8 @@ export const createPost = async (token, formData) => {
     headers: {
       'Authorization': `Bearer ${token}`,
     },
-    body: formData,  
+    body: formData,
+   
     
   };
   const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
