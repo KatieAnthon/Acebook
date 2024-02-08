@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.thumbnail-img {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    object-fit: cover; /* Maintain aspect ratio while covering the thumbnail area */
+    border-radius: 50%; /* Add rounded corners to the thumbnail */
+  }
+  
+  .custom-background {
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px; /* Add padding as needed */
+    border-radius: 8px; /* Add border radius as needed */
+  }
+
+  .container-friends {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: space-around; /* Space items evenly */
+  }
+  
+  .friend-card {
+    width: 200px; /* Set width for each FriendToggle card */
+    margin: 20px; /* Add margin between cards */
+  }
+  
+  .friend-card img {
+    width: 100%; /* Ensure image fills the card */
+    border-radius: 50%; /* Make image circular */
+  }
+  
+  .friend-card p {
+    text-align: center; /* Center align text */
+    margin-top: 20px; /* Add margin top */
+    font-weight: lighter; /* Make text bold */
+  }
+  

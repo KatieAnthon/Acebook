@@ -23,6 +23,7 @@ import Stack from 'react-bootstrap/Stack';
 import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import Introduction from "../../components/Introduction/Introduction"
 
 
 export const UserProfile = () => {
@@ -197,18 +198,20 @@ const openMessagesModal = (event) => {
             focusCommentForm={() => focusCommentForm(post._id)}
             currentUserInfo={userInfo}
             onDeleteComment={(commentId) => handleDeleteComment(commentId)}
-              />
-            ))}
+          />
+        ))}
+      </div>
+      {isEditModalOpen && (
+        <div className="edit-post-modal-overlay">
+          <div className="edit-post-modal">
+            <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
+            <button onClick={() => setIsEditModalOpen(false)}>Close</button>
           </div>
-    {isEditModalOpen && (
-    <div className="edit-post-modal-overlay">
-    <div className="edit-post-modal">
-      <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
-      <button onClick={() => setIsEditModalOpen(false)}>Close</button>
-    </div>
+
   </div>
   )}
       </>
+
   );
 };
 
