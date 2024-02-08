@@ -29,6 +29,7 @@ const createPost = async (req, res) => {
   try {
     // Fetch the user's information using req.user_id
     const user = await User.findById(req.user_id);
+    console.log('user:',user)
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -37,10 +38,12 @@ const createPost = async (req, res) => {
       message: req.body.content,
       user: user._id, // ObjectId of the user
       username: user.username, // Username of the user
-      postImage:postImage,
+      profilePic: user.profilePic,
+      postImage: postImage,
       comments: []
     });
     await newPost.save();
+    console.log(newPost)
     res.status(201).json({ message: 'Post created successfully', post: newPost });
   } catch (error) {
     console.error(error);
@@ -53,22 +56,40 @@ const addUserLike = async(req,res) => {
     // find the liked post
     const post = await Post.findById(req.body.post_id);
     const user_id = req.user_id;
+    const user = await User.findById(req.user_id)
+    console.log(user)
     // if the likes array of that post doesn't include the id of the user who clicked it - add them to the array
-  if (!post.likes.includes(req.user_id)) {
-    post.likes.push(user_id)
-    await post.save();
-    return res.status(200).json({ message: "User added to likes successfully"});
-    // if the likes array of that post includes the id of the user who clicked it - remove them from the array
-  } else if (post.likes.includes(req.user_id)) {
-    post.likes.pull(user_id)
-    await post.save();
-    return res.status(200).json({ message: "User unliked successfully"});
-}
-} catch (error) {
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const { _id, username, profilePic } = user;
+
+    // Check if the user has already liked the post
+    const userLikedIndex = post.likes.findIndex(
+      (like) => like.user_id.equals(req.user_id)
+    );
+
+    if (userLikedIndex === -1) {
+      // If not liked, add the user to the likes array
+      post.likes.push({
+        user_id: _id,
+        username: username,
+        profilePic: profilePic,
+      });
+      await post.save();
+      return res.status(200).json({ message: 'User added to likes successfully' });
+    } else {
+      // If already liked, remove the user from the likes array
+      post.likes.splice(userLikedIndex, 1);
+      await post.save();
+      return res.status(200).json({ message: 'User unliked successfully' });
+    }
+  } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-}
+};
 
 const getSinglePost = async (req, res) => {
   try {

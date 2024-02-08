@@ -1,10 +1,12 @@
 import { addLikeComment } from "../../services/comments";
 import { useState, useEffect } from "react";
 import { getAllComments } from "../../services/comments";
+import '../Post/Post.css'
 
 const CommentLikeButton = ({ comment_id, likes }) => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [numberLikes, setNumberLikes] = useState(likes?.length || 0);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     // Update the number of likes when 'likes' prop changes
@@ -18,6 +20,8 @@ const CommentLikeButton = ({ comment_id, likes }) => {
       const updatedCommentsData = await getAllComments(token);
       const updatedComment = updatedCommentsData.comments.find(comment => comment._id === comment_id);
       setNumberLikes(updatedComment?.likes?.length || 0);
+      setIsClicked(true);
+
     } catch (err) {
       console.error("Error handling like", err.message);
     }
@@ -25,9 +29,12 @@ const CommentLikeButton = ({ comment_id, likes }) => {
 
   return (
     <div>
-      <button className="my-button" onDoubleClick={handleAddLike}>
-        {numberLikes > 1 ? '👍' : '👍'}{numberLikes === 0 ? "" : `: ${numberLikes}`}
-      </button>
+      <button
+      className={`my-like-button ${isClicked ? 'clicked' : ''}`}
+      onDoubleClick={handleAddLike}>
+            👍 
+        </button>
+      <>comment likes {numberLikes}</>
     </div>
   );
 };

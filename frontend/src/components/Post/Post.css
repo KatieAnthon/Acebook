@@ -7,7 +7,11 @@
     overflow: hidden; /* Ensures that content doesn't spill outside the border */
     position: relative; /* Sets the position context for absolute positioning of children */
   }
-  
+  .comments-container {
+    max-height: 400px; /* Set a maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrolling if the content overflows */
+    padding: 10px; /* Add padding if needed */
+  }
   .post-header {
     margin-bottom: 10px;
   }
@@ -20,7 +24,12 @@
   .post-content {
     margin-top: 10px;
   }
-  
+  .img-fluid {
+    max-width: 10%;
+    max-height: 10%;
+    border-radius: 10%; /* Ensure the image is fully visible within a circle */
+    object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+  }
   .post-image {
     width: 100%; /* Full width of the post container */
     height: 100%;/* Fixed height for all images */
@@ -70,7 +79,6 @@
   /* Additional specific styles for delete button */
   .my-button {
     color: white;
-    background-color: #4267b2; /* Blue color for the button */
     border: none;
     border-radius: 4px;
     padding: 8px 16px; /* Increased padding for better visual */
@@ -79,7 +87,24 @@
     margin: 0 8px; /* Space between buttons */
     transition: background-color 0.2s ease; /* Smooth transition for hover */
   }
-  
+  .my-like-button {
+    background-color: white;
+    border: 2px solid black;
+    color: #333;
+    width: 5%;
+    height: 5%;
+    text-align: center;
+    /* Add other styles as needed */
+  }
+  .my-like-button.clicked {
+    background-color: green;
+    border: 2px solid black;
+    width: 5%;
+    height: 5%;
+    text-align: center;
+
+    /* Add other styles for clicked state */
+  }
   .my-button:hover {
     background-color: #365899;
   }

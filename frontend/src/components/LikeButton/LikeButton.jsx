@@ -1,31 +1,76 @@
-import { addUserLike } from "../../services/posts"
+import { addUserLike } from "../../services/posts";
 import { useState } from "react";
 import { getPosts } from "../../services/posts";
+import '../Post/Post.css';
+import '../../App.css';
 
-const LikeButton = (likes) => {
-    const [token] = useState(window.localStorage.getItem("token"));
-    const [numberLikes, setNumberLikes] = useState(likes.likes.length)
+const LikeButton = ({ post_id, likes, currentUserInfo }) => {
+  const [token] = useState(window.localStorage.getItem("token"));
+  const [numberLikes, setNumberLikes] = useState(likes.length);
+  const [isClicked, setIsClicked] = useState(likes.includes(currentUserInfo?._id));
+  const [isLikeListModalOpen, setIsLikeListModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
 
-    const handleAddLike = async () => {
-        try {
-            // deal with like in the backend - add or remove from the likes array
-            await addUserLike(token, { post_id: likes.post_id });
-            // Update the number of likes by fetching the updated data from the backend
-            const updatedPostsData = await getPosts(token);
-            const updatedPost = updatedPostsData.posts.find(post => post._id === likes.post_id);
-            // update the state of NumberLikes and refresh the count
-            setNumberLikes(updatedPost.likes.length);
-        } catch (err) {
-            console.error("Error handling like", err.message);
-        }
-    };
+  const handleAddLike = async () => {
+    try {
+      if (isClicked) {
+        // Unlike the post
+        await addUserLike(token, { post_id });
+        setNumberLikes((prevLikes) => prevLikes - 1);
+      } else {
+        // Like the post
+        await addUserLike(token, { post_id });
+        setNumberLikes((prevLikes) => prevLikes + 1);
+      }
 
-    return (
+      // Toggle the like status
+      setIsClicked((prevIsClicked) => !prevIsClicked);
+    } catch (err) {
+      console.error("Error handling like", err.message);
+    }
+  };
+
+  const handleLikeList = async (post) => {
+    setIsLikeListModalOpen(true);
+    setSelectedPost(post);
+  };
+
+  return (
     <div>
-        <button className="my-button" onClick={handleAddLike} > {numberLikes > 1 ? '👍 Likes' : '👍 Like'} {numberLikes == 0 ? "" : `: ${numberLikes}`} 
+        <button
+        className={`my-like-button ${isClicked ? 'clicked' : ''}`}
+        onClick={handleAddLike}>
+            👍
         </button>
+
+        <button 
+        onDoubleClick={() => handleLikeList({ _id: post_id, likes })}> 
+        See Who's liked
+        </button>
+      <>number of likes {numberLikes}</>
+
+      {isLikeListModalOpen && (
+        <div className="edit-post-modal-overlay">
+          <div className="edit-post-modal">
+            <button onClick={() => setIsLikeListModalOpen(false)}>Close</button>
+            <h3>Liked by:</h3>
+            <ul>
+              {selectedPost && selectedPost.likes && selectedPost.likes.map(like => (
+                <li key={like.user_id}>
+                    
+                  <img className="like-profile-pic" src={`http://localhost:3000/${like.profilePic}`} alt={`${like.username}'s profile pic`} />
+                    {like.username}
+                    {console.log(like.username)}
+                    {console.log(like.profilePic)}
+                </li>
+                
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
-    )
-}
+  );
+};
 
 export default LikeButton;

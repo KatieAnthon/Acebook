@@ -5,7 +5,7 @@ import './NavBar.css';
 
 const NavBar = () => {
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="mt-4 sticky-card">
             <Container>
                 <Navbar.Brand href="/posts">Acebook</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

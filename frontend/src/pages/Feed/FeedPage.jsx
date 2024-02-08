@@ -10,6 +10,7 @@ import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
 import Introduction from "../../components/Introduction/Introduction"
+import '../../components/Post/Post.css'
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -106,18 +107,19 @@ const handleCommentSubmit = async (postId, commentText) => {
 return (
     <>
       <NavBar />
-    {userInfo && (
-      <UserInfo
-        userName={userInfo.username || 'Default Username'} 
-        userEmail={userInfo.email || 'Default Email'} 
-        userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
-        />
-      )}
+    {/* {userInfo && ( */}
+      {/* <UserInfo */}
+        {/* userName={userInfo.username || 'Default Username'}  */}
+        {/* userEmail={userInfo.email || 'Default Email'}  */}
+        {/* userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'}  */}
+        {/* /> */}
+      {/* )} */}
       <Introduction pageName={"Feed"}/>
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
       {posts.slice().reverse().map((post) => (
       <Post
+        postUserPicture={post.postImage ? `http://localhost:3000/${post.postImage}` : 'default-picture-url'}
         key={post._id} 
         post={post} 
         onDelete={() => handleDelete(post._id)} 
