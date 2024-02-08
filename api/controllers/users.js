@@ -44,6 +44,10 @@ const sendFriendRequest = async (req, res) => {
     // find the users entries of the sender and receiver
     const sender = await User.findById(req.user_id);
     const receiver = await User.findById(req.body.recipient_id);
+    // stop a user from sending themself a friend request
+    if (req.user_id === req.body.recipient_id) {
+      return res.status(200).json({ message: "Friend request cannot be sent to yourself"});
+    }
     // if a friend request hasn't been sent to that user, send
     const requestExists = receiver.friend_list.some(friend => friend.id.toString() === sender._id.toString() && !friend.confirmed);
     console.log("request exists", requestExists)
