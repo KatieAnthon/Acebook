@@ -38,9 +38,6 @@ const createPost = async (req, res) => {
       message: req.body.content,
       user: user._id, // ObjectId of the user
       username: user.username, // Username of the user
-      //profilePic: user.profilePic,
-      postImage: postImage,
-      comments: []
       postImage:postImage,
       comments: [],
       userPorfilePicture: user.profilePic
