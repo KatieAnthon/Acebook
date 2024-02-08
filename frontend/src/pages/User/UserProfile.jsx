@@ -23,6 +23,7 @@ import Stack from 'react-bootstrap/Stack';
 import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import Introduction from "../../components/Introduction/Introduction"
 
 
 export const UserProfile = () => {
@@ -166,30 +167,30 @@ const openMessagesModal = (event) => {
 
   return (
     <>
-    <Container fluid >
-      <NavBar onMessagesClick={openMessagesModal}/> 
-      {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
-      <Stack gap={3}>
-
-      {userInfo && (
-        <Card>
-          
-          <Card.Img style={{width: 1000, height: 500}} src="../profile_cover_photo/banner.jpg" />
-            <Card.ImgOverlay>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
-            <div style={{ textAlign: "center", textDecorationColor: "color" }}>
-                <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover'}}  src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} roundedCircle fluid />
-                <Card.Body>
-                  <Card.Title style={{color: "white"}}>{userInfo.username || 'Default Username'}</Card.Title>
-                </Card.Body>
+      <Container fluid>
+        <NavBar onMessagesClick={openMessagesModal}/> 
+        {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
+        <Stack gap={3}>
+          {userInfo && (
+            <Card>
+              <Card.Img style={{width: 1000, height: 500}} src="../profile_cover_photo/banner.jpg" />
+              <Card.ImgOverlay>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+                  <div style={{ textAlign: "center", textDecorationColor: "color" }}>
+                    <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover'}} src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} roundedCircle fluid />
+                    <Card.Body>
+                      <Card.Title style={{color: "white"}}>{userInfo.username || 'Default Username'}</Card.Title>
+                    </Card.Body>
+                  </div>
                 </div>
-                </div>
-            </Card.ImgOverlay>
-            
-        </Card>)}
-        <PostForm onSubmit={handlePostSubmit} />
-    <div className="feed" role="feed">
-    {posts.slice().reverse().map((post) => (
+              </Card.ImgOverlay>
+            </Card>
+          )}
+        </Stack>
+      </Container>
+      <PostForm onSubmit={handlePostSubmit} />
+      <div className="feed" role="feed">
+        {posts.slice().reverse().map((post) => (
           <Post
             key={post._id}
             post={post}
@@ -200,24 +201,19 @@ const openMessagesModal = (event) => {
             focusCommentForm={() => focusCommentForm(post._id)}
             currentUserInfo={userInfo}
             onDeleteComment={(commentId) => handleDeleteComment(commentId)}
-              />
-            ))}
+          />
+        ))}
+      </div>
+      {isEditModalOpen && (
+        <div className="edit-post-modal-overlay">
+          <div className="edit-post-modal">
+            <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
+            <button onClick={() => setIsEditModalOpen(false)}>Close</button>
           </div>
-    {isEditModalOpen && (
-    <div className="edit-post-modal-overlay">
-    <div className="edit-post-modal">
-      <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
-      <button onClick={() => setIsEditModalOpen(false)}>Close</button>
-    </div>
-  </div>
-  )}
-      </Stack>
-    </Container>
-
-
-
+        </div>
+      )}
       <FriendRequest />
-      </>
+    </>
   );
 };
 
