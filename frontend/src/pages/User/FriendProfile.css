@@ -52,3 +52,11 @@
   max-width: 700px; /* Adjust the width as needed */
   overflow: hidden; /* This will contain the card body and prevent it from overflowing */
 }
+
+.container {
+  max-width: 80vw; /* 80% of the viewport width */
+  margin: auto; /* Centers the container */
+  padding: 0 15px; /* Optional: adds padding inside the container */
+}
+
+

@@ -183,7 +183,6 @@ const openMessagesModal = (event) => {
                   }}>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
                       <div style={{ textAlign: "center", color: "white" }}>
-                        {/* Profile picture and username */}
                         <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover', borderRadius: '50%'}} src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} />
                         <div>{userInfo.username || 'Default Username'}</div>
                       </div>
@@ -192,32 +191,55 @@ const openMessagesModal = (event) => {
                 )}
             </Stack>
         </Container>
-        <div className="col-12 col-lg-7">
-      <PostForm onSubmit={handlePostSubmit} />
-      <div className="feed" role="feed">
-          {posts.slice().reverse().map((post) => (
-            <Post
-              key={post._id}
-              post={post}
-              onDelete={() => handleDelete(post._id)}
-              onEdit={() => handleEdit(post)}
-              showDeleteButton={true}
-              onCommentSubmit={handleCommentSubmit}
-              focusCommentForm={() => focusCommentForm(post._id)}
-              currentUserInfo={userInfo}
-              onDeleteComment={(commentId) => handleDeleteComment(commentId)}
-            />
-          ))}
-        </div>
-        {isEditModalOpen && (
-          <div className="edit-post-modal-overlay">
-            <div className="edit-post-modal">
-              <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
-              <button onClick={() => setIsEditModalOpen(false)}>Close</button>
+        <div className="container">
+  <div className="row">
+    <div className="col-12 col-lg-5">
+        <div className="card shadow-sm card-left3 mb-4">
+         <div className="card-body">
+          <h5 className="card-title">Photos<small class="ml-2"><a href="#">.Edit </a></small></h5>
+          <div class="row">
+          <div class="col-6 p-1">
+                  {posts.map((post,index) =>
+                    <img
+                    key={index}
+                    src={post?.postImage ? `http://localhost:3000/${post?.postImage}` : 'default-picture-url'}
+                    alt=""
+                    className="img-fluid mb-2"
+                />
+                )}
             </div>
           </div>
-        )}
-        <FriendRequest />
+        </div>
+      </div>  
+    </div>
+    <div className="col-12 col-lg-7">
+          <PostForm onSubmit={handlePostSubmit} />
+          <div className="feed" role="feed">
+            {posts.slice().reverse().map((post) => (
+              <Post
+                key={post._id}
+                post={post}
+                onDelete={() => handleDelete(post._id)}
+                onEdit={() => handleEdit(post)}
+                showDeleteButton={true}
+                onCommentSubmit={handleCommentSubmit}
+                focusCommentForm={() => focusCommentForm(post._id)}
+                currentUserInfo={userInfo}
+                onDeleteComment={(commentId) => handleDeleteComment(commentId)}
+              />
+            ))}
+          </div>
+          {isEditModalOpen && (
+            <div className="edit-post-modal-overlay">
+              <div className="edit-post-modal">
+                <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
+                <button onClick={() => setIsEditModalOpen(false)}>Close</button>
+              </div>
+            </div>
+          )}
+          <FriendRequest />
+        </div>
+      </div>
         </div>
      </div>
     </>
