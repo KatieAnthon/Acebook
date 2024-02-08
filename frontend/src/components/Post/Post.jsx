@@ -8,7 +8,7 @@ import CommentLikeButton from '../LikeButton/CommentLikeButton'
 import Chat from '../Messages/Message'; 
 import React, { useState } from 'react';
 
-const MAX_LENGTH = 100;
+const MAX_LENGTH = 200;
 const Post = ({ post, 
                 onDelete, 
                 onEdit, 
@@ -117,11 +117,6 @@ return (
     </div>
   );
 };
-
-
-
-
-
 
 
 export default Post;

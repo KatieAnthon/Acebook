@@ -137,7 +137,7 @@ return (
         onDeleteComment={(commentId) => handleDeleteComment(commentId)}
         currentUserInfo={userInfo}
       />
-    ))}
+        ))}
     </div>
     </>
   );
