@@ -24,7 +24,7 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Introduction from "../../components/Introduction/Introduction"
-
+import banner from './banner.jpg';
 
 export const UserProfile = () => {
 const [posts, setPosts] = useState([]);
@@ -167,51 +167,82 @@ const openMessagesModal = (event) => {
 
   return (
     <>
-    <Container className="vw-100" fluid >
-      <NavBar onMessagesClick={openMessagesModal}/> 
-      {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
-      {userInfo && (
-        <Card>
-          <Card.Img style={{height: 500}} src="../profile_cover_photo/banner.jpg" />
-            <Card.ImgOverlay>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
-            <div style={{ textAlign: "center", textDecorationColor: "color" }}>
-                <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover'}}  src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} roundedCircle fluid />
-                <Card.Body>
-                  <Card.Title style={{color: "white"}}>{userInfo.username || 'Default Username'}</Card.Title>
-                </Card.Body>
-                </div>
-                </div>
-            </Card.ImgOverlay>
-        </Card>)}
-    </Container>
-        <PostForm onSubmit={handlePostSubmit} />
-    <div className="feed" role="feed">
-    {posts.slice().reverse().map((post) => (
-          <Post
-            key={post._id}
-            post={post}
-            onDelete={() => handleDelete(post._id)}
-            onEdit={() => handleEdit(post)}
-            showDeleteButton={true}
-            onCommentSubmit={handleCommentSubmit}
-            focusCommentForm={() => focusCommentForm(post._id)}
-            currentUserInfo={userInfo}
-            onDeleteComment={(commentId) => handleDeleteComment(commentId)}
-          />
-        ))}
-      </div>
-      {isEditModalOpen && (
-        <div className="edit-post-modal-overlay">
-          <div className="edit-post-modal">
-            <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
-            <button onClick={() => setIsEditModalOpen(false)}>Close</button>
+    <div className="main-wrapper">
+      <div className="page-wrapper">
+        <NavBar onMessagesClick={openMessagesModal}/> 
+        {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
+        </div>
+        <Container fluid>
+          <Stack gap={3}>
+                {userInfo && (
+                  <div style={{ 
+                    backgroundImage: `url(${banner})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center center',
+                    height: '500px', // or whatever height you want
+                  }}>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+                      <div style={{ textAlign: "center", color: "white" }}>
+                        <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover', borderRadius: '50%'}} src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} />
+                        <div>{userInfo.username || 'Default Username'}</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+            </Stack>
+        </Container>
+        <div className="container">
+  <div className="row">
+    <div className="col-12 col-lg-5">
+        <div className="card shadow-sm card-left3 mb-4">
+         <div className="card-body">
+          <h5 className="card-title">Photos<small class="ml-2"><a href="#">.Edit </a></small></h5>
+          <div class="row">
+          <div class="col-6 p-1">
+                  {posts.map((post,index) =>
+                    <img
+                    key={index}
+                    src={post?.postImage ? `http://localhost:3000/${post?.postImage}` : 'default-picture-url'}
+                    alt=""
+                    className="img-fluid mb-2"
+                />
+                )}
+            </div>
           </div>
-
-  </div>
-  )}
-      </>
-
+        </div>
+      </div>  
+    </div>
+    <div className="col-12 col-lg-7">
+          <PostForm onSubmit={handlePostSubmit} />
+          <div className="feed" role="feed">
+            {posts.slice().reverse().map((post) => (
+              <Post
+                key={post._id}
+                post={post}
+                onDelete={() => handleDelete(post._id)}
+                onEdit={() => handleEdit(post)}
+                showDeleteButton={true}
+                onCommentSubmit={handleCommentSubmit}
+                focusCommentForm={() => focusCommentForm(post._id)}
+                currentUserInfo={userInfo}
+                onDeleteComment={(commentId) => handleDeleteComment(commentId)}
+              />
+            ))}
+          </div>
+          {isEditModalOpen && (
+            <div className="edit-post-modal-overlay">
+              <div className="edit-post-modal">
+                <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
+                <button onClick={() => setIsEditModalOpen(false)}>Close</button>
+              </div>
+            </div>
+          )}
+          <FriendRequest />
+        </div>
+      </div>
+        </div>
+     </div>
+    </>
   );
 };
 
