@@ -24,7 +24,7 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Introduction from "../../components/Introduction/Introduction"
-
+import banner from './banner.jpg';
 
 export const UserProfile = () => {
 const [posts, setPosts] = useState([]);
@@ -167,52 +167,59 @@ const openMessagesModal = (event) => {
 
   return (
     <>
-      <Container fluid>
+    <div className="main-wrapper">
+      <div className="page-wrapper">
         <NavBar onMessagesClick={openMessagesModal}/> 
         {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
-        <Stack gap={3}>
-          {userInfo && (
-            <Card>
-              <Card.Img style={{width: 1000, height: 500}} src="../profile_cover_photo/banner.jpg" />
-              <Card.ImgOverlay>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
-                  <div style={{ textAlign: "center", textDecorationColor: "color" }}>
-                    <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover'}} src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} roundedCircle fluid />
-                    <Card.Body>
-                      <Card.Title style={{color: "white"}}>{userInfo.username || 'Default Username'}</Card.Title>
-                    </Card.Body>
+        </div>
+        <Container fluid>
+          <Stack gap={3}>
+                {userInfo && (
+                  <div style={{ 
+                    backgroundImage: `url(${banner})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center center',
+                    height: '500px', // or whatever height you want
+                  }}>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+                      <div style={{ textAlign: "center", color: "white" }}>
+                        {/* Profile picture and username */}
+                        <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover', borderRadius: '50%'}} src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} />
+                        <div>{userInfo.username || 'Default Username'}</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Card.ImgOverlay>
-            </Card>
-          )}
-        </Stack>
-      </Container>
+                )}
+            </Stack>
+        </Container>
+        <div className="col-12 col-lg-7">
       <PostForm onSubmit={handlePostSubmit} />
       <div className="feed" role="feed">
-        {posts.slice().reverse().map((post) => (
-          <Post
-            key={post._id}
-            post={post}
-            onDelete={() => handleDelete(post._id)}
-            onEdit={() => handleEdit(post)}
-            showDeleteButton={true}
-            onCommentSubmit={handleCommentSubmit}
-            focusCommentForm={() => focusCommentForm(post._id)}
-            currentUserInfo={userInfo}
-            onDeleteComment={(commentId) => handleDeleteComment(commentId)}
-          />
-        ))}
-      </div>
-      {isEditModalOpen && (
-        <div className="edit-post-modal-overlay">
-          <div className="edit-post-modal">
-            <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
-            <button onClick={() => setIsEditModalOpen(false)}>Close</button>
-          </div>
+          {posts.slice().reverse().map((post) => (
+            <Post
+              key={post._id}
+              post={post}
+              onDelete={() => handleDelete(post._id)}
+              onEdit={() => handleEdit(post)}
+              showDeleteButton={true}
+              onCommentSubmit={handleCommentSubmit}
+              focusCommentForm={() => focusCommentForm(post._id)}
+              currentUserInfo={userInfo}
+              onDeleteComment={(commentId) => handleDeleteComment(commentId)}
+            />
+          ))}
         </div>
-      )}
-      <FriendRequest />
+        {isEditModalOpen && (
+          <div className="edit-post-modal-overlay">
+            <div className="edit-post-modal">
+              <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
+              <button onClick={() => setIsEditModalOpen(false)}>Close</button>
+            </div>
+          </div>
+        )}
+        <FriendRequest />
+        </div>
+     </div>
     </>
   );
 };
