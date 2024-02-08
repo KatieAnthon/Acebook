@@ -7,10 +7,11 @@
     date: { type: Date, default: Date.now },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     username: String,
-    profilePic: String,
+    //profilePic: String,
     likes: { type: Array },
     postImage: { type: String },
     comments: {type: Array, default: []},
+    userPorfilePicture:String
   });
 
   // We use the Schema to create the Post model. Models are classes which we can

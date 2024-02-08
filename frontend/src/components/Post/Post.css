@@ -139,19 +139,116 @@
   .comment-message {
     margin-bottom: 4px; /* Space between message and date */
   }
-  
-  .comment-date {
-    text-align: right; /* Align date to the right */
-    color: #777; /* A grey color for the date */
-  }
+.card {
+  border: 2px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  max-width: 600px; /* Adjust the width as needed */
+  overflow: hidden; /* This will contain the card body and prevent it from overflowing */
+}
 
-  .post-message {
-    font-size: 2rem; /* Adjust the font size as needed */
-    line-height: 1.5; /* Increase line-height for better readability */
-    color: #333; /* Darker text color for better contrast */
-    margin: 10px 0; /* Add some margin to the top and bottom */
-    padding: 0.5rem; /* Add some padding for visual comfort */
-    background-color: #f8f9fa; /* A light background to highlight the message */
-    border-left: 4px solid #4267b2; /* A left border for a touch of design */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
-  }
+
+.username {
+  margin-bottom: 1.5rem; /* Adjust the space below the username */
+}
+
+
+
+.card-text.text-justify.message {
+  padding: 15px 0px;
+  border-radius: 20px;
+  margin: 5px 0;
+  word-wrap: break-word;
+  max-width: none; /* This line resets any max-width */
+}
+
+
+.card-body {
+  padding: 1rem;
+  text-align: left;
+  
+}
+
+.media {
+  display: flex;
+  align-items: flex-start;
+}
+
+.media-body {
+  flex: 1;
+}
+
+.rounded-circle {
+  border-radius: 50%;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-thumbnail {
+  padding: 0.25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-muted {
+  color: #6c757d;
+}
+
+.post-image-container {
+  height: 300px; /* Fixed height */
+  width: 100%; /* Full width of the parent container */
+  overflow: hidden; /* Hides the overflowed part of the image */
+  position: relative; /* Relative to its normal position */
+  margin-top: 1rem; /* Adjust space above the image container */
+  margin-bottom: 10px;
+}
+
+/* This style will apply to the image itself */
+.post-image-container img {
+  width: 100%; /* Full width of the container */
+  height: 100%; /* Full height of the container */
+  object-fit: cover; /* Covers the area, cropping the image as needed */
+  position: absolute; /* Position absolutely within the .post-image-container */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px; /* If you want rounded corners */
+}
+
+
+.post-actions {
+  display: flex;
+  justify-content: center; /* Align buttons to the center */
+  align-items: center;
+  margin-top: 10px;
+  border-top: 1px solid #dddfe2; /* Thin line above the buttons */
+  border-bottom: 1px solid #dddfe2; /* Thin line below the buttons */
+  padding: 8px 0; /* Padding above and below the buttons */
+}
+
+
+.my-button {
+  color: white;
+  background-color: #4267b2; /* Blue color for the button */
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px; /* Increased padding for better visual */
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 8px; /* Space between buttons */
+  transition: background-color 0.2s ease; /* Smooth transition for hover */
+}
+
+.my-button:hover {
+  background-color: #365899;
+}

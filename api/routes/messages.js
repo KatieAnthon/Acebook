@@ -6,7 +6,8 @@ const MessageController = require("../controllers/messages");
 
 router.post("/create",tokenChecker, MessageController.createMessage);
 
-router.get("/get",tokenChecker, MessageController.getMessages);
+
+router.get("/usermessage",tokenChecker, MessageController.getMessagesByUser);
 
 
 module.exports = router;

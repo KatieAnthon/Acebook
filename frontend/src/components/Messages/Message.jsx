@@ -8,7 +8,7 @@ function Chat({ postId, onClose }) {
     const [message, setMessage] = useState('');
     const socketRef = useRef(null);
     const [userInfo, setUserInfo] = useState(null);
-    const [post, setPost] = useState([]);
+    const [post, setPost] = useState(null);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [socket, setSocket] = useState(null);
     const [isChatVisible, setIsChatVisible] = useState(false); 
@@ -57,25 +57,27 @@ function Chat({ postId, onClose }) {
     }
   }, [token, postId]);
 
-    const sendMessage = () => {
-
-        if (message && userInfo && post && socketRef.current) {
-            const recipientId = post.post.user;
-            socketRef.current.emit('sendMessage', {
-                message: message,
-                senderId: userInfo.userid,
-                senderUsername: userInfo.username,
-                receiverUsername: post.post.username,
-                recipientId: recipientId,
-                postId: post.post._id,
-            });
-            setMessage('');
-        }
-    };
+  const sendMessage = () => {
+    if (message && userInfo && post?.post && socketRef.current) {
+        const { user, username, userPorfilePicture, _id } = post.post; // Destructure for clarity
+        socketRef.current.emit('sendMessage', {
+            message,
+            senderId: userInfo.userid,
+            senderUsername: userInfo.username,
+            receiverUsername: username,
+            recipientId: user,
+            postId: _id,
+            userPicture: userInfo.profilePic,
+            receiverPicture: userPorfilePicture
+        });
+        setMessage('');
+    }
+};
 
     return (
       <div className="chat-container">
           <div className="chat-header">
+              <img src={post?.post?.userPorfilePicture ? `http://localhost:3000/${post?.post?.userPorfilePicture}` : 'default-picture-url'} alt="msg" width="60px" height="60px" className="rounded-circle mr-3"></img>
               <button onClick={onClose} className="close-btn">X</button>
           </div>
           <div className="chat-messages">
@@ -88,7 +90,8 @@ function Chat({ postId, onClose }) {
                     {msg.senderUsername === userInfo.username ? 'You' : msg.senderUsername}
                   </div>
                   {msg.message}
-                </div>
+                  {post.username}
+                </div>    
               ))}
           </div>
           <div className="chat-input-container">
@@ -102,5 +105,6 @@ function Chat({ postId, onClose }) {
       </div>
   );
 }
+
 
 export default Chat;

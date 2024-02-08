@@ -1,0 +1,37 @@
+.media {
+    display: flex;
+    align-items: center; /* This will vertically center the children */
+    margin-bottom: 1rem;
+  }
+  
+  .media-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* This will vertically center the .media-header inside .media-body */
+  }
+  
+  .media-header {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 0; /* Remove default margin from h6 */
+    text-align: left; /* Remove this if you only want to center vertically */
+  }
+
+
+  .rounded-circle {
+    width: 60px; /* Fixed width */
+    height: 60px; /* Fixed height */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+  }
+
+  .modal-dialog {
+    /* Adjust max-width as per your requirement, or use percentages for responsive design */
+    max-width: 600px; /* Example fixed width or you can use a percentage like 80% */
+  }
+  
+
+
+.mr-3, .mx-3 {
+    margin-right: 1rem!important;
+}

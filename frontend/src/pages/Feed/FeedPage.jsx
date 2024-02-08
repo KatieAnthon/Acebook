@@ -11,20 +11,35 @@ import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
 import Introduction from "../../components/Introduction/Introduction"
 import '../../components/Post/Post.css'
+import "./FeedPage.css"
+import { Card, Col, Row } from 'react-bootstrap';
+import FriendToggle from '../../components/FriendToggle';
+// import FriendToggle from "../../components/FriendToggle"
+import { MyMessages } from "../../pages/Message/MessagePage"
+import AboutMe from '../../components/UserInfo/AboutMe';
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [friends, setfriends] = useState([])
   const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       if (token) {
         try {
           const userInfoData = await getUserInfo(token);
+          
+  
           setUserInfo(userInfoData);
+
+          console.log("this information",userInfoData.friends)
+          setfriends(userInfoData.friends)
+          
+          
         } catch (err) {
           console.error('Error fetching user information:', err);
         }
@@ -104,35 +119,81 @@ const handleCommentSubmit = async (postId, commentText) => {
   }
 
   
-return (
+  const openMessagesModal = (event) => {
+    event.preventDefault(); 
+    setIsModalOpen(true);   
+  };
+
+  
+  return (
     <>
-      <NavBar />
-    {/* {userInfo && ( */}
-      {/* <UserInfo */}
-        {/* userName={userInfo.username || 'Default Username'}  */}
-        {/* userEmail={userInfo.email || 'Default Email'}  */}
-        {/* userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'}  */}
-        {/* /> */}
-      {/* )} */}
-      <Introduction pageName={"Feed"}/>
-      <PostForm onSubmit={handlePostSubmit} />
-      <div className="feed" role="feed">
-      {posts.slice().reverse().map((post) => (
-      <Post
-        postUserPicture={post.postImage ? `http://localhost:3000/${post.postImage}` : 'default-picture-url'}
-        key={post._id} 
-        post={post} 
-        onDelete={() => handleDelete(post._id)} 
-        showDeleteButton={false} 
-        onCommentSubmit={handleCommentSubmit}
-        focusCommentForm={() => focusCommentForm(post._id)}
-        onDeleteComment={(commentId) => handleDeleteComment(commentId)}
-        currentUserInfo={userInfo}
-      />
-    ))}
-    </div>
+
+      <div className="main-wrapper">
+        <div className="page-wrapper">
+          <NavBar onMessagesClick={openMessagesModal} />
+          {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
+        </div>   
+        <Introduction pageName={"Feed"}/>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <div className="left-column">
+                <div className="card-container">
+                  <Card className="mt-4 sticky-card">   
+                    <div className="user-container">
+                      {userInfo && (
+                        <UserInfo
+                          userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'}
+                          userName={userInfo.username || 'Default Username'}
+                          userEmail={userInfo.email || 'Default Email'} 
+                        />
+                      )}
+                    </div>
+                  </Card>
+                  <div style={{ marginTop: '60px' }}> {/* Adjust margin-top as needed */}
+                    <div className="container-about-me">
+                      <AboutMe />
+                    </div>
+                  </div>
+                  <div className="friend-list">
+                    <h2>🫂</h2>
+                    <div className="friend-table">
+                      <div className="container-friends">
+                        {friends.map((friend) => ( 
+                          <FriendToggle 
+                            key={friend._id}
+                            friend={friend.username}
+                            picture={`http://localhost:3000/${friend.friendProfilePic}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-12 col-lg-6">
+              <PostForm onSubmit={handlePostSubmit} />
+              <div className="feed" role="feed">
+                {posts.slice().reverse().map((post) => (
+                  <Post
+                    key={post._id} 
+                    post={post} 
+                    onDelete={() => handleDelete(post._id)} 
+                    showDeleteButton={false} 
+                    onCommentSubmit={handleCommentSubmit}
+                    focusCommentForm={() => focusCommentForm(post._id)}
+                    onDeleteComment={(commentId) => handleDeleteComment(commentId)}
+                    currentUserInfo={userInfo}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
-  );
+  );  
 };
 
 export default FeedPage;

@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import { HomePage } from "./pages/Home/HomePage";
+import { MyMessages } from "./pages/Message/MessagePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/myprofile",
     element: < UserProfile/>,
+  },
+  {
+    path: "/messages",
+    element: < MyMessages/>,
   },
   {
     path: "/posts/:username", 

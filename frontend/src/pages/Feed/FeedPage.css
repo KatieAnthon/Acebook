@@ -1,0 +1,78 @@
+.container {
+  max-width: 80vw; /* 80% of the viewport width */
+  margin: auto; /* Centers the container */
+  padding: 0 15px; /* Optional: adds padding inside the container */
+}
+
+.left-column {
+  max-width: 400px; /* Adjust the max-width as needed */
+}
+
+.user-container {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
+  border-radius: 9px; /* Add border radius as needed */
+  grid-gap: 10px;
+  z-index: 999; 
+}
+
+.friend-list {
+  margin-top: 40px;
+}
+
+.friend-table {
+  display: grid;
+  grid-template-columns: repeat(auto-fill);
+  gap: 20px;
+}
+
+.friend-item {
+  text-align: center;
+}
+
+.thumbnail-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.sticky-card {
+  width: 100%;
+  border: 1px solid #212529; /* Specify border properties */
+ 
+}
+
+.container-friends{
+  position: sticky;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
+  top: 0;
+  z-index: 100;
+  background-color: #fff; 
+    color: rgb(5, 0, 0);
+    border: none;
+    cursor: pointer;
+    font-weight: lighter ;
+    font-display: inherit;
+    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
+}
+
+.container-about-me{
+  position: sticky;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
+  top: 0;
+  z-index: 100;
+  background-color: #eff1f7; 
+    color: rgb(1, 1, 1);
+    border: none;
+    cursor: pointer;
+    font-weight: lighter;
+    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
+}
+
+.main-wrapper {
+  flex-grow: 1; /* Allow the wrapper to fill the space */
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Or whatever max width you desire */
+  margin: auto; /* Center the wrapper */
+}
+

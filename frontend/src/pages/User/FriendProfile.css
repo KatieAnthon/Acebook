@@ -2,19 +2,26 @@
 
 .profile-picture-container {
   text-align: center;
+  margin-top: -50px; /* Adjust this value to move the profile picture up or down */
 }
 
 .profile-picture {
-  align-self: left;
-  height: 300px; /* Fixed height */
-  width: 100%; /* Full width within its container */
+  width: 100px; /* Adjust the width as necessary */
+  height: 100px; /* Adjust the height as necessary */
   object-fit: cover; /* Maintain aspect ratio while covering the container */
+  border-radius: 50%; /* Make it round */
 }
 
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
 .introduction-container {
-  background-color: ;
-    color: #010101;
-    font-weight: unset;
+  background-color: #4267b2;
+  color: #010101;
+  font-weight: unset;
 }
 
 .sticky-card {
@@ -22,11 +29,34 @@
   top: 0;
   z-index: 100;
   background-color: #eff1f7; 
-    color: rgb(10, 0, 0);
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-weight: lighter;
-    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
+  color: rgb(10, 0, 0);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: lighter;
+  transition: background-color 0.2s ease; /* Smooth transition for hover effect */
 }
+
+.main-wrapper {
+  flex-grow: 1; /* Allow the wrapper to fill the space */
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Or whatever max width you desire */
+  margin: auto; /* Center the wrapper */
+}
+
+.card {
+  border: 2px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  max-width: 700px; /* Adjust the width as needed */
+  overflow: hidden; /* This will contain the card body and prevent it from overflowing */
+}
+
+.container {
+  max-width: 80vw; /* 80% of the viewport width */
+  margin: auto; /* Centers the container */
+  padding: 0 15px; /* Optional: adds padding inside the container */
+}
+
+

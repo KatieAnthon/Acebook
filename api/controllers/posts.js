@@ -20,7 +20,7 @@ const getAllPosts = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-};
+};    
 
 const createPost = async (req, res) => {
   const message = req.body.message;
@@ -38,9 +38,12 @@ const createPost = async (req, res) => {
       message: req.body.content,
       user: user._id, // ObjectId of the user
       username: user.username, // Username of the user
-      profilePic: user.profilePic,
+      //profilePic: user.profilePic,
       postImage: postImage,
       comments: []
+      postImage:postImage,
+      comments: [],
+      userPorfilePicture: user.profilePic
     });
     await newPost.save();
     console.log(newPost)

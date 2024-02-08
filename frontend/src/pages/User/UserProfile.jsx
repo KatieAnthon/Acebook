@@ -13,11 +13,18 @@ import Post from "../../components/Post/Post";
 import PostForm from "../../components/Post/PostForm";
 import NavBar from "../../components/NavBar/NavBar"
 import UserInfo from "../../components/Userinfo/UserInfo"
-import Introduction from "../../components/Introduction/Introduction"
+// import Introduction from "../../components/Introduction/Introduction"
 import '../../App.css'
 import "../../components/Post/Post.css";
+import { MyMessages } from "../../pages/Message/MessagePage"
 import FriendRequest from "../../components/FriendRequest";
-
+// styling 
+import Stack from 'react-bootstrap/Stack';
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
+import Introduction from "../../components/Introduction/Introduction"
+import banner from './banner.jpg';
 
 export const UserProfile = () => {
 const [posts, setPosts] = useState([]);
@@ -26,6 +33,8 @@ const [token, setToken] = useState(window.localStorage.getItem("token"));
 const [userInfo, setUserInfo] = useState(null);
 const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 const [selectedPost, setSelectedPost] = useState(null);
+const [isModalOpen, setIsModalOpen] = useState(false);
+
 
 const navigate = useNavigate();
 useEffect(() => {
@@ -109,6 +118,7 @@ useEffect(() => {
       setIsEditModalOpen(true);
     };
 
+
   const handlePostSubmit = async (formData, initialData) => {
     try {
       if (initialData) {
@@ -150,44 +160,88 @@ useEffect(() => {
     }
   };
 
+const openMessagesModal = (event) => {
+    event.preventDefault(); 
+    setIsModalOpen(true);   
+  };
 
   return (
     <>
-      <NavBar />
-      <FriendRequest />
-      <Introduction pageName={"Profile"}/>
-      {userInfo && (
-      <UserInfo
-        userName={userInfo.username || 'Default Username'} 
-        userEmail={userInfo.email || 'Default Email'} 
-        userPicture={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} 
-        />
-      )}   
-    
-    <PostForm onSubmit={handlePostSubmit} />
-    <div className="feed" role="feed">
-    {posts.slice().reverse().map((post) => (
-          <Post
-            key={post._id}
-            post={post}
-            onDelete={() => handleDelete(post._id)}
-            onEdit={() => handleEdit(post)}
-            showDeleteButton={true}
-            onCommentSubmit={handleCommentSubmit}
-            focusCommentForm={() => focusCommentForm(post._id)}
-            currentUserInfo={userInfo}
-            onDeleteComment={(commentId) => handleDeleteComment(commentId)}
+    <div className="main-wrapper">
+      <div className="page-wrapper">
+        <NavBar onMessagesClick={openMessagesModal}/> 
+        {isModalOpen && <MyMessages isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />}
+        </div>
+        <Container fluid>
+          <Stack gap={3}>
+                {userInfo && (
+                  <div style={{ 
+                    backgroundImage: `url(${banner})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center center',
+                    height: '500px', // or whatever height you want
+                  }}>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+                      <div style={{ textAlign: "center", color: "white" }}>
+                        <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover', borderRadius: '50%'}} src={userInfo.profilePic ? `http://localhost:3000/${userInfo.profilePic}` : 'default-picture-url'} />
+                        <div>{userInfo.username || 'Default Username'}</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+            </Stack>
+        </Container>
+        <div className="container">
+  <div className="row">
+    <div className="col-12 col-lg-5">
+        <div className="card shadow-sm card-left3 mb-4">
+         <div className="card-body">
+          <h5 className="card-title">Photos<small class="ml-2"><a href="#">.Edit </a></small></h5>
+          <div class="row">
+          <div class="col-6 p-1">
+                  {posts.map((post,index) =>
+                    <img
+                    key={index}
+                    src={post?.postImage ? `http://localhost:3000/${post?.postImage}` : 'default-picture-url'}
+                    alt=""
+                    className="img-fluid mb-2"
+                />
+                )}
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+    <div className="col-12 col-lg-7">
+          <PostForm onSubmit={handlePostSubmit} />
+          <div className="feed" role="feed">
+            {posts.slice().reverse().map((post) => (
+              <Post
+                key={post._id}
+                post={post}
+                onDelete={() => handleDelete(post._id)}
+                onEdit={() => handleEdit(post)}
+                showDeleteButton={true}
+                onCommentSubmit={handleCommentSubmit}
+                focusCommentForm={() => focusCommentForm(post._id)}
+                currentUserInfo={userInfo}
+                onDeleteComment={(commentId) => handleDeleteComment(commentId)}
               />
             ))}
           </div>
-    {isEditModalOpen && (
-    <div className="edit-post-modal-overlay">
-    <div className="edit-post-modal">
-      <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
-      <button onClick={() => setIsEditModalOpen(false)}>Close</button>
-    </div>
-  </div>
-  )}
+          {isEditModalOpen && (
+            <div className="edit-post-modal-overlay">
+              <div className="edit-post-modal">
+                <PostForm initialData={selectedPost} onSubmit={handlePostSubmit} />
+                <button onClick={() => setIsEditModalOpen(false)}>Close</button>
+              </div>
+            </div>
+          )}
+          <FriendRequest />
+        </div>
+      </div>
+        </div>
+     </div>
     </>
   );
 };

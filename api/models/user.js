@@ -7,8 +7,11 @@ const UserSchema = new mongoose.Schema({
   profilePic: { type: String },
   friend_list: [
     {
+    username: {type: String },
     confirmed: { type: Boolean, default: false },
-    userid: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    userid: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    username: { type: String },
+    friendProfilePic: { type: String },
 }]
 });
 

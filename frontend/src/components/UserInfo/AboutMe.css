@@ -1,0 +1,14 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+
+  .job-title,
+  .education,
+  .where-do-you-live {
+    margin-top: 10px; /* Adjust as needed */
+    text-align: center;
+  }
+
