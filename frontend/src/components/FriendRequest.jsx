@@ -3,12 +3,12 @@ import { friendRequestResponse, getFriendRequests } from "../services/users";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
-const FriendRequest = ({ friend, handleAcceptRequest }) => {
+const FriendRequest = ({ friend, handleAcceptRequest, requestStatus }) => {
   // Component logic for rendering each friend request
   return (
     <div key={friend._id}>
       <p>{friend.username} send you a friend request</p>
-      <button onClick={() => handleAcceptRequest(friend)}>Add Friend</button>
+      <button onClick={() => handleAcceptRequest(friend)}>{requestStatus}</button>
     </div>
   );
 };
@@ -16,7 +16,7 @@ const FriendRequest = ({ friend, handleAcceptRequest }) => {
 const FriendRequestList = () => {
   const [token] = useState(window.localStorage.getItem("token"));
   const [friendRequests, setFriendRequests] = useState([]);
-
+  const [requestStatus, setRequestStatus] = useState("Accept Friend Request")
   useEffect(() => {
     const fetchData = async () => {
       if (token) {
@@ -39,6 +39,7 @@ const FriendRequestList = () => {
       await friendRequestResponse(token, friend._id, true);
       const updatedRequestData = await getFriendRequests(token);
       console.log("updated data", updatedRequestData);
+      setRequestStatus("Accepted")
       setFriendRequests(updatedRequestData.friend_list);
     } catch (err) {
       console.error('Error accepting request', err.message);
@@ -54,8 +55,10 @@ const FriendRequestList = () => {
         <h3>Friend Requests</h3>
         {friendRequests
         .map((friend) => (
+
         <FriendRequest key={friend._id} 
-                        friend={friend} 
+                        friend={friend}
+                        requestStatus={requestStatus} 
                         handleAcceptRequest={handleAcceptRequest} />
         ))}
     </>

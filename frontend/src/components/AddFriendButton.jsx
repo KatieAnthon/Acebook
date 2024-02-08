@@ -13,7 +13,7 @@ const AddFriendButton = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (token) {
+            if (token, props.user_id) {
                 try {
                     const friendRequestData = await checkIdInFriendList(token, props.user_id);
                     console.log(friendRequestData)
@@ -44,7 +44,7 @@ const AddFriendButton = (props) => {
         }
     };
 
-    // eturn res.status(200).json({ message: "Show add friend button"});
+    // return res.status(200).json({ message: "Show add friend button"});
     // }else{
     //   return res.status(200).json({ message: "Don't show add friend button"});
 
