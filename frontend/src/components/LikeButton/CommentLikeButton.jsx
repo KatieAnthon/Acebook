@@ -40,7 +40,7 @@ const CommentLikeButton = ({ comment_id, likes }) => {
       <button
         className={`my-like-button ${isLiked ? 'liked' : ''}`}
         onClick={handleAddLike}>
-      <>{numberCommentLikes}</>
+      {/* <>{numberCommentLikes}</> */}
         </button>
     </div>
   );
