@@ -155,7 +155,7 @@
   border: 2px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   margin-bottom: 1rem;
-  max-width: 100%; /* Adjust the width as needed */
+  width: 100%; /* Adjust the width as needed */
   overflow: hidden; /* This will contain the card body and prevent it from overflowing */
 }
 
@@ -168,7 +168,6 @@
   border-radius: 20px;
   margin: 5px 0;
   word-wrap: break-word;
-  max-width: none; /* This line resets any max-width */
 }
 .card-body {
   padding: 1rem;
@@ -245,9 +244,6 @@
   margin: 0 8px; /* Space between buttons */
   transition: background-color 0.2s ease; /* Smooth transition for hover */
 }
-
-
-
 
 .comment-button {
   color: rgb(71, 69, 69);
