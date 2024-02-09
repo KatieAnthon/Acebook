@@ -17,7 +17,8 @@ const Post = ({ post,
                 onDeleteComment, 
                 onUpdateComment,
                 currentUserInfo,
-                postUserPicture}) => {
+                postUserPicture,
+                onCommentEditSubmit}) => {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
@@ -37,6 +38,7 @@ const handleCommentEdit = async (comment) => {
   await onCommentSubmit(post._id, comment.message, true); // Pass the flag for edit
   setIsEditModalOpen(true);
   setSelectedComment(comment);
+  setIsCommentModalOpen(false)
 };
 const handleCommentList = async (comment) => {
   setIsCommentModalOpen(true);
@@ -81,38 +83,37 @@ return (
       </div>
       <div className="post-actions">
           <LikeButton post_id={post._id} likes={post.likes} />
-          <button onClick={() => focusCommentForm(post._id)} className="my-button comment-button">💬 Comment</button>
+          <button onClick={handleCommentList} className="my-button comment-button">💬 Comment</button>
           {showDeleteButton && (
             <>
               <button className="my-button delete-button" onClick={onDelete}>Delete Post</button>
               <button className="my-button edit-button" onClick={onEdit}>Edit Post</button>
             </>
           )}
-          
               <button onClick={toggleChat} className="my-button message-button">📥 Message</button> 
-
         </div>
+
         {isChatVisible && <Chat postId={post._id} onClose={() => setIsChatVisible(false)} setIsChatVisible={setIsChatVisible} />}
-          <div className="post-comments">
-            <h3>Comments</h3>
-            <div>
-            {post.comments.map((comment, index) => (
-              <li key={index} className="comment-item">
-              <div className="comment-username">{comment.username}</div>
-              <div className="comment-message">{comment.message}</div>
-              <div className="comment-date">{comment.date.split("T")[0]}</div>
-              <CommentLikeButton comment_id={comment._id} likes={comment.likes} />
-                  <button className="my-button" onClick={() => onDeleteComment(comment._id)}>
-                    Delete comment
-                  </button>
-                  <button className="my-button" onClick={()=>handleCommentEdit(comment)}>
-                    Edit Comment
-                  </button>
-              </li>
-              ))}
-            </div>    
-                <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
-          </div>
+          {/* <div className="post-comments"> */}
+            {/* <h3>Comments</h3> */}
+            {/* <div> */}
+            {/* {post.comments.map((comment, index) => ( */}
+              {/* <li key={index} className="comment-item"> */}
+              {/* <div className="comment-username">{comment.username}</div> */}
+              {/* <div className="comment-message">{comment.message}</div> */}
+              {/* <div className="comment-date">{comment.date.split("T")[0]}</div> */}
+              {/* <CommentLikeButton comment_id={comment._id} likes={comment.likes} /> */}
+            {/* </div>      <button className="my-button" onClick={() => onDeleteComment(comment._id)}> */}
+                    {/* Delete comment */}
+                  {/* </button> */}
+                  {/* <button className="my-button" onClick={()=>handleCommentEdit(comment)}> */}
+                    {/* Edit Comment */}
+                  {/* </button> */}
+              {/* </li> */}
+              {/* ))} */}
+            {/* </div>     */}
+          {/* </div> */}
+          <CommentForm postId={post._id} onCommentSubmit={onCommentSubmit} />
           {isEditModalOpen && (
     <div className="edit-post-modal-overlay">
     <div className="edit-post-modal">
