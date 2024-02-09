@@ -196,9 +196,9 @@ const openMessagesModal = (event) => {
     <div className="col-12 col-lg-5">
         <div className="card shadow-sm card-left3 mb-4">
          <div className="card-body">
-          <h5 className="card-title">Photos<small class="ml-2"><a href="#">.Edit </a></small></h5>
-          <div class="row">
-          <div class="col-6 p-1">
+          <h5 className="card-title">Photos<small className="ml-2"><a href="#">.Edit </a></small></h5>
+          <div className="row">
+          <div className="col-6 p-1">
                   {posts.map((post,index) =>
                     <img
                     key={index}

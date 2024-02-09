@@ -25,7 +25,6 @@ const create = (req, res) => {
 const getUsersInformation = async (req, res) => {
   try {
     const user = await User.findById(req.user_id);
-    console.log(user)
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     } else if (user.friend_list.length === 0){

@@ -148,41 +148,39 @@ const deletePost = async (req, res) => {
 };
 
 
+
 const updatePost = async (req, res) => {
   try {
     const postId = req.params.postId;
-    const postUpdateData = { message: req.body.content };
+    const postUpdateData = { message: req.body.content }; // Create an object with the update data
+    console.log(req.file)
 
-    // there was an error, the post was only updating if an and a file were updated. issue now fixed. 
+    // If there's a file, add its path to the update data
+
     if (req.file) {
       postUpdateData.postImage = req.file.path;
     }
 
+    // Find the post and update it
     const updatedPost = await Post.findOneAndUpdate(
       { _id: postId, user: req.user_id },
       { $set: postUpdateData },
       { new: true }
     );
 
+    // If the post was not found, return a 404 error
     if (!updatedPost) {
       return res.status(404).json({ message: 'Post not found' });
     }
-    console.log("Post:", post); // Log the Post object
-    console.log("User ID from request:", req.user_id); // Log the user ID for debugging
-    // Check if the user making the request is the owner of the post
-    if (post.user.toString() !== req.user_id) {
-      return res.status(403).json({ message: 'You are not authorized to update this post' });
-    }
-    // Perform the update
-    const updateData = req.body; // Assuming the updated post data is sent in the request body
-    await Post.updateOne({ _id: postId }, updateData);
-    res.status(200).json({ message: 'Post updated successfully', updatedPost });
 
+    res.status(200).json({ message: 'Post updated successfully', updatedPost });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
 
 
 const PostsController = {

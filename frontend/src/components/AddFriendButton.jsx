@@ -16,7 +16,6 @@ const AddFriendButton = (props) => {
             if (token, props.user_id) {
                 try {
                     const friendRequestData = await checkIdInFriendList(token, props.user_id);
-                    console.log(friendRequestData)
                     if(friendRequestData.message === "Show add friend button"){
                         setShowButton(true);
                     }

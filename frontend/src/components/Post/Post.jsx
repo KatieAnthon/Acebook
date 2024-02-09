@@ -48,6 +48,7 @@ const Post = ({
     setShowAllText(!showAllText);
   };
 
+
   const isTextTooLong = post.message.length > MAX_LENGTH;
   const displayText =
     showAllText || !isTextTooLong
@@ -105,17 +106,18 @@ const Post = ({
             {showDeleteButton && (
               <>
                 <button className="my-button delete-button" onClick={onDelete}>
-                  Delete Post
+                🗑️ Delete 
                 </button>
-                <button className="my-button edit-button" onClick={onEdit}>
-                  Edit Post
+                <button className="my-button comment-button" onClick={onEdit}>
+                📝 Edit 
                 </button>
               </>
             )}
-      
-            <button onClick={toggleChat} className="my-button comment-button">
-              📥 Message
-            </button>
+           {currentUserInfo?.userid !== post?.user && currentUserInfo?.userid !==  post?.user._id && (
+                <button onClick={toggleChat} className="my-button comment-button">
+                  📥 Message
+                </button>
+            )}
           </div>
           {isChatVisible && (
             <Chat
