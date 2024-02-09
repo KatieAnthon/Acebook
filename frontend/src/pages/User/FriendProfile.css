@@ -1,4 +1,21 @@
 
+.left-column {
+  max-width: 400px; /* Adjust the max-width as needed */
+}
+
+.right-column {
+  max-width: 700px; /* Adjust the max-width as needed */
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* Send the background image to the back */
+}
+
 
 .profile-picture-container {
   text-align: center;
@@ -13,10 +30,9 @@
 }
 
 .container-fluid {
-  padding-left: 0;
-  padding-right: 0;
   margin-top: 5px;
   margin-bottom: 15px;
+  width: 100%;
 }
 .introduction-container {
   background-color: #4267b2;
@@ -27,6 +43,7 @@
 .sticky-card {
   position: sticky;
   top: 0;
+  width: 100%;
   z-index: 100;
   background-color: #eff1f7; 
   color: rgb(10, 0, 0);
@@ -45,19 +62,7 @@
   margin: auto; /* Center the wrapper */
 }
 
-.card {
-  border: 2px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-  margin-bottom: 1rem;
-  max-width: 700px; /* Adjust the width as needed */
-  overflow: hidden; /* This will contain the card body and prevent it from overflowing */
-}
 
-.container {
-  max-width: 80vw; /* 80% of the viewport width */
-  margin: auto; /* Centers the container */
-  padding: 0 15px; /* Optional: adds padding inside the container */
-}
 
 
 

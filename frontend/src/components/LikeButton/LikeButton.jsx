@@ -55,14 +55,15 @@ const handleLikeList = async (post) => {
   return (
     <div className="likeDiv">
         <button
-        className={`my-button message-button ${isLiked ? 'liked' : ''}`}
+        className={`my-like-button ${isLiked ? 'liked' : ''}`}
         onClick={handleAddLike}>
-            👍 {numberLikes > 0 ? numberLikes : ""}
         </button>
 
         <button 
         onClick={() => handleLikeList({ _id: post_id, likes })} className="my-button message-button"> 
-         👤 liked by
+
+         👤 liked by {numberLikes}
+
         </button>
 
       <> </>
@@ -71,7 +72,7 @@ const handleLikeList = async (post) => {
         <div className="edit-post-modal-overlay">
           <div className="edit-post-modal">
             <button onClick={() => setIsLikeListModalOpen(false)}>Close</button>
-            <h3>Liked by:</h3>
+            <h3>{numberLikes}</h3>
             <ul>
               {selectedPost && selectedPost.likes && selectedPost.likes.map(like => (
                 <li key={like.user_id}>          
