@@ -28,7 +28,7 @@ import './CommentFormHandle.css';
                     name="comment"
                 />
                 <button type="submit" className="comment-submit-button">
-
+                
                     {initialData ? 'Edit Comment' : 'Send'}
                 </button>
             </form>

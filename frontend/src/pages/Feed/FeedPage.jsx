@@ -129,7 +129,6 @@ const handleCommentSubmit = async (postId, commentText) => {
   
   return (
     <>
-
       <div className="main-wrapper">
         <div className="page-wrapper">
           <NavBar onMessagesClick={openMessagesModal} />
@@ -152,11 +151,9 @@ const handleCommentSubmit = async (postId, commentText) => {
                       )}
                     </div>
                   </Card>
-                  <div style={{ marginTop: '60px' }}> {/* Adjust margin-top as needed */}
                     <div className="container-about-me">
                       <AboutMe />
                     </div>
-                  </div>
                   <div className="friend-list">
                     <h2>🫂</h2>
                     <div className="friend-table">
@@ -176,7 +173,7 @@ const handleCommentSubmit = async (postId, commentText) => {
             </div>
             <div className="col-12 col-lg-6">
               <div className="right-column">
-      <PostForm onSubmit={handlePostSubmit} />
+                <PostForm onSubmit={handlePostSubmit} />
               <div className="feed" role="feed">
                 {posts.slice().reverse().map((post) => (
                   <Post

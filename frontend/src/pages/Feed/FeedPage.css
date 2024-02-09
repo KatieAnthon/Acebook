@@ -60,19 +60,18 @@
     transition: background-color 0.2s ease; /* Smooth transition for hover effect */
 }
 
-.container-about-me{
-  position: sticky;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow outline */
-  top: 0;
-  z-index: 100;
-  background-color: #eff1f7; 
-    color: rgb(1, 1, 1);
-    border: none;
-    cursor: pointer;
-    font-weight: lighter;
-    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
+.container-about-me {
+  /* No position property needed, or you can explicitly set it to relative */
+  position: relative; 
+  z-index: 10; /* Higher values are closer to the viewer */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #eff1f7;
+  color: rgb(1, 1, 1);
+  border: none;
+  cursor: pointer;
+  font-weight: lighter;
+  transition: background-color 0.2s ease;
 }
-
 .main-wrapper {
   flex-grow: 1; /* Allow the wrapper to fill the space */
   width: 100%; /* Full width */

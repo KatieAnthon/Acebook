@@ -57,25 +57,23 @@ const handleLikeList = async (post) => {
         <button
         className={`my-like-button ${isLiked ? 'liked' : ''}`}
         onClick={handleAddLike}>
-            👍
+  
         </button>
 
         <button 
-        onClick={() => handleLikeList({ _id: post_id, likes })}> 
-        See Who's liked
+        onClick={() => handleLikeList({ _id: post_id, likes })} className="my-button message-button"> 
         </button>
-      <>number of likes {numberLikes}</>
+
+      <> </>
 
       {isLikeListModalOpen && (
         <div className="edit-post-modal-overlay">
           <div className="edit-post-modal">
             <button onClick={() => setIsLikeListModalOpen(false)}>Close</button>
-            <h3>Liked by:</h3>
+            <h3>{numberLikes}</h3>
             <ul>
               {selectedPost && selectedPost.likes && selectedPost.likes.map(like => (
-                console.log("like:", like),
-                <li key={like.user_id}>
-                    
+                <li key={like.user_id}>          
                   <img className="like-profile-pic" src={`http://localhost:3000/${like.profilePic}`} alt={`${like.username}'s profile pic`} />
                     {like.username}
                 </li>

@@ -10,3 +10,11 @@ body {
 div.mt-4.sticky-card.card {
   margin-top: 0 !important;
 }
+
+.card {
+  border: 0px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  max-width: 700px;
+  overflow: hidden;
+}

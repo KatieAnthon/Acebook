@@ -63,7 +63,7 @@
   
   .button-style {
     background-color: #4267b2; /* Default blue color */
-    color: white;
+    color: rgb(5, 5, 5);
     border: none;
     border-radius: 4px;
     padding: 6px 12px;
@@ -78,7 +78,7 @@
   
   /* Additional specific styles for delete button */
   .my-button {
-    color: white;
+    color: rgb(3, 0, 0);
     border: none;
     border-radius: 4px;
     padding: 8px 16px; /* Increased padding for better visual */
@@ -87,6 +87,7 @@
     margin: 0 8px; /* Space between buttons */
     transition: background-color 0.2s ease; /* Smooth transition for hover */
   }
+  /* }
   .my-like-button {
     background-color: white;
     border: 2px solid black;
@@ -95,11 +96,20 @@
     height: 5%;
     text-align: center;
     /* Add other styles as needed */
-  }
+  /* }
   .my-like-button.liked {
     background-color: green;
     /* Add any other styles you want for the liked state */
+  /* }  */
+
+  .my-like-button::after {
+    content: '♡'; /* Default emoji */
   }
+  
+  .my-like-button.liked::after {
+    content: '\1F49A';
+  }
+   
   
   .my-button:hover {
     background-color: #365899;
@@ -139,11 +149,13 @@
   .comment-message {
     margin-bottom: 4px; /* Space between message and date */
   }
+
+
 .card {
   border: 2px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   margin-bottom: 1rem;
-  max-width: 800px; /* Adjust the width as needed */
+  max-width: 100%; /* Adjust the width as needed */
   overflow: hidden; /* This will contain the card body and prevent it from overflowing */
 }
 
@@ -151,9 +163,6 @@
 .username {
   margin-bottom: 1.5rem; /* Adjust the space below the username */
 }
-
-
-
 .card-text.text-justify.message {
   padding: 15px 0px;
   border-radius: 20px;
@@ -161,47 +170,37 @@
   word-wrap: break-word;
   max-width: none; /* This line resets any max-width */
 }
-
-
 .card-body {
   padding: 1rem;
   text-align: left;
-  
 }
-
 .media {
   display: flex;
   align-items: flex-start;
 }
-
 .media-body {
   flex: 1;
 }
-
 .rounded-circle {
   border-radius: 50%;
 }
-
 .img-fluid {
   max-width: 100%;
   height: auto;
 }
-
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
-  border: 1px solid #dee2e6;
+  border: 1px solid #DEE2E6;
   border-radius: 0.25rem;
   max-width: 100%;
   height: auto;
 }
-
 .text-justify {
   text-align: justify;
 }
-
 .text-muted {
-  color: #000509;
+  color: #6C757D;
 }
 
 .post-image-container {
@@ -212,7 +211,6 @@
   margin-top: 1rem; /* Adjust space above the image container */
   margin-bottom: 10px;
 }
-
 /* This style will apply to the image itself */
 .post-image-container img {
   width: 100%; /* Full width of the container */
@@ -224,41 +222,64 @@
   transform: translate(-50%, -50%);
   border-radius: 8px; /* If you want rounded corners */
 }
-
-
 .post-actions {
   display: flex;
   justify-content: center; /* Align buttons to the center */
   align-items: center;
   margin-top: 10px;
-  border-top: 1px solid #dddfe2; /* Thin line above the buttons */
-  border-bottom: 1px solid #dddfe2; /* Thin line below the buttons */
+  border-top: 1px solid #DDDFE2; /* Thin line above the buttons */
+  border-bottom: 1px solid #DDDFE2; /* Thin line below the buttons */
   padding: 8px 0; /* Padding above and below the buttons */
 }
-
+  /* Additional specific styles for delete button */
 
 .my-button {
-  color: white;
+  color: rgb(72, 72, 72);
   background-color: #ffffff; /* Blue color for the button */
   border: none;
   border-radius: 4px;
   padding: 8px 16px; /* Increased padding for better visual */
   cursor: pointer;
   font-weight: normal;
+  font-size: medium;
   margin: 0 8px; /* Space between buttons */
   transition: background-color 0.2s ease; /* Smooth transition for hover */
 }
+
+
+
+
 .comment-button {
   color: rgb(71, 69, 69);
   font-weight: normal;
-
 }
 
 .message-button {
   color: rgb(71, 69, 69);
   font-weight: normal;
 }
+.comment-button {
+  color: rgb(71, 69, 69);
+  font-weight: normal;
+}
+
+.img-thumbnail {
+  padding: 0.25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+
 
 .my-button:hover {
   background-color: #729be5;
+}
+
+
+.post-comments {
+  padding: 5px;
+  
 }
