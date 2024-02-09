@@ -108,7 +108,6 @@
   
   .my-like-button.liked::after {
     content: '\1F49A';
-    /* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAACXBIWXMAAAsTAAALEwEAmpwYAAABU0lEQVR4nO3VPy+DcRAH8MdgEd4AE4lErDYJd6qLpDF57vuUwaSLzSoxMhKJN1BTVzPuHu1Y2kQikYihg8FALCzlkRRFI83Tep5n4Zvc/Mnd7885Todhwy4pTkmzY05cIXX7WfHIhoAVx3FCKw3EEJDJVSzIZGl+gFVqHxArDmKBSGWniRgCUvEiR6YNc6Ty/NmN1CbKud6IkewoG+6/dsOGzUiRdMkbZMV1CxLMGHKRIZlypo8M1Vbk7cahyr4sse+tsskWG/ZJ4ZPKJauckbrZ0BAp9n5CQtZ5SETSZKh3C5GiEKaTQvP1d1sqN6TeQlvoV4B9P8dEIDZsxA6RysNscXEkmdGpHCU1uu0EIMk7gdPTHlK8RIBVnDBJHbpD7LvLbCh2ca3rbFhzOs2U7w6//2l5MpQay0/ljk2eGqtDccsqF2yibFhPnbjjHSP/+Vt5BbvdWexWmYenAAAAAElFTkSuQmCC">; /* Change to the green thumb emoji when liked */
   }
    
   

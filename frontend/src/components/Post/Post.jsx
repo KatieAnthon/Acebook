@@ -8,6 +8,7 @@ import Chat from "../Messages/Message";
 import React, { useState } from "react";
 
 const MAX_LENGTH = 200;
+
 const Post = ({
   post,
   onDelete,
@@ -32,6 +33,7 @@ const Post = ({
   };
 
   const handleCloseChat = () => {
+
     setIsChatVisible(false);
   };
   const handleCommentEdit = async (comment) => {
@@ -94,6 +96,7 @@ const Post = ({
               </small>
             </div>
           </div>
+
           <div className="post-actions">
             <LikeButton post_id={post._id} likes={post.likes} />
             <button

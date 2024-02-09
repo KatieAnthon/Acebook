@@ -18,13 +18,11 @@ const NavBar = ({onMessagesClick}) => {
                     <Nav.Link href="/myprofile">Profile</Nav.Link>
                     <FriendRequestList />
                     <Nav.Link href="#" onClick={onMessagesClick}>Messages</Nav.Link>
-
                     <Nav.Link href="/"
                     onClick = {()=> {console.log(
                         'logging out');
                         localStorage.clear();
                         }}>Logout</Nav.Link>
-                    
                 </Nav>
                 </Navbar.Collapse>
             </Container>

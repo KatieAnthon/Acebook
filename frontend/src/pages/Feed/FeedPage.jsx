@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { getPosts} from "../../services/posts";
 import { addCommentToPost } from "../../services/comments";
+import { updateComment} from '../../services/comments';
 import { getUserInfo } from "../../services/authentication";
 import { createPost } from '../../services/posts'; 
 import { deleteComment } from "../../services/comments";
@@ -86,6 +87,7 @@ const handleCommentSubmit = async (postId, commentText) => {
       console.error('Error adding comment:', err.message);
     }
   };
+  
   const handleDeleteComment = async (commentId) => {
     console.log('Deleting comment with ID:', commentId);
   
@@ -177,7 +179,7 @@ const handleCommentSubmit = async (postId, commentText) => {
                   <Post
                     key={post._id} 
                     post={post} 
-                    onDelete={() => handleDelete(post._id)} 
+                    // onDelete={() => handleDelete(post._id)} 
                     showDeleteButton={false} 
                     onCommentSubmit={handleCommentSubmit}
                     focusCommentForm={() => focusCommentForm(post._id)}
