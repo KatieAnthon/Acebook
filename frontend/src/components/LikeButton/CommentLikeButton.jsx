@@ -34,7 +34,7 @@ const CommentLikeButton = ({ comment_id, likes }) => {
       onClick={handleAddLike}>
             
         </button>
-      <>Likes {numberLikes}</>
+      <></>
     </div>
   );
 };

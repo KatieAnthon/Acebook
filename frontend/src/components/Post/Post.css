@@ -162,9 +162,6 @@
 .username {
   margin-bottom: 1.5rem; /* Adjust the space below the username */
 }
-
-
-
 .card-text.text-justify.message {
   padding: 15px 0px;
   border-radius: 20px;
@@ -172,47 +169,37 @@
   word-wrap: break-word;
   max-width: none; /* This line resets any max-width */
 }
-
-
 .card-body {
   padding: 1rem;
   text-align: left;
-  
 }
-
 .media {
   display: flex;
   align-items: flex-start;
 }
-
 .media-body {
   flex: 1;
 }
-
 .rounded-circle {
   border-radius: 50%;
 }
-
 .img-fluid {
   max-width: 100%;
   height: auto;
 }
-
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
-  border: 1px solid #dee2e6;
+  border: 1px solid #DEE2E6;
   border-radius: 0.25rem;
   max-width: 100%;
   height: auto;
 }
-
 .text-justify {
   text-align: justify;
 }
-
 .text-muted {
-  color: #000509;
+  color: #6C757D;
 }
 
 .post-image-container {
@@ -223,7 +210,6 @@
   margin-top: 1rem; /* Adjust space above the image container */
   margin-bottom: 10px;
 }
-
 /* This style will apply to the image itself */
 .post-image-container img {
   width: 100%; /* Full width of the container */
@@ -235,18 +221,16 @@
   transform: translate(-50%, -50%);
   border-radius: 8px; /* If you want rounded corners */
 }
-
-
 .post-actions {
   display: flex;
   justify-content: center; /* Align buttons to the center */
   align-items: center;
   margin-top: 10px;
-  border-top: 1px solid #dddfe2; /* Thin line above the buttons */
-  border-bottom: 1px solid #dddfe2; /* Thin line below the buttons */
+  border-top: 1px solid #DDDFE2; /* Thin line above the buttons */
+  border-bottom: 1px solid #DDDFE2; /* Thin line below the buttons */
   padding: 8px 0; /* Padding above and below the buttons */
 }
-
+  /* Additional specific styles for delete button */
 
 .my-button {
   color: rgb(72, 72, 72);
@@ -267,14 +251,34 @@
 .comment-button {
   color: rgb(71, 69, 69);
   font-weight: normal;
-
 }
 
 .message-button {
   color: rgb(71, 69, 69);
   font-weight: normal;
 }
+.comment-button {
+  color: rgb(71, 69, 69);
+  font-weight: normal;
+}
+
+.img-thumbnail {
+  padding: 0.25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+
 
 .my-button:hover {
   background-color: #729be5;
+}
+
+
+.post-comments {
+  padding: 5px;
+  
 }
