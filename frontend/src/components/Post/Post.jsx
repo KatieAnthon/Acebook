@@ -131,10 +131,10 @@ return (
             <div className="comment-message">{comment.message}</div>
             <div className="comment-date">{comment.date.split("T")[0]}</div>
             <CommentLikeButton comment_id={comment._id} likes={comment.likes} />
-                <button className="my-button" onClick={() => onDeleteComment(comment._id)}>
+                <button className="my-button delete" onClick={() => onDeleteComment(comment._id)}>
                   Delete comment
                 </button>
-                <button className="my-button" onClick={()=>handleCommentEdit(comment)}>
+                <button className="my-button edit" onClick={()=>handleCommentEdit(comment)}>
                   Edit Comment
                 </button>
             </li>

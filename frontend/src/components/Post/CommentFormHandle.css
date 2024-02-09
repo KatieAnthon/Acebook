@@ -10,15 +10,14 @@
   
   .comment-form {
     display: flex;
-    flex-direction: center;
-    gap: 5px;
+    flex-direction: column;
+    gap: 10px;
   }
   
   .comment-textarea {
-    padding: 7px;
+    padding: 8px;
     border: 1px solid #dddfe2;
-    width: 100%;
-    margin-left: 10px;
+    color: #020202;
     border-radius: 4px;
     min-height: 50px;
     resize: vertical; /* Allows the user to resize the textarea vertically */
@@ -26,7 +25,7 @@
   
   .comment-submit-button {
     background-color: #4267b2; /* Facebook blue */
-    color: rgb(247, 246, 246);
+    color: white;
     border: none;
     border-radius: 4px;
     padding: 8px 16px;
@@ -37,10 +36,11 @@
   
   .comment-submit-button:hover {
     background-color: #365899; /* Darker blue on hover */
-    font-size: 14px;
   }
   
   .comment-submit-button:disabled {
     background-color: #aac9f5; /* Lighter blue when button is disabled */
     cursor: not-allowed; /* Cursor to indicate the button is disabled */
   }
+
+ 

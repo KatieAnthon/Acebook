@@ -63,7 +63,7 @@
   
   .button-style {
     background-color: #4267b2; /* Default blue color */
-    color: white;
+    color: rgb(5, 5, 5);
     border: none;
     border-radius: 4px;
     padding: 6px 12px;
@@ -78,7 +78,7 @@
   
   /* Additional specific styles for delete button */
   .my-button {
-    color: white;
+    color: rgb(3, 0, 0);
     border: none;
     border-radius: 4px;
     padding: 8px 16px; /* Increased padding for better visual */
@@ -87,6 +87,7 @@
     margin: 0 8px; /* Space between buttons */
     transition: background-color 0.2s ease; /* Smooth transition for hover */
   }
+  /* }
   .my-like-button {
     background-color: white;
     border: 2px solid black;
@@ -95,11 +96,21 @@
     height: 5%;
     text-align: center;
     /* Add other styles as needed */
-  }
+  /* }
   .my-like-button.liked {
     background-color: green;
     /* Add any other styles you want for the liked state */
+  /* }  */
+
+  .my-like-button::after {
+    content: '👍'; /* Default emoji */
   }
+  
+  .my-like-button.liked::after {
+    content: '\1F49A';
+    /* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAACXBIWXMAAAsTAAALEwEAmpwYAAABU0lEQVR4nO3VPy+DcRAH8MdgEd4AE4lErDYJd6qLpDF57vuUwaSLzSoxMhKJN1BTVzPuHu1Y2kQikYihg8FALCzlkRRFI83Tep5n4Zvc/Mnd7885Todhwy4pTkmzY05cIXX7WfHIhoAVx3FCKw3EEJDJVSzIZGl+gFVqHxArDmKBSGWniRgCUvEiR6YNc6Ty/NmN1CbKud6IkewoG+6/dsOGzUiRdMkbZMV1CxLMGHKRIZlypo8M1Vbk7cahyr4sse+tsskWG/ZJ4ZPKJauckbrZ0BAp9n5CQtZ5SETSZKh3C5GiEKaTQvP1d1sqN6TeQlvoV4B9P8dEIDZsxA6RysNscXEkmdGpHCU1uu0EIMk7gdPTHlK8RIBVnDBJHbpD7LvLbCh2ca3rbFhzOs2U7w6//2l5MpQay0/ljk2eGqtDccsqF2yibFhPnbjjHSP/+Vt5BbvdWexWmYenAAAAAElFTkSuQmCC">; /* Change to the green thumb emoji when liked */
+  }
+   
   
   .my-button:hover {
     background-color: #365899;
@@ -238,16 +249,21 @@
 
 
 .my-button {
-  color: white;
+  color: rgb(72, 72, 72);
   background-color: #ffffff; /* Blue color for the button */
   border: none;
   border-radius: 4px;
   padding: 8px 16px; /* Increased padding for better visual */
   cursor: pointer;
   font-weight: normal;
+  font-size: medium;
   margin: 0 8px; /* Space between buttons */
   transition: background-color 0.2s ease; /* Smooth transition for hover */
 }
+
+
+
+
 .comment-button {
   color: rgb(71, 69, 69);
   font-weight: normal;
