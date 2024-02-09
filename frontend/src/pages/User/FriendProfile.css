@@ -1,4 +1,14 @@
+.container-card {
+  width: 200px;
+}
 
+.left-column {
+  max-width: 400px; /* Adjust the max-width as needed */
+}
+
+.right-column {
+  max-width: 700px; /* Adjust the max-width as needed */
+}
 
 .profile-picture-container {
   text-align: center;
@@ -13,10 +23,9 @@
 }
 
 .container-fluid {
-  padding-left: 0;
-  padding-right: 0;
   margin-top: 5px;
   margin-bottom: 15px;
+  width: 100%;
 }
 .introduction-container {
   background-color: #4267b2;
@@ -49,12 +58,12 @@
   border: 2px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   margin-bottom: 1rem;
-  max-width: 700px; /* Adjust the width as needed */
+  max-width: 100%; /* Adjust the width as needed */
   overflow: hidden; /* This will contain the card body and prevent it from overflowing */
 }
 
 .container {
-  max-width: 80vw; /* 80% of the viewport width */
+  max-width: 100%; /* 80% of the viewport width */
   margin: auto; /* Centers the container */
   padding: 0 15px; /* Optional: adds padding inside the container */
 }
