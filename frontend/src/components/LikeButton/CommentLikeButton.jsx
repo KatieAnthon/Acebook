@@ -6,7 +6,6 @@ import '../Post/Post.css'
 const CommentLikeButton = ({ comment_id, likes }) => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [numberCommentLikes, setCommentNumberLikes] = useState(likes.length);
-  const [isClicked, setIsClicked] = useState(false);
   const [isLiked, setIsLiked] = useState(false); 
 
   useEffect(() => {

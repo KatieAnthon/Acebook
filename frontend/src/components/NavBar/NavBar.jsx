@@ -4,7 +4,6 @@ import Nav from 'react-bootstrap/Nav';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 import './NavBar.css'; 
 import FriendRequestList from '../FriendRequest';
-import Settings from './useredit';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NavBar = ({onMessagesClick}) => {
@@ -24,7 +23,6 @@ const NavBar = ({onMessagesClick}) => {
                         'logging out');
                         localStorage.clear();
                         }}>Logout</Nav.Link>
-                    <Settings/>
                 </Nav>
                 </Navbar.Collapse>
             </Container>
