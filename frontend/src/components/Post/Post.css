@@ -103,7 +103,7 @@
   /* }  */
 
   .my-like-button::after {
-    content: '👍'; /* Default emoji */
+    content: '♡'; /* Default emoji */
   }
   
   .my-like-button.liked::after {
@@ -150,11 +150,13 @@
   .comment-message {
     margin-bottom: 4px; /* Space between message and date */
   }
+
+
 .card {
   border: 2px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   margin-bottom: 1rem;
-  max-width: 800px; /* Adjust the width as needed */
+  max-width: 100%; /* Adjust the width as needed */
   overflow: hidden; /* This will contain the card body and prevent it from overflowing */
 }
 
