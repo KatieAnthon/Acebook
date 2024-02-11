@@ -44,7 +44,6 @@ const FriendRequestList = () => {
       console.error('Error accepting request', err.message);
     }
   };
-console.log('here',friendRequests)
   return (
     <div className="requests" role="requests">
       <NavDropdown title="Friend Requests">

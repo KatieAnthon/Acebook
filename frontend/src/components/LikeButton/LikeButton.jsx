@@ -53,7 +53,7 @@ const handleLikeList = async (post) => {
 };
 
   return (
-    <div>
+    <div className="likeDiv">
         <button
         className={`my-like-button ${isLiked ? 'liked' : ''}`}
         onClick={handleAddLike}>
@@ -61,7 +61,9 @@ const handleLikeList = async (post) => {
 
         <button 
         onClick={() => handleLikeList({ _id: post_id, likes })} className="my-button message-button"> 
-        {numberLikes}
+
+         👤 liked by {numberLikes}
+
         </button>
 
       <> </>

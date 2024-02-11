@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import './PostForm.css'; 
 import { getUserInfo } from "../../services/authentication";
 
@@ -8,18 +8,7 @@ const PostForm = ({ onSubmit, initialData }) => {
   const [image, setImage] = useState(null);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userInfo, setUserInfo] = useState(null);
-
-
-  const handleContentChange = (event) => {
-    setContent(event.target.value);
-  //  onSubmit(formData);
-  //  setNewPost('');
-  };
-
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
-  };
-
+  const fileInputRef = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,14 +28,26 @@ const PostForm = ({ onSubmit, initialData }) => {
 
     if (initialData) {
       setContent(initialData.message || ''); // Adjust property name if needed
-      setImage(initialData.image || null);
+      setImage(initialData.postImage );
     }
-    fetchData();
   }, [token, initialData]);
+
+  const handleContentChange = (event) => {
+    setContent(event.target.value);
+
+  };
+
+  const handleImageChange = () => {
+    const file = fileInputRef.current.files[0];
+    console.log('Selected file:', file); // Add this line for debugging
+    setImage(file);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+    const file = fileInputRef.current.files[0];
+    // console.log(file, image)
     if (image) {
       formData.append('image', image);
     }
@@ -78,7 +79,7 @@ const PostForm = ({ onSubmit, initialData }) => {
             <label htmlFor="file-upload" className="custom-file-upload">
             📷
             </label>
-            <input id="file-upload" type="file" className="post-input-file" accept="image/*" onChange={handleImageChange} />
+            <input id="file-upload" type="file" className="post-input-file"  name="image"   ref={fileInputRef} accept="image/*" onChange={handleImageChange} />
           </div>
           <button type="submit" className="post-submit-button">
             {initialData ? 'Update Post' : 'Create Post'}

@@ -119,21 +119,22 @@ export const deletePost = async (token, postId) => {
 
 // Assuming your original updatePost function
 export const updatePost = async (token, postId, formData) => {
+
   const requestOptions = {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: formData,
+    body: formData, // Make sure formData is correctly formatted for your backend
   };
   const url = `${BACKEND_URL}/posts/editingPost/${postId}`;
+
   try {
     const response = await fetch(url, requestOptions);
     if (!response.ok) {
       throw new Error(`Error in updating post: ${response.statusText}`);
     }
     const responseData = await response.json();
-    // Check if 'updatedPost' is present in the response
     const updatedPost = responseData.updatedPost || null;
     return { message: responseData.message, updatedPost };
   } catch (error) {
