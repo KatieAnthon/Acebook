@@ -1,7 +1,8 @@
 import React, { useState, forwardRef, useEffect } from 'react';
 import './CommentFormHandle.css'; 
+import './Post.css'
 
-    const CommentForm = forwardRef(({ postId, onCommentSubmit, initialData }, ref) => {
+    const CommentForm = forwardRef(({ postId, onCommentSubmit, initialData, profilePic }, ref) => {
         const [comment, setComment] = useState('');
     
         useEffect(() => {
@@ -11,6 +12,7 @@ import './CommentFormHandle.css';
         }, [initialData]);
     
         const handleCommentSubmit = async (event) => {
+            console.log(profilePic)
             event.preventDefault();
             await onCommentSubmit(postId, comment, initialData ? 'edit' : 'create');
             setComment('');
@@ -19,7 +21,16 @@ import './CommentFormHandle.css';
     return (
         <div className="comment-form-container" id={`comment-form-${postId}`}>
             <form onSubmit={handleCommentSubmit} className="comment-form">
+                <div className="comment-input-avatar">
+                <img 
+                src={`http://localhost:3000/${profilePic}`} 
+                alt="User Avatar" 
+                className="avatar-image" />
+                    </div>
+                
+                <div className="comment-input-container">
                 <textarea
+                
                     ref={ref}
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
@@ -31,6 +42,7 @@ import './CommentFormHandle.css';
                 
                     {initialData ? 'Edit Comment' : 'Send'}
                 </button>
+                </div>
             </form>
         </div>
     );

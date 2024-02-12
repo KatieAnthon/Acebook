@@ -38,7 +38,6 @@ const Post = ({
   };
   const handleCommentEdit = async (comment) => {
     await onCommentSubmit(post._id, comment.message, true); // Pass the flag for edit
-    
     setIsEditModalOpen(true);
     setSelectedComment(comment);
   };
@@ -61,7 +60,7 @@ const Post = ({
       return (
         <div className="card">
           <div className="card-body">
-            <div className="media" data-testid="post-test1">
+            <div className="media">
               <img
                 src={
                   post.userPorfilePicture
@@ -130,10 +129,10 @@ const Post = ({
               setIsChatVisible={setIsChatVisible}
             />
           )}
-          <div className="post-comments" >
+          <div className="post-comments">
             <h3>Comments</h3>
             {post.comments.map((comment, index) => (
-              <div key={index} className="comment-item" >
+              <div key={index} className="comment-item">
                 <div className="comment-header">
                   <div className="comment-username">{comment.username}</div>
                   <div className="comment-date">{comment.date.split("T")[0]}</div>
@@ -168,6 +167,7 @@ const Post = ({
                   postId={post._id}
                   onCommentSubmit={onCommentSubmit}
                   initialData={selectedComment}
+                  profilePic={currentUserInfo.profilePic}
                 />
                 <button onClick={() => setIsEditModalOpen(false)}>Close</button>
               </div>

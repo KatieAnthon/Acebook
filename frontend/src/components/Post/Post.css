@@ -8,9 +8,10 @@
     position: relative; /* Sets the position context for absolute positioning of children */
   }
   .comments-container {
-    max-height: 400px; /* Set a maximum height for the container */
+    max-height: 500px;
+    width: 100%; /* Set a maximum height for the container */
     overflow-y: auto; /* Enable vertical scrolling if the content overflows */
-    padding: 10px; /* Add padding if needed */
+    padding: 1px; /* Add padding if needed */
   }
   .post-header {
     margin-bottom: 10px;
