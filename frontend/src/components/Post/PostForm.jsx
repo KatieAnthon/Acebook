@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef} from 'react';
 import './PostForm.css'; 
 import { getUserInfo } from "../../services/authentication";
+import { useNavigate } from 'react-router-dom';
 
 const PostForm = ({ onSubmit, initialData }) => {
   const [content, setContent] = useState('');
@@ -21,7 +22,7 @@ const PostForm = ({ onSubmit, initialData }) => {
         }
       } else {
         console.log('No token found, navigating to login.');
-        navigate("/login");
+        useNavigate("/login");
       }
     };
     fetchData();

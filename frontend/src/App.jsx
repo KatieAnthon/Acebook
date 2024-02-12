@@ -6,8 +6,8 @@ import { MyMessages } from "./pages/Message/MessagePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
-import { UserProfile } from "./pages/User/UserProfile";
-import { FriendProfile} from "./pages/User/FriendProfile";
+import { UserProfile } from "./pages/User/Profile/UserProfile";
+import { FriendProfile} from "./pages/User/Friend/FriendProfile";
 
 
 // docs: https://reactrouter.com/en/main/start/overview

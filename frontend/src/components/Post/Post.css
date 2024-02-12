@@ -25,8 +25,8 @@
     margin-top: 10px;
   }
   .img-fluid {
-    max-width: 10%;
-    max-height: 10%;
+    max-width: 100%;
+    max-height: 100%;
     border-radius: 10%; /* Ensure the image is fully visible within a circle */
     object-fit: cover; /* Maintain aspect ratio and cover the entire container */
   }
@@ -151,14 +151,6 @@
   }
 
 
-.card {
-  border: 2px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-  margin-bottom: 1rem;
-  width: 100%; /* Adjust the width as needed */
-  overflow: hidden; /* This will contain the card body and prevent it from overflowing */
-}
-
 
 .username {
   margin-bottom: 1.5rem; /* Adjust the space below the username */
@@ -169,10 +161,10 @@
   margin: 5px 0;
   word-wrap: break-word;
 }
-.card-body {
-  padding: 1rem;
+/* .card-body { */
+  /* padding: 1rem;
   text-align: left;
-}
+} */
 .media {
   display: flex;
   align-items: flex-start;
@@ -216,10 +208,10 @@
   height: 100%; /* Full height of the container */
   object-fit: cover; /* Covers the area, cropping the image as needed */
   position: absolute; /* Position absolutely within the .post-image-container */
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 8px; /* If you want rounded corners */
+  border-radius: 2px; /* If you want rounded corners */
 }
 .post-actions {
   display: flex;

@@ -2,7 +2,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import React from 'react';
-import { getFriendInfo } from '../services/authentication';
+import { getFriendInfo } from '../../services/authentication';
 import "./FriendToggle.css"
 
 

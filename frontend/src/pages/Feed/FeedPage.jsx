@@ -14,7 +14,7 @@ import Introduction from "../../components/Introduction/Introduction"
 import '../../components/Post/Post.css'
 import "./FeedPage.css"
 import { Card, Col, Row } from 'react-bootstrap';
-import FriendToggle from '../../components/FriendToggle';
+import FriendToggle from '../../components/Friends/FriendToggle';
 // import FriendToggle from "../../components/FriendToggle"
 import { MyMessages } from "../../pages/Message/MessagePage"
 import AboutMe from '../../components/UserInfo/AboutMe';

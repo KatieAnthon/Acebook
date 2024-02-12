@@ -128,7 +128,7 @@ export const SignupPage = () => {
             </div>
 
             <div className="d-grid gap-2">
-    <button role="submit-button" id="submit" type="submit" className="btn btn-sign-up">Sign Up</button>
+    <button role="submit-button"  id="submit" data-testid="submit-button" type="submit" className="btn btn-sign-up">Sign Up</button>
             </div>
           </form>
           <div className="d-grid gap-2">

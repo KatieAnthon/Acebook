@@ -7,11 +7,16 @@ import { signup } from "../../src/services/authentication";
 
 import { SignupPage } from "../../src/pages/Signup/SignupPage";
 
+import { Link } from "react-router-dom";
+
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
   const navigateMock = vi.fn();
   const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-  return { useNavigate: useNavigateMock };
+  const linkMock = vi.fn();
+  const LinkMock = () => linkMock;
+  
+  return { useNavigate: useNavigateMock, Link: LinkMock };
 });
 
 // Mocking the signup service
@@ -25,10 +30,10 @@ vi.mock("../../src/services/authentication", () => {
 const completeSignupForm = async () => {
   const user = userEvent.setup();
 
-  const emailInputEl = screen.getByLabelText("Email:");
-  const passwordInputEl = screen.getByLabelText("Password:");
-  const usernameInputEl = screen.getByLabelText("Username:");
-  const submitButtonEl = screen.getByRole("submit-button");
+  const emailInputEl = screen.getByPlaceholderText("Email Address");
+  const passwordInputEl = screen.getByPlaceholderText("Password");
+  const usernameInputEl = screen.getByPlaceholderText("Username");
+  const submitButtonEl = screen.getByTestId("submit-button");
 
   await user.type(emailInputEl, "test@email.com");
   await user.type(passwordInputEl, "TestPassword1!");
@@ -50,8 +55,9 @@ describe("Signup Page", () => {
     formData.append("email", "test@email.com")
     formData.append("password", "TestPassword1!")
     formData.append("username", "TestUsername")
+  
 
-    expect(formData.get("email") === "test@email.com");
+    expect(formData.get("Email Address") === "test@email.com");
   });
 
   test("navigates to /login on successful signup", async () => {

@@ -1,18 +1,18 @@
 import { useState, useEffect,  } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // import { getFriendPost } from "../../services/posts"
-import Post from "../../components/Post/Post";
-import NavBar from "../../components/NavBar/NavBar"
-import { getFriendInfo } from "../../services/authentication"
-import "../../components/Post/Post.css"
-import AddFriendButton from "../../components/AddFriendButton";
+import Post from "../../../components/Post/Post";
+import NavBar from "../../../components/NavBar/NavBar"
+import { getFriendInfo } from "../../../services/authentication"
+import "../../../components/Post/Post.css";
+import AddFriendButton from "../../../components/Friends/AddFriendButton";
 import './FriendProfile.css';
 // styling
-import AboutMe from "../../components/UserInfo/AboutMe";
+import AboutMe from "../../../components/UserInfo/AboutMe";
 import { Container, Card, Image } from "react-bootstrap";
 import banner from './banner.jpg';
 import Stack from 'react-bootstrap/Stack';
-import { MyMessages } from "../../pages/Message/MessagePage"
+import { MyMessages } from "../../Message/MessagePage"
 
 export const FriendProfile = () => {
 const [posts, setPosts] = useState([]);
@@ -70,6 +70,7 @@ const navigate = useNavigate();
   <div className="main-wrapper">
     <NavBar />
         <Container fluid>
+          
           <Stack gap={3}>
                 {FriendInfo && (
                   <div style={{ 
@@ -82,6 +83,7 @@ const navigate = useNavigate();
                       <div style={{ textAlign: "center", color: "white" }}>
                         <Image variant="top" style={{width: 100, height: 100, objectFit: 'cover', borderRadius: '50%'}} src={FriendInfo.profilePic ? `http://localhost:3000/${FriendInfo.profilePic}` : 'default-picture-url'} />
                         <div>{FriendInfo.username || 'Default Username'}</div>
+                        <AddFriendButton user_id={FriendInfo.user_id} />
                       </div>
                     </div>
                   </div>
@@ -94,6 +96,7 @@ const navigate = useNavigate();
             <div className="left-column">
           <div className="container-about-me">
                       <AboutMe />
+                      
                     </div>
                   </div>
                   </div>

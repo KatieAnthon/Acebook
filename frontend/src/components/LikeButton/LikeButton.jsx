@@ -39,6 +39,7 @@ const LikeButton = ({ post_id, likes }) => {
     }
 };
 
+// used to show the people that have liked a post
 const handleLikeList = async (post) => {
   try {
     // Fetch the updated post information before opening the modal
