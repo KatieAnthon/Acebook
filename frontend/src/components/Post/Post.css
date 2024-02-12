@@ -110,6 +110,24 @@
   .my-like-button.liked::after {
     content: '\1F49A';
   }
+
+  .my-like-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.my-like-button .like-icon {
+  width: 24px; /* Adjust size as needed */
+  height: 24px;
+  background-image: url('like-icon.png'); /* Replace with your icon */
+  background-size: cover;
+}
+
+.my-like-button.liked .like-icon {
+  background-image: url('liked-icon.png'); /* Replace with your liked icon */
+}
    
   
   .my-button:hover {
