@@ -88,47 +88,36 @@
     margin: 0 8px; /* Space between buttons */
     transition: background-color 0.2s ease; /* Smooth transition for hover */
   }
-  /* }
-  .my-like-button {
-    background-color: white;
-    border: 2px solid black;
-    color: #333;
-    width: 5%;
-    height: 5%;
-    text-align: center;
-    /* Add other styles as needed */
-  /* }
-  .my-like-button.liked {
-    background-color: green;
-    /* Add any other styles you want for the liked state */
-  /* }  */
 
-  .my-like-button::after {
-    content: '♡'; /* Default emoji */
+  .my-like-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
   }
   
-  .my-like-button.liked::after {
-    content: '\1F49A';
+  .my-like-button .like-icon {
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    background-image: url('../../assets/thumbs-up-empty.png'); /* Image for empty thumbs-up */
+    background-size: cover;
+  }
+  
+  .my-like-button.liked .like-icon {
+    background-image: url('../../assets/thumbs-up-blue.png'); /* Image for blue thumbs-up */
   }
 
-  .my-like-button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.my-like-button .like-icon {
+/* .my-like-button .like-icon {
   width: 24px; /* Adjust size as needed */
-  height: 24px;
+  /* height: 24px;
   background-image: url('like-icon.png'); /* Replace with your icon */
-  background-size: cover;
+  /* background-size: cover;
 }
 
 .my-like-button.liked .like-icon {
   background-image: url('liked-icon.png'); /* Replace with your liked icon */
-}
-   
+/* } */
+    
   
   .my-button:hover {
     background-color: #365899;
