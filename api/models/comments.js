@@ -7,7 +7,7 @@ const CommentsSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   userid: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   postid: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
-  username: String,
+  username: { type: String },
   likes: {type:Array, default: []},
 });
 

@@ -1,7 +1,7 @@
 // find user_id from user profile
 // find user_id from token
 
-import { sendFriendRequest, checkIdInFriendList } from "../services/users"
+import { sendFriendRequest, checkIdInFriendList } from "../../services/users"
 import { useState, useEffect } from "react";
 
 // needs to take user_id as props from the profile you're visiting!

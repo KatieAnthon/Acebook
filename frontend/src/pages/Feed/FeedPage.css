@@ -40,11 +40,7 @@
   border-radius: 50%;
 }
 
-.sticky-card {
-  width: 100%;
-  border: 1px solid #212529; /* Specify border properties */
- 
-}
+
 
 .container-friends{
   position: sticky;

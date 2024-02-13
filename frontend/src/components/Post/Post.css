@@ -8,9 +8,10 @@
     position: relative; /* Sets the position context for absolute positioning of children */
   }
   .comments-container {
-    max-height: 400px; /* Set a maximum height for the container */
+    max-height: 500px;
+    width: 100%; /* Set a maximum height for the container */
     overflow-y: auto; /* Enable vertical scrolling if the content overflows */
-    padding: 10px; /* Add padding if needed */
+    padding: 1px; /* Add padding if needed */
   }
   .post-header {
     margin-bottom: 10px;
@@ -25,8 +26,8 @@
     margin-top: 10px;
   }
   .img-fluid {
-    max-width: 10%;
-    max-height: 10%;
+    max-width: 100%;
+    max-height: 100%;
     border-radius: 10%; /* Ensure the image is fully visible within a circle */
     object-fit: cover; /* Maintain aspect ratio and cover the entire container */
   }
@@ -87,29 +88,36 @@
     margin: 0 8px; /* Space between buttons */
     transition: background-color 0.2s ease; /* Smooth transition for hover */
   }
-  /* }
-  .my-like-button {
-    background-color: white;
-    border: 2px solid black;
-    color: #333;
-    width: 5%;
-    height: 5%;
-    text-align: center;
-    /* Add other styles as needed */
-  /* }
-  .my-like-button.liked {
-    background-color: green;
-    /* Add any other styles you want for the liked state */
-  /* }  */
 
-  .my-like-button::after {
-    content: '♡'; /* Default emoji */
+  .my-like-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
   }
   
-  .my-like-button.liked::after {
-    content: '\1F49A';
+  .my-like-button .like-icon {
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    background-image: url('../../assets/thumbs-up-empty.png'); /* Image for empty thumbs-up */
+    background-size: cover;
   }
-   
+  
+  .my-like-button.liked .like-icon {
+    background-image: url('../../assets/thumbs-up-blue.png'); /* Image for blue thumbs-up */
+  }
+
+/* .my-like-button .like-icon {
+  width: 24px; /* Adjust size as needed */
+  /* height: 24px;
+  background-image: url('like-icon.png'); /* Replace with your icon */
+  /* background-size: cover;
+}
+
+.my-like-button.liked .like-icon {
+  background-image: url('liked-icon.png'); /* Replace with your liked icon */
+/* } */
+    
   
   .my-button:hover {
     background-color: #365899;
@@ -151,14 +159,6 @@
   }
 
 
-.card {
-  border: 2px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-  margin-bottom: 1rem;
-  width: 100%; /* Adjust the width as needed */
-  overflow: hidden; /* This will contain the card body and prevent it from overflowing */
-}
-
 
 .username {
   margin-bottom: 1.5rem; /* Adjust the space below the username */
@@ -169,10 +169,10 @@
   margin: 5px 0;
   word-wrap: break-word;
 }
-.card-body {
-  padding: 1rem;
+/* .card-body { */
+  /* padding: 1rem;
   text-align: left;
-}
+} */
 .media {
   display: flex;
   align-items: flex-start;
@@ -216,10 +216,10 @@
   height: 100%; /* Full height of the container */
   object-fit: cover; /* Covers the area, cropping the image as needed */
   position: absolute; /* Position absolutely within the .post-image-container */
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 8px; /* If you want rounded corners */
+  border-radius: 2px; /* If you want rounded corners */
 }
 .post-actions {
   display: flex;

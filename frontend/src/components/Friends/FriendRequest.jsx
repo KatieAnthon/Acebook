@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { friendRequestResponse, getFriendRequests } from "../services/users";
+import { friendRequestResponse, getFriendRequests } from "../../services/users";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 

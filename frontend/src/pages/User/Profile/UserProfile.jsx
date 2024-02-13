@@ -1,29 +1,29 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { deletePost } from '../../services/posts';
-import { getUserInfo } from "../../services/authentication";
-import { addCommentToPost } from "../../services/comments";
-import { getAllComments } from "../../services/comments";
-import { deleteComment } from "../../services/comments";
-import { updateComment } from "../../services/comments";
-import { getSinglePost} from "../../services/posts";
-import { createPost } from '../../services/posts';
-import { updatePost } from '../../services/posts'; 
-import Post from "../../components/Post/Post";
-import PostForm from "../../components/Post/PostForm";
-import NavBar from "../../components/NavBar/NavBar"
-import UserInfo from "../../components/Userinfo/UserInfo"
+import { deletePost } from '../../../services/posts';
+import { getUserInfo } from "../../../services/authentication";
+import { addCommentToPost } from "../../../services/comments";
+import { getAllComments } from "../../../services/comments";
+import { deleteComment } from "../../../services/comments";
+import { updateComment } from "../../../services/comments";
+import { getSinglePost} from "../../../services/posts";
+import { createPost } from '../../../services/posts';
+import { updatePost } from '../../../services/posts'; 
+import Post from "../../../components/Post/Post";
+import PostForm from "../../../components/Post/PostForm";
+import NavBar from "../../../components/NavBar/NavBar"
+import UserInfo from "../../../components/Userinfo/UserInfo"
 // import Introduction from "../../components/Introduction/Introduction"
-import '../../App.css'
-import "../../components/Post/Post.css";
-import { MyMessages } from "../../pages/Message/MessagePage"
-import FriendRequest from "../../components/FriendRequest";
+import '../../../App.css'
+import "../../../components/Post/Post";
+import { MyMessages } from "../../Message/MessagePage"
+import FriendRequest from "../../../components/Friends/FriendRequest";
 // styling 
 import Stack from 'react-bootstrap/Stack';
 import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
-import Introduction from "../../components/Introduction/Introduction"
+import Introduction from "../../../components/Introduction/Introduction"
 import banner from './banner.jpg';
 
 export const UserProfile = () => {

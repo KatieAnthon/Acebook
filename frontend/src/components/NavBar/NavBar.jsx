@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 import './NavBar.css'; 
-import FriendRequestList from '../FriendRequest';
+import FriendRequestList from '../Friends/FriendRequest';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NavBar = ({onMessagesClick}) => {

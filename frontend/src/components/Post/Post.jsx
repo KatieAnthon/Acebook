@@ -167,6 +167,7 @@ const Post = ({
                   postId={post._id}
                   onCommentSubmit={onCommentSubmit}
                   initialData={selectedComment}
+                  profilePic={currentUserInfo.profilePic}
                 />
                 <button onClick={() => setIsEditModalOpen(false)}>Close</button>
               </div>

@@ -30,6 +30,7 @@ const createPost = async (req, res) => {
     // Fetch the user's information using req.user_id
     const user = await User.findById(req.user_id);
     console.log('user:',user)
+    console.log("body", req.body)
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
