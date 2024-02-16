@@ -1,0 +1,3 @@
+bees.txt
+-------
+Bees are flying insects closely related to wasps and ants, and are known for their role in pollination and for producing honey and beeswax.
