@@ -1,8 +1,9 @@
 ## Acebook MERN Template
 
-In this project, you are task with working on an existing application. A
-significant part of the challenge will be to familiarise yourself with the
-codebase you've inherited, as you work to **improve and extend** it.
+In this project, we worked with an existing application. A
+significant part of the challenge was to familiarise ourselves with the
+codebase inherited then we worked to **improve and extend** it within a time period of 2 weeks.
+
 
 ### Structure
 
@@ -13,17 +14,6 @@ This repo contains two applications:
 
 These two applications will communicate through HTTP requests, and need to be
 run separately.
-
-### Documentation
-
-[More documentation of the codebase and its architecture can be found here.](./DOCUMENTATION.md)
-It's recommended you all read the suggested docs _after making sure the whole
-setup below worked for everyone_. Then work together on a diagram describing how
-the application works.
-
-### Card wall
-
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
 
 ### Quickstart
 
@@ -45,19 +35,16 @@ If you haven't already, make sure you have node and NVM installed.
 
 ### Set up your project
 
-1. Have one team member fork this repository
-2. Rename the fork to `acebook-<team name>`
-3. Every team member clone the fork to their local machine
-4. Install dependencies for both the `frontend` and `api` applications:
+1. Install dependencies for both the `frontend` and `api` applications:
    ```
    cd frontend
    npm install
    cd ../api
    npm install
    ```
-5. Install an ESLint plugin for your editor, for example
+2. Install an ESLint plugin for your editor, for example
    [ESLint for VSCode](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-6. Install MongoDB
+3. Install MongoDB
    ```
    brew tap mongodb/brew
    brew install mongodb-community@6.0
@@ -65,7 +52,7 @@ If you haven't already, make sure you have node and NVM installed.
    _Note:_ If you see a message that says
    `If you need to have mongodb-community@6.0 first in your PATH, run:`, follow
    the instruction. Restart your terminal after this.
-7. Start MongoDB
+4. Start MongoDB
 
    ```
    brew services start mongodb-community@6.0
@@ -119,5 +106,4 @@ You should now be able to open your browser and go to
 Then, after signing up, you should be able to log in by going to
 `http://localhost:3000/login`.
 
-After logging in, you won't see much but you can create posts using PostMan and
-they should then show up in the browser if you refresh the page.
+
