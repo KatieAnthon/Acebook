@@ -100,10 +100,3 @@ In a new terminal session...
 ; npm run dev
 ```
 
-You should now be able to open your browser and go to
-`http://localhost:3000/signup` to create a new user.
-
-Then, after signing up, you should be able to log in by going to
-`http://localhost:3000/login`.
-
-
