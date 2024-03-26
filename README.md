@@ -1,4 +1,4 @@
-## Acebook MERN Template
+## Acebook MERN
 
 In this project, we worked with an existing application. A
 significant part of the challenge was to familiarise ourselves with the
