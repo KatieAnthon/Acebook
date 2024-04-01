@@ -2,7 +2,7 @@
 
 In this project, we worked with an existing application. A
 significant part of the challenge was to familiarise ourselves with the
-codebase inherited then we worked to **improve and extend** it within a time period of 2 weeks.
+codebase inherited, then we worked to **improve and extend** it within a time period of 2 weeks.
 
 
 ### Structure
@@ -33,7 +33,7 @@ If you haven't already, make sure you have node and NVM installed.
    nvm install 20
    ```
 
-### Set up your project
+### Set up the project
 
 1. Install dependencies for both the `frontend` and `api` applications:
    ```
@@ -60,27 +60,18 @@ If you haven't already, make sure you have node and NVM installed.
 
 ### Setting up environment variables.
 
-We need to create two `.env` files, one in the frontend and one in the api.
-
+.env files should contain the following:
 #### Frontend
-
-Create a file `frontend/.env` with the following contents:
-
 ```
 VITE_BACKEND_URL="http://localhost:3000"
 ```
-
 #### Backend
-
-Create a file `api/.env` with the following contents:
 
 ```
 MONGODB_URL="mongodb://0.0.0.0/acebook"
 NODE_ENV="development"
 JWT_SECRET="secret"
 ```
-
-For an explanation of these environment variables, see the documentation.
 
 ### How to run the server and use the app
 
