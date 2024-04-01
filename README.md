@@ -4,6 +4,12 @@ In this project, we worked with an existing application. A
 significant part of the challenge was to familiarise ourselves with the
 codebase inherited, then we worked to **improve and extend** it within a time period of 2 weeks.
 
+## Key Feautures:
+- Create User profile
+- Create/ Delete Posts with pictures
+- Friend Request
+- Instant Messaging service with friends
+- Like, comment and interact with other peoples posts
 
 ### Structure
 
